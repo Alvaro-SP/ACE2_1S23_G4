@@ -60,5 +60,9 @@ Arduino y React de node.js
 En Github 
 
 ## Autores ✒️
-
+* **Derek Esquivel Díaz** - *Estudiante de Ing. Sistemas* - [USAC](https://github.com)
+* **José Andrés Montenegro Santos** - *Estudiante de Ing. Sistemas* - [USAC](https://github.com)
+* **Erwin Fernando Vásquez Peñate** - *Estudiante de Ing. Sistemas* - [USAC](https://github.com/Erwin14k)
+* **Sergie Daniel Arizandieta Yol** - *Estudiante de Ing. Sistemas* - [USAC](https://github.com/SergieArizandieta)
 * **Alvaro Emmanuel Socop Pérez** - *Estudiante de Ing. Sistemas* - [USAC](https://github.com/Alvaro-SP)
+
