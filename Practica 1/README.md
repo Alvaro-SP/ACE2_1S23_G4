@@ -2,7 +2,7 @@
 
 # INTEGRANTES:
 
-| ID | Nombre Completo |
+| Carne | Nombre Completo |
 |:---:|:----------------:|
 | 202010055 | Derek Esquivel Díaz |
 | 202004804 | José Andrés Montenegro Santos |
@@ -18,12 +18,11 @@ EL clásico juego tetris, el cual va a contar con distintos niveles, figuras, mo
 
 
 ## Objetivos
-● Diseñar un dispositivo destinado a medir y registrar regularmente, diversas
-variables meteorológicas.
-● Implementar una aplicación en Processing que permita visualizar mediciones
-y observaciones puntuales de los diferentes parámetros meteorológicos.
-● Aprender a desarrollar una manera correcta de visualización de datos
-mediante la implementación del framework de Iot
+- Diseñar un dispositivo destinado a medir y registrar regularmente, diversas variables meteorológicas.
+
+- Implementar una aplicación en Processing que permita visualizar mediciones y observaciones puntuales de los diferentes parámetros meteorológicos.
+
+- Aprender a desarrollar una manera correcta de visualización de datos mediante la implementación del framework de Iot
 
 
 ## Comenzando 🚀
