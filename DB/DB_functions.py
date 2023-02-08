@@ -1,7 +1,7 @@
 import mysql.connector #pip install mysql-connector-python
 conecction  = mysql.connector.connect(
                user='root', #este dato esta en el mysqlWorkBrench
-               password='SerchiBoi502@',#este dato es la contrasena se tu usario en mysqlWorkBrench
+               password='root',#este dato es la contrasena se tu usario en mysqlWorkBrench
                host='localhost',
                database='practica1', #el nombre de la tabla
                port='3306' #el puerto de la base de datos
