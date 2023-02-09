@@ -4,7 +4,7 @@ from flask_cors import CORS
 import json
 conecction  = mysql.connector.connect(
     user='root',
-    password='@{}Ee[]#$#$#$14kFer',
+    password='password',
     host='localhost',
     database='Practica1', 
     port='3306'
@@ -37,6 +37,12 @@ def getData(noType):
 #Obtiene los datos de la tabla segun el noType
 def getQuery(noType):
     mycursor.execute(f"SELECT * FROM datos WHERE tipo = {noType};")
+    myresult = mycursor.fetchall()
+    return myresult
+
+#Obtiene los datos más recientes
+def get_latest_query():
+    mycursor.execute("SELECT ID, Tipo, Valor FROM Practica1.Datos WHERE ID IN ( SELECT MAX(ID) FROM Practica1.Datos WHERE Tipo IN (1, 2, 3,4,5) GROUP BY Tipo);")
     myresult = mycursor.fetchall()
     return myresult
 
@@ -95,6 +101,13 @@ def get_wind_direction_data():
 def get_barometric_pressure_data():
     keys = ['ID', 'Tipo', 'Valor']
     data=getData(5)
+    json_data = [dict(zip(keys, row)) for row in data]
+    return json.dumps(json_data)
+
+@app.route('/get-latest-data',methods=['GET'])
+def get_latest_data():
+    keys = ['ID', 'Tipo', 'Valor']
+    data=get_latest_query()
     json_data = [dict(zip(keys, row)) for row in data]
     return json.dumps(json_data)
 
