@@ -1,11 +1,10 @@
-
 import { forwardRef } from "react";
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
 // Custom styles for MDBox
-import MDBoxRoot from "../MDBox/MDBoxRoot";
+import MDBoxRoot from "components/MDBox/MDBoxRoot";
 
 const MDBox = forwardRef(
   ({ variant, bgColor, color, opacity, borderRadius, shadow, coloredShadow, ...rest }, ref) => (

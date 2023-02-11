@@ -1,15 +1,13 @@
-
-
 import { forwardRef } from "react";
 
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
 // Custom styles for MDButton
-import MDButtonRoot from "./MDButtonRoot";
+import MDButtonRoot from "components/MDButton/MDButtonRoot";
 
 // Material Dashboard 2 React contexts
-import { useMaterialUIController } from "../../context";
+import { useMaterialUIController } from "context";
 
 const MDButton = forwardRef(
   ({ color, variant, size, circular, iconOnly, children, ...rest }, ref) => {
