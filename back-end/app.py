@@ -32,7 +32,7 @@ def getAllData():
 
 #Valida que el noType este entre 1 y 5 y llama a la funcion getQuery
 def getData(noType):
-    return  getQuery(noType) if noType > 0 and noType < 6 else []
+    return  getQuery(noType) if noType > 0 and noType < 7 else []
 
 #Obtiene los datos de la tabla segun el noType
 def getQuery(noType):
@@ -42,11 +42,11 @@ def getQuery(noType):
 
 #Obtiene los datos más recientes
 def get_latest_query():
-    mycursor.execute("SELECT ID, Tipo, Valor FROM Practica1.Datos WHERE ID IN ( SELECT MAX(ID) FROM Practica1.Datos WHERE Tipo IN (1, 2, 3,4,5) GROUP BY Tipo);")
+    mycursor.execute("SELECT ID, Tipo, Valor FROM Practica1.Datos WHERE ID IN ( SELECT MAX(ID) FROM Practica1.Datos WHERE Tipo IN (1, 2, 3,4,5,6) GROUP BY Tipo);")
     myresult = mycursor.fetchall()
     return myresult
 
-#Valida que el noType este entre 1 y 5 y llama a la funcion insertQuery
+#Valida que el noType este entre 1 y 6 y llama a la funcion insertQuery
 def insertData(noType, value):
     return  insertQuery(noType,value) if noType > 0 and noType < 6 else []
 
@@ -103,6 +103,14 @@ def get_barometric_pressure_data():
     data=getData(5)
     json_data = [dict(zip(keys, row)) for row in data]
     return json.dumps(json_data)
+
+@app.route('/get-all-absoulute-pressure-data',methods=['GET'])
+def get_absolute_pressure_data():
+    keys = ['ID', 'Tipo', 'Valor']
+    data=getData(6)
+    json_data = [dict(zip(keys, row)) for row in data]
+    return json.dumps(json_data)
+
 
 @app.route('/get-latest-data',methods=['GET'])
 def get_latest_data():
