@@ -17,10 +17,11 @@ mycursor = conecction.cursor()
 
 # Tipos:
 # 1 = Temperatura
-# 2 = Humedad
+# 2 = Humedad relativa
 # 3 = Velcidad del viento
 # 4 = Direccion del viento
 # 5 = Presion barometriva
+# 5 = Humedad absoluta
 
 
 #Obtiene todos los datos de la tabla

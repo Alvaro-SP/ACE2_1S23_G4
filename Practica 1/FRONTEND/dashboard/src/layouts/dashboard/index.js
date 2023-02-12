@@ -192,40 +192,39 @@ function Dashboard() {
     p5.background("#F6A55F");
   };
   // // ! VELOCIDAD
-  // const setup3 = (p5, canvasParentRef) => {
-  //   p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
-  // };
-  // const draw3 = (p5) => {
-
-  // };
-  // // ! DIRECCION
-  // const setup4 = (p5, canvasParentRef) => {
-  //   p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
-  // };
-  // const draw4 = (p5) => {
-
-  // };
-  // // ! PRESION
-  // const setup5 = (p5, canvasParentRef) => {
-  //   p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
-  // };
-  // const draw5 = (p5) => {
-
-  // };
-  // // ! HUMEDAD ABSOLUTA
-  // const setup6 = (p5, canvasParentRef) => {
-  //   p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
-  // };
-  // const draw6 = (p5) => {
-
-  // };
-  // console.log("varHumidityRel: ", varHumidityRel);
-  // console.log("varHumidityAbs: ", varHumidityAbs);
-  // console.log("varSpeed: ", varSpeed);
-  // console.log("varDirection: ", varDirection);
-  // console.log("varPressure: ", varPressure);
+  const setup3 = (p5, canvasParentRef) => {
+    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+  };
+  const draw3 = (p5) =>{
+  };
+  // ! DIRECCION
+  const setup4 = (p5, canvasParentRef) => {
+    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+  };
+  const draw4 = (p5) =>{
+  };
+  // ! PRESION
+  const setup5 = (p5, canvasParentRef) => {
+    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+  };
+  const draw5 = (p5) =>{
+  };
+  // ! HUMEDAD ABSOLUTA
+  const setup6 = (p5, canvasParentRef) => {
+    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+  };
+  const draw6 = (p5) =>{
+  };
+  console.log("varHumidityRel: ", varHumidityRel);
+  console.log("varHumidityAbs: ", varHumidityAbs);
+  console.log("varSpeed: ", varSpeed);
+  console.log("varDirection: ", varDirection);
+  console.log("varPressure: ", varPressure);
   const [showSketch1, setShowSketch1] = useState(false);
   const [showSketch2, setShowSketch2] = useState(false);
+  const [showSketch3, setShowSketch3] = useState(false);
+  const [showSketch4, setShowSketch4] = useState(false);
+  const [showSketch5, setShowSketch5] = useState(false);
 
   const handleClick1 = () => {
     setShowSketch1(!showSketch1);
@@ -233,6 +232,10 @@ function Dashboard() {
   const handleClick2 = () => {
     setShowSketch2(!showSketch2);
     setShowSketch1(false);
+    setShowSketch2(false);
+    setShowSketch3(false);
+    setShowSketch4(false);
+    setShowSketch5(false);
   };
   return (
     <DashboardLayout>
@@ -440,6 +443,10 @@ function Dashboard() {
         <MDBox py={1}>
           <div align="center">{showSketch1 && <Sketch setup={setup1} draw={draw1} />}</div>
           <div align="center">{showSketch2 && <Sketch setup={setup2} draw={draw2} />}</div>
+          <div align="center">{showSketch3 && <Sketch setup={setup3} draw={draw3} />}</div>
+          <div align="center">{showSketch4 && <Sketch setup={setup4} draw={draw4} />}</div>
+          <div align="center">{showSketch5 && <Sketch setup={setup5} draw={draw5} />}</div>
+          <div align="center">{showSketch6 && <Sketch setup={setup6} draw={draw6} />}</div>
           {/* <Grid item xs={12} md={6} lg={4}>
               <OrdersOverview />
             </Grid> */}
