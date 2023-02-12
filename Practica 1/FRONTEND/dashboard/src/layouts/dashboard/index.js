@@ -183,37 +183,50 @@ function Dashboard() {
     p5.pop();
     angle += 1;
   };
-  // // ! HUMEDAD RELATIVA
+  // ! HUMEDAD RELATIVA
   const setup2 = (p5, canvasParentRef) => {
-    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+    p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
   };
   const draw2 = (p5) => {
-    p5.text("Pressure Over Time", 150, 30);
     p5.background("#F6A55F");
+    p5.textSize(32);
+    p5.text("Pressure Over Time", 150, 30);
   };
   // // ! VELOCIDAD
   const setup3 = (p5, canvasParentRef) => {
-    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+    p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
   };
-  const draw3 = (p5) =>{
+  const draw3 = (p5) => {
+    p5.background("#F6A55F");
+    p5.textSize(32);
+    p5.text("Pressure Over Time", 150, 30);
   };
   // ! DIRECCION
   const setup4 = (p5, canvasParentRef) => {
-    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+    p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
   };
-  const draw4 = (p5) =>{
+  const draw4 = (p5) => {
+    p5.background("#F6A55F");
+    p5.textSize(32);
+    p5.text("Pressure Over Time", 150, 30);
   };
   // ! PRESION
   const setup5 = (p5, canvasParentRef) => {
-    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+    p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
   };
-  const draw5 = (p5) =>{
+  const draw5 = (p5) => {
+    p5.background("#F6A55F");
+    p5.textSize(32);
+    p5.text("Pressure Over Time", 150, 30);
   };
   // ! HUMEDAD ABSOLUTA
   const setup6 = (p5, canvasParentRef) => {
-    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+    p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
   };
-  const draw6 = (p5) =>{
+  const draw6 = (p5) => {
+    p5.background("#F6A55F");
+    p5.textSize(32);
+    p5.text("Pressure Over Time", 150, 30);
   };
   console.log("varHumidityRel: ", varHumidityRel);
   console.log("varHumidityAbs: ", varHumidityAbs);
@@ -225,17 +238,59 @@ function Dashboard() {
   const [showSketch3, setShowSketch3] = useState(false);
   const [showSketch4, setShowSketch4] = useState(false);
   const [showSketch5, setShowSketch5] = useState(false);
+  const [showSketch6, setShowSketch6] = useState(false);
 
   const handleClick1 = () => {
     setShowSketch1(!showSketch1);
+    setShowSketch2(false);
+    setShowSketch3(false);
+    setShowSketch4(false);
+    setShowSketch5(false);
+    setShowSketch6(false);
   };
   const handleClick2 = () => {
     setShowSketch2(!showSketch2);
+    setShowSketch1(false);
+    setShowSketch3(false);
+    setShowSketch4(false);
+    setShowSketch5(false);
+    setShowSketch6(false);
+  };
+  const handleClick3 = () => {
+    setShowSketch2(false);
+    setShowSketch1(false);
+    setShowSketch2(false);
+    setShowSketch3(!showSketch2);
+    setShowSketch4(false);
+    setShowSketch5(false);
+    setShowSketch6(false);
+  };
+  const handleClick4 = () => {
+    setShowSketch2(false);
+    setShowSketch1(false);
+    setShowSketch2(false);
+    setShowSketch3(false);
+    setShowSketch4(!showSketch2);
+    setShowSketch5(false);
+    setShowSketch6(false);
+  };
+  const handleClick5 = () => {
+    setShowSketch2(false);
+    setShowSketch1(false);
+    setShowSketch2(false);
+    setShowSketch3(false);
+    setShowSketch4(false);
+    setShowSketch5(!showSketch2);
+    setShowSketch6(false);
+  };
+  const handleClick6 = () => {
+    setShowSketch2(false);
     setShowSketch1(false);
     setShowSketch2(false);
     setShowSketch3(false);
     setShowSketch4(false);
     setShowSketch5(false);
+    setShowSketch6(!showSketch2);
   };
   return (
     <DashboardLayout>
@@ -244,7 +299,7 @@ function Dashboard() {
         <MDBox mt={4.5}>
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
+              <MDBox mb={3} onClick={handleClick1}>
                 <ReportsBarChart
                   color="info"
                   title="TEMPERATURA"
@@ -317,7 +372,7 @@ function Dashboard() {
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3} onClick={handleClick1}>
+              <MDBox mb={3} onClick={handleClick4}>
                 <RadarChart
                   color="Info"
                   title="DIRECCION DEL VIENTO"
@@ -342,7 +397,7 @@ function Dashboard() {
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
+              <MDBox mb={3} onClick={handleClick3}>
                 <ReportsLineChart
                   color="dark"
                   title="VELOCIDAD"
@@ -380,7 +435,7 @@ function Dashboard() {
         </MDBox>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5} onClick={handleClick2}>
+            <MDBox mb={1.5} onClick={handleClick4}>
               <ComplexStatisticsCard
                 color="warning"
                 icon="air"
@@ -395,7 +450,7 @@ function Dashboard() {
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
+            <MDBox mb={1.5} onClick={handleClick2}>
               <ComplexStatisticsCard
                 color="success"
                 icon="thunderstorm"
@@ -410,7 +465,7 @@ function Dashboard() {
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
+            <MDBox mb={1.5} onClick={handleClick6}>
               <ComplexStatisticsCard
                 color="info"
                 icon="cloud"
@@ -425,7 +480,7 @@ function Dashboard() {
             </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
+            <MDBox mb={1.5} onClick={handleClick5}>
               <ComplexStatisticsCard
                 color="primary"
                 icon="*"
