@@ -2,7 +2,6 @@ import mysql.connector
 from flask import Flask
 from flask_cors import CORS
 import json
-from flask_socketio import SocketIO, emit
 import random
 import time
 conecction  = mysql.connector.connect(
@@ -66,24 +65,22 @@ def insertQuery(noType, value):
 
 #Flask config
 app = Flask(__name__)
-# CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 app.debug = True
-app.config['SECRET_KEY']='secret!'
-socketio = SocketIO(app, cors_allowed_origins="*")
 
-@socketio.on('connect')
-def test_connect(sid):
-    print("conectado")
-    while True:
-        random.seed(0) # Establece la semilla para que los números sean siempre los mismos
-        num = random.randint(0, 100)
-        print('Connected: ', num)
-        socketio.emit('randdata', num)
-        time.sleep(5)
+# @socketio.on('connect')
+# def test_connect(sid):
+#     print("conectado")
+#     while True:
+#         random.seed(0) # Establece la semilla para que los números sean siempre los mismos
+#         num = random.randint(0, 100)
+#         print('Connected: ', num)
+#         socketio.emit('randdata', num)
+#         time.sleep(5)
 
-@socketio.on('disconnect')
-def test_disconnect():
-    print("desconectado")
+# @socketio.on('disconnect')
+# def test_disconnect():
+#     print("desconectado")
 
 @app.route("/")
 def index():
@@ -95,7 +92,7 @@ def get_temperature_data():
     data=getData(1)
     json_data = [dict(zip(keys, row)) for row in data]
     # Emite un evento personalizado llamado "update" con los datos actualizados
-    socketio.emit('updatetemp', json_data)
+    # socketio.emit('updatetemp', json_data)
     return json.dumps(json_data)
 
 @app.route('/get-all-humidity-data',methods=['GET'])
@@ -104,7 +101,7 @@ def get_humidity_data():
     data=getData(2)
     json_data = [dict(zip(keys, row)) for row in data]
     # Emite un evento personalizado llamado "update" con los datos actualizados
-    socketio.emit('updatehumidity', json_data)
+    # socketio.emit('updatehumidity', json_data)
     print(json_data)
     return json.dumps(json_data)
 
@@ -114,7 +111,7 @@ def get_wind_speed_data():
     data=getData(3)
     json_data = [dict(zip(keys, row)) for row in data]
     # Emite un evento personalizado llamado "update" con los datos actualizados
-    socketio.emit('updatespeed', json_data)
+    # socketio.emit('updatespeed', json_data)
     return json.dumps(json_data)
 
 @app.route('/get-all-wind-direction-data',methods=['GET'])
@@ -123,7 +120,7 @@ def get_wind_direction_data():
     data=getData(4)
     json_data = [dict(zip(keys, row)) for row in data]
     # Emite un evento personalizado llamado "update" con los datos actualizados
-    socketio.emit('updatedirection', json_data)
+    # socketio.emit('updatedirection', json_data)
     return json.dumps(json_data)
 
 @app.route('/get-all-barometric-pressure-data',methods=['GET'])
@@ -141,7 +138,7 @@ def get_absolute_humidity_data():
     data=getData(6)
     json_data = [dict(zip(keys, row)) for row in data]
     # Emite un evento personalizado llamado "update" con los datos actualizados
-    socketio.emit('updatehumidityabs', json_data)
+    # socketio.emit('updatehumidityabs', json_data)
     return json.dumps(json_data)
 
 @app.route('/get-latest-data',methods=['GET'])
@@ -150,15 +147,14 @@ def get_latest_data():
     data=get_latest_query()
     json_data = [dict(zip(keys, row)) for row in data]
     # Emite un evento personalizado llamado "update" con los datos actualizados
-    socketio.emit('updatelatest', json_data)
-    print(json_data)
+    # socketio.emit('updatelatest', json_data)
     return json.dumps(json_data)
 
 
 #Pruebas de las funciones de la base de datos
 if __name__ == '__main__':
-    # app.run(threaded=True, port=5000,debug=True)
-    socketio.run(app, host="0.0.0.0")
+    app.run(threaded=True, port=5000,debug=True)
+    # socketio.run(app, host="0.0.0.0")
     '''print('Hello, world!')
     print(conecction)
 

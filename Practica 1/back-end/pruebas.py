@@ -1,4 +1,3 @@
-
 from flask import Flask
 from flask_cors import CORS
 
@@ -14,13 +13,15 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 def on_connect():
     print("Client connected")
     socketio.emit("data", "SI FUNCIONA")
-
-@socketio.on("otro")
-def otrafuncion():
-    print("Llamando a socketio.emit")
     socketio.emit("otro", "OTRA ONDA")
+    socketio.emit("otro1", "OTRA ONDA1")
+    socketio.emit("otro2", "OTRA ONDA2")
 
+@socketio.on('my event')
+def another():
+    emit('my response', 'another response')
 
+ 
 @socketio.on("disconnect")
 def on_disconnect():
     print("Client disconnected")

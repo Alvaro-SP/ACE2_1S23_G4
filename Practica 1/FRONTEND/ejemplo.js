@@ -59,17 +59,17 @@ function Dashboard() {
   // ! *************** VARIABLE HUMEDAD RELATIVA *****************
   const [varHumidityRel, setVarHumidityRel] = useState(0);
   useEffect(() => {
-    // const fetchData1 = async () => {
-    //   const response = await fetch("http://localhost:5000/get-all-humidity-data");
-    //   const json = await response.json();
-    //   console.log(json);
-    //   setVarHumidityRel(json);
-    //   console.log(varHumidityRel);
-    // };
-    // const intervalId1 = setInterval(fetchData1, 1000);
-    // return () => {
-    //   clearInterval(intervalId1);
-    // };
+    const fetchData1 = async () => {
+      const response = await fetch("http://localhost:5000/get-all-humidity-data");
+      const json = await response.json();
+      console.log(json);
+      setVarHumidityRel(json);
+      console.log(varHumidityRel);
+    };
+    const intervalId1 = setInterval(fetchData1, 2000);
+    return () => {
+      clearInterval(intervalId1);
+    };
     socket.on("updatehumidity", (data) => {
       setVarHumidityRel(data[0].Valor);
       console.log(varHumidityRel);
