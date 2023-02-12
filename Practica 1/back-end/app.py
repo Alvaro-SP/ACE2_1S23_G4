@@ -81,7 +81,6 @@ def get_humidity_data():
     keys = ['ID', 'Tipo', 'Valor']
     data=getData(2)
     json_data = [dict(zip(keys, row)) for row in data]
-    print(json_data)
     return json.dumps(json_data)
 
 @app.route('/get-all-wind-speed-data',methods=['GET'])
@@ -89,8 +88,6 @@ def get_wind_speed_data():
     keys = ['ID', 'Tipo', 'Valor']
     data=getData(3)
     json_data = [dict(zip(keys, row)) for row in data]
-    # Emite un evento personalizado llamado "update" con los datos actualizados
-    # socketio.emit('updatespeed', json_data)
     return json.dumps(json_data)
 
 @app.route('/get-all-wind-direction-data',methods=['GET'])

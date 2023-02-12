@@ -24,12 +24,6 @@ import Sketch from "react-p5";
 // /get-all-barometric-pressure-data
 // /get-latest-data
 function Dashboard() {
-  // ! *************** VARIABLE TEMPERATURA *****************
-
-  const setup0 = (p5, canvasParentRef) => {
-    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
-  };
-  // posición del círculo
   const [textdirection, setTextdirection] = useState("CONNECT");
   const [statTemperature, setStatTemperature] = useState(0);
   const [statHumidityRel, setStatHumidityRel] = useState(0);
@@ -37,147 +31,60 @@ function Dashboard() {
   const [statSpeed, setStatSpeed] = useState(0);
   const [statDirection, setStatDirection] = useState([0, 0, 0.3, 1, 0.3, 0, 0, 0]);
   const [statPressure, setStatPressure] = useState(0);
-  const draw0 = (p5) => {
-    p5.background(0);
-
-    const locX = p5.mouseX - p5.height / 2;
-    const locY = p5.mouseY - p5.width / 2;
-
-    p5.ambientLight(50);
-    p5.directionalLight(255, 0, 0, 0.25, 0.25, 0);
-    p5.pointLight(0, 0, 255, locX, locY, 250);
-
-    p5.push();
-    p5.translate(-p5.width / 4, 0, 0);
-    p5.rotateZ(p5.frameCount * 0.02);
-    p5.rotateX(p5.frameCount * 0.02);
-    p5.specularMaterial(250);
-    p5.box(100, 100, 100);
-    p5.pop();
-
-    p5.translate(p5.width / 4, 0, 0);
-    p5.ambientMaterial(250);
-    p5.sphere(60, 64);
-  };
-  // ! *************** VARIABLE HUMEDAD RELATIVA *****************
-  const [varHumidityRel, setVarHumidityRel] = useState(0);
-  // useEffect(() => {
-  //   const fetchData1 = async () => {
-  //     const response = await fetch("http://localhost:5000/get-all-humidity-data");
-  //     const json = await response.json();
-  //     console.log(json);
-  //     setVarHumidityRel(json);
-  //     console.log(varHumidityRel);
-  //   };
-  //   const intervalId1 = setInterval(fetchData1, 2000);
-  //   return () => {
-  //     clearInterval(intervalId1);
-  //   };
-  // }, []);
-  // ! *************** VARIABLE HUMEDAD ABSOLUTA *****************
-  const [varHumidityAbs, setVarHumidityAbs] = useState(0);
-  // useEffect(() => {
-  //   const fetchData1 = async () => {
-    //     const response = await fetch("http://localhost:5000/get-all-absoulute-humidity-data");
-    //     const json = await response.json();
-  //     console.log(json);
-  //     setVarHumidityAbs(json);
-  //     console.log(varHumidityAbs);
-  //   };
-  //   const intervalId1 = setInterval(fetchData1, 1000);
-  //   return () => {
-  //     clearInterval(intervalId1);
-  //   };
-  // }, []);
-  // ! *************** VARIABLE VELOCIDAD DEL VIENTO *****************
+  // ! *************** VARIABLE DASH (the latest variables) *****************
+  const [varPressure, setVarPressure] = useState(0);
   const [varSpeed, setVarSpeed] = useState(0);
   const [varDirection, setVarDirection] = useState(0);
-  // useEffect(() => {
-  //   const fetchData1 = async () => {
-  //     const response = await fetch("http://localhost:5000/get-all-wind-speed-data");
-  //     const json = await response.json();
-  //     console.log(json);
-  //     setVarSpeed(json);
-  //     console.log(varSpeed);
-  //   };
-  //   const intervalId1 = setInterval(fetchData1, 1000);
-  //   return () => {
-  //     clearInterval(intervalId1);
-  //   };
-  // }, []);
-  // ! *************** VARIABLE DIRECCION DEL VIENTO *****************
-  // useEffect(() => {
-  //   const fetchData1 = async () => {
-  //     const response = await fetch("http://localhost:5000/get-all-wind-direction-data");
-  //     const json = await response.json();
-  //     console.log(json);
-  //     setVarDirection(json);
-  //     console.log(varDirection);
-  //   };
-  //   const intervalId1 = setInterval(fetchData1, 1000);
-  //   return () => {
-  //     clearInterval(intervalId1);
-  //   };
-  // }, []);
-  // ! *************** VARIABLE PRESION BAROMETRICA *****************
-  const [varPressure, setVarPressure] = useState(0);
-  // useEffect(() => {
-  //   const fetchData1 = async () => {
-  //     const response = await fetch("http://localhost:5000/get-all-barometric-pressure-data");
-  //     const json = await response.json();
-  //     console.log(json);
-  //     setVarPressure(json);
-  //     console.log(varPressure);
-  //   };
-  //   const intervalId1 = setInterval(fetchData1, 1000);
-  //   return () => {
-  //     clearInterval(intervalId1);
-  //   };
-  // }, []);
-  // ! *************** VARIABLE DASH (the latest variables) *****************
-
+  const [varHumidityRel, setVarHumidityRel] = useState(0);
+  const [varHumidityAbs, setVarHumidityAbs] = useState(0);
+  console.log(varPressure);
+  console.log(varSpeed);
+  console.log(varDirection);
+  console.log(varHumidityRel);
+  console.log(varHumidityAbs);
   useEffect(() => {
     const fetchDataL = async () => {
+      const response0 = await fetch("http://localhost:5000/get-all-temperature-data");
+      const json0 = await response0.json();
+      setVarHumidityRel(json0);
+      // console.log("varPressure: ", varHumidityRel);
+
       const response1 = await fetch("http://localhost:5000/get-all-humidity-data");
       const json1 = await response1.json();
-      console.log(json1);
       setVarHumidityRel(json1);
-      console.log(varHumidityRel);
+      // console.log("varPressure: ", varHumidityRel);
 
       const response2 = await fetch("http://localhost:5000/get-all-absoulute-humidity-data");
       const json2 = await response2.json();
-      console.log(json2);
       setVarHumidityAbs(json2);
-      console.log(varHumidityAbs);
+      // console.log("varPressure: ", varHumidityAbs);
 
       const response3 = await fetch("http://localhost:5000/get-all-wind-speed-data");
       const json3 = await response3.json();
-      console.log(json3);
       setVarSpeed(json3);
-      console.log(varSpeed);
+      // console.log("varPressure: ", varSpeed);
 
       const response4 = await fetch("http://localhost:5000/get-all-wind-direction-data");
       const json4 = await response4.json();
-      console.log(json4);
       setVarDirection(json4);
-      console.log(varDirection);
+      // console.log("varPressure: ", varDirection);
 
       const response5 = await fetch("http://localhost:5000/get-all-barometric-pressure-data");
       const json5 = await response5.json();
       setVarPressure(json5);
-      console.log("JSON", varPressure);
+      // console.log("varPressure: ", varPressure);
 
       const response6 = await fetch("http://localhost:5000/get-latest-data");
       const json6 = await response6.json();
-      setStatTemperature(json[0].Valor);
-      setStatHumidityRel(json[1].Valor);
-      setStatSpeed(json[2].Valor);
-      setStatPressure(json[4].Valor);
-      console.log(json[3].Valor);
-      setStatHumidityAbs(json[5].Valor);
+      setStatTemperature(json6[0].Valor);
+      setStatHumidityRel(json6[1].Valor);
+      setStatSpeed(json6[2].Valor);
+      setStatPressure(json6[4].Valor);
+      console.log(json6[3].Valor);
+      setStatHumidityAbs(json6[5].Valor);
       const newDirections = [0, 0, 0, 0, 0, 0, 0, 0];
-      json[3].Valor = 5;
-      switch (json[3].Valor) {
+      json6[3].Valor = 5;
+      switch (json6[3].Valor) {
         case 1:
           newDirections[0] = 1;
           newDirections[7] = 0.3;
@@ -236,6 +143,97 @@ function Dashboard() {
       clearInterval(intervalId1);
     };
   }, []);
+  // ! TEMPERATURA
+  let angle = 0;
+  const setup1 = (p5, canvasParentRef) => {
+    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+    p5.strokeWeight(4);
+    p5.stroke(0);
+    p5.fill(255);
+    p5.ellipse(100, 100, 150, 150);
+    p5.strokeWeight(1);
+    p5.fill(0);
+    p5.textAlign(p5.CENTER, p5.TOP);
+    p5.text("N", 100, 60);
+    p5.textAlign(p5.RIGHT, p5.CENTER);
+    p5.text("E", 170, 100);
+    p5.textAlign(p5.CENTER, p5.BOTTOM);
+    p5.text("S", 100, 140);
+    p5.textAlign(p5.LEFT, p5.CENTER);
+    p5.text("W", 30, 100);
+  };
+  const draw1 = (p5) => {
+    p5.background(255);
+    p5.fill(255);
+    p5.ellipse(100, 100, 150, 150);
+    p5.fill(0);
+    p5.textAlign(p5.CENTER, p5.TOP);
+    p5.text("N", 100, 60);
+    p5.textAlign(p5.RIGHT, p5.CENTER);
+    p5.text("E", 170, 100);
+    p5.textAlign(p5.CENTER, p5.BOTTOM);
+    p5.text("S", 100, 140);
+    p5.textAlign(p5.LEFT, p5.CENTER);
+    p5.text("W", 30, 100);
+    p5.fill(255, 0, 0);
+    p5.push();
+    p5.translate(100, 100);
+    p5.rotate(p5.radians(angle));
+    p5.triangle(-10, 0, -10, -20, 10, 0);
+    p5.pop();
+    angle += 1;
+  };
+  // // ! HUMEDAD RELATIVA
+  const setup2 = (p5, canvasParentRef) => {
+    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+  };
+  const draw2 = (p5) => {
+    p5.text("Pressure Over Time", 150, 30);
+    p5.background("#F6A55F");
+  };
+  // // ! VELOCIDAD
+  // const setup3 = (p5, canvasParentRef) => {
+  //   p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+  // };
+  // const draw3 = (p5) => {
+
+  // };
+  // // ! DIRECCION
+  // const setup4 = (p5, canvasParentRef) => {
+  //   p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+  // };
+  // const draw4 = (p5) => {
+
+  // };
+  // // ! PRESION
+  // const setup5 = (p5, canvasParentRef) => {
+  //   p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+  // };
+  // const draw5 = (p5) => {
+
+  // };
+  // // ! HUMEDAD ABSOLUTA
+  // const setup6 = (p5, canvasParentRef) => {
+  //   p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
+  // };
+  // const draw6 = (p5) => {
+
+  // };
+  // console.log("varHumidityRel: ", varHumidityRel);
+  // console.log("varHumidityAbs: ", varHumidityAbs);
+  // console.log("varSpeed: ", varSpeed);
+  // console.log("varDirection: ", varDirection);
+  // console.log("varPressure: ", varPressure);
+  const [showSketch1, setShowSketch1] = useState(false);
+  const [showSketch2, setShowSketch2] = useState(false);
+
+  const handleClick1 = () => {
+    setShowSketch1(!showSketch1);
+  };
+  const handleClick2 = () => {
+    setShowSketch2(!showSketch2);
+    setShowSketch1(false);
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -316,7 +314,7 @@ function Dashboard() {
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
+              <MDBox mb={3} onClick={handleClick1}>
                 <RadarChart
                   color="Info"
                   title="DIRECCION DEL VIENTO"
@@ -379,7 +377,7 @@ function Dashboard() {
         </MDBox>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5}>
+            <MDBox mb={1.5} onClick={handleClick2}>
               <ComplexStatisticsCard
                 color="warning"
                 icon="air"
@@ -440,9 +438,8 @@ function Dashboard() {
           </Grid>
         </Grid>
         <MDBox py={1}>
-          <div align="center">
-            <Sketch setup={setup0} draw={draw0} />
-          </div>
+          <div align="center">{showSketch1 && <Sketch setup={setup1} draw={draw1} />}</div>
+          <div align="center">{showSketch2 && <Sketch setup={setup2} draw={draw2} />}</div>
           {/* <Grid item xs={12} md={6} lg={4}>
               <OrdersOverview />
             </Grid> */}

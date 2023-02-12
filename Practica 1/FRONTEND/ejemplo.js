@@ -478,3 +478,76 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+
+
+// ! *************** VARIABLE HUMEDAD RELATIVA *****************
+  // useEffect(() => {
+  //   const fetchData1 = async () => {
+    //     const response = await fetch("http://localhost:5000/get-all-humidity-data");
+    //     const json = await response.json();
+  //     console.log(json);
+  //     setVarHumidityRel(json);
+  //     console.log(varHumidityRel);
+  //   };
+  //   const intervalId1 = setInterval(fetchData1, 2000);
+  //   return () => {
+    //     clearInterval(intervalId1);
+      // };
+    // }, []);
+    // ! *************** VARIABLE HUMEDAD ABSOLUTA *****************
+  // useEffect(() => {
+  //   const fetchData1 = async () => {
+  //     const response = await fetch("http://localhost:5000/get-all-absoulute-humidity-data");
+  //     const json = await response.json();
+  //     console.log(json);
+  //     setVarHumidityAbs(json);
+  //     console.log(varHumidityAbs);
+  //   };
+  //   const intervalId1 = setInterval(fetchData1, 1000);
+  //   return () => {
+  //     clearInterval(intervalId1);
+  //   };
+  // }, []);
+  // ! *************** VARIABLE VELOCIDAD DEL VIENTO *****************
+  // useEffect(() => {
+  //   const fetchData1 = async () => {
+  //     const response = await fetch("http://localhost:5000/get-all-wind-speed-data");
+  //     const json = await response.json();
+  //     console.log(json);
+  //     setVarSpeed(json);
+  //     console.log(varSpeed);
+  //   };
+  //   const intervalId1 = setInterval(fetchData1, 1000);
+  //   return () => {
+  //     clearInterval(intervalId1);
+  //   };
+  // }, []);
+  // ! *************** VARIABLE DIRECCION DEL VIENTO *****************
+  // useEffect(() => {
+  //   const fetchData1 = async () => {
+  //     const response = await fetch("http://localhost:5000/get-all-wind-direction-data");
+  //     const json = await response.json();
+  //     console.log(json);
+  //     setVarDirection(json);
+  //     console.log(varDirection);
+  //   };
+  //   const intervalId1 = setInterval(fetchData1, 1000);
+  //   return () => {
+  //     clearInterval(intervalId1);
+  //   };
+  // }, []);
+  // ! *************** VARIABLE PRESION BAROMETRICA *****************
+  // useEffect(() => {
+  //   const fetchData1 = async () => {
+  //     const response = await fetch("http://localhost:5000/get-all-barometric-pressure-data");
+  //     const json = await response.json();
+  //     console.log(json);
+  //     setVarPressure(json);
+  //     console.log(varPressure);
+  //   };
+  //   const intervalId1 = setInterval(fetchData1, 1000);
+  //   return () => {
+  //     clearInterval(intervalId1);
+  //   };
+  // }, []);
