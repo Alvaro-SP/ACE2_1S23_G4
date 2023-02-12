@@ -57,10 +57,10 @@ function Dashboard() {
 
     p5.translate(p5.width / 4, 0, 0);
     p5.ambientMaterial(250);
-    p5.sphere(statSpeed, 64);
+    p5.sphere(60, 64);
   };
   // ! *************** VARIABLE HUMEDAD RELATIVA *****************
-  // const [varHumidityRel, setVarHumidityRel] = useState(0);
+  const [varHumidityRel, setVarHumidityRel] = useState(0);
   // useEffect(() => {
   //   const fetchData1 = async () => {
   //     const response = await fetch("http://localhost:5000/get-all-humidity-data");
@@ -75,11 +75,11 @@ function Dashboard() {
   //   };
   // }, []);
   // ! *************** VARIABLE HUMEDAD ABSOLUTA *****************
-  // const [varHumidityAbs, setVarHumidityAbs] = useState(0);
+  const [varHumidityAbs, setVarHumidityAbs] = useState(0);
   // useEffect(() => {
   //   const fetchData1 = async () => {
-  //     const response = await fetch("http://localhost:5000/get-all-absoulute-humidity-data");
-  //     const json = await response.json();
+    //     const response = await fetch("http://localhost:5000/get-all-absoulute-humidity-data");
+    //     const json = await response.json();
   //     console.log(json);
   //     setVarHumidityAbs(json);
   //     console.log(varHumidityAbs);
@@ -90,7 +90,8 @@ function Dashboard() {
   //   };
   // }, []);
   // ! *************** VARIABLE VELOCIDAD DEL VIENTO *****************
-  // const [varSpeed, setVarSpeed] = useState(0);
+  const [varSpeed, setVarSpeed] = useState(0);
+  const [varDirection, setVarDirection] = useState(0);
   // useEffect(() => {
   //   const fetchData1 = async () => {
   //     const response = await fetch("http://localhost:5000/get-all-wind-speed-data");
@@ -105,7 +106,6 @@ function Dashboard() {
   //   };
   // }, []);
   // ! *************** VARIABLE DIRECCION DEL VIENTO *****************
-  // const [varDirection, setVarDirection] = useState(0);
   // useEffect(() => {
   //   const fetchData1 = async () => {
   //     const response = await fetch("http://localhost:5000/get-all-wind-direction-data");
@@ -120,7 +120,7 @@ function Dashboard() {
   //   };
   // }, []);
   // ! *************** VARIABLE PRESION BAROMETRICA *****************
-  // const [varPressure, setVarPressure] = useState(0);
+  const [varPressure, setVarPressure] = useState(0);
   // useEffect(() => {
   //   const fetchData1 = async () => {
   //     const response = await fetch("http://localhost:5000/get-all-barometric-pressure-data");
@@ -138,8 +138,37 @@ function Dashboard() {
 
   useEffect(() => {
     const fetchDataL = async () => {
-      const response = await fetch("http://localhost:5000/get-latest-data");
-      const json = await response.json();
+      const response1 = await fetch("http://localhost:5000/get-all-humidity-data");
+      const json1 = await response1.json();
+      console.log(json1);
+      setVarHumidityRel(json1);
+      console.log(varHumidityRel);
+
+      const response2 = await fetch("http://localhost:5000/get-all-absoulute-humidity-data");
+      const json2 = await response2.json();
+      console.log(json2);
+      setVarHumidityAbs(json2);
+      console.log(varHumidityAbs);
+
+      const response3 = await fetch("http://localhost:5000/get-all-wind-speed-data");
+      const json3 = await response3.json();
+      console.log(json3);
+      setVarSpeed(json3);
+      console.log(varSpeed);
+
+      const response4 = await fetch("http://localhost:5000/get-all-wind-direction-data");
+      const json4 = await response4.json();
+      console.log(json4);
+      setVarDirection(json4);
+      console.log(varDirection);
+
+      const response5 = await fetch("http://localhost:5000/get-all-barometric-pressure-data");
+      const json5 = await response5.json();
+      setVarPressure(json5);
+      console.log("JSON", varPressure);
+
+      const response6 = await fetch("http://localhost:5000/get-latest-data");
+      const json6 = await response6.json();
       setStatTemperature(json[0].Valor);
       setStatHumidityRel(json[1].Valor);
       setStatSpeed(json[2].Valor);
@@ -202,7 +231,7 @@ function Dashboard() {
       }
       setStatDirection(newDirections);
     };
-    const intervalId1 = setInterval(fetchDataL, 3000);
+    const intervalId1 = setInterval(fetchDataL, 5000);
     return () => {
       clearInterval(intervalId1);
     };
