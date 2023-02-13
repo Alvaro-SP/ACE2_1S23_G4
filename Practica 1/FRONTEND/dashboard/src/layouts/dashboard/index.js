@@ -77,8 +77,8 @@ function Dashboard() {
       setAvg(avgtemp);
       const maxtemp1 = Math.floor(Math.max(...varHumidityRel)) + 1;
       const avgtemp1 = Math.floor(varHumidityRel.reduce((a, b) => a + b, 0) / varHumidityRel.length);
-      setMax(maxtemp1);
-      setAvg(avgtemp1);
+      setMax1(maxtemp1);
+      setAvg1(avgtemp1);
 
       const response6 = await fetch("http://localhost:5000/get-latest-data");
       const json6 = await response6.json();
@@ -174,19 +174,19 @@ function Dashboard() {
     p5.endShape(p5.CLOSE);
   }
   // ! HUMEDAD RELATIVA
-  let a1 = 0;
+  let a = 0;
   const spacer1 = 10;
   const setup2 = (p5, canvasParentRef) => {
     p5.createCanvas(1130, 300).parent(canvasParentRef);
   };
   const draw2 = (p5) => {
-    const porcentajeX = (p5.width - 160) / varHumidityAbs.length;
+    const porcentajeX = (p5.width - 160) / varHumidityRel.length;
     const porcentajeY = (p5.height - 30) / max1;
     const Porcentaje10 = p5.height / 11;
-    p5.background(255);
+    p5.background(0);
     // titulo
     p5.stroke(255);
-    p5.text("Humedad Absoluta (GR/m^3)", 400, 20);
+    p5.text("Humedad Relativa (%)", 400, 20);
     a += 1;
     p5.line(a, 25, a, p5.height);
     // lineas de grafo
@@ -196,13 +196,13 @@ function Dashboard() {
       p5.line(0, p5.height - i * Porcentaje10, p5.width - 160, p5.height - i * Porcentaje10);
       p5.stroke(255);
       p5.text(
-        `${Math.floor((max / 10) * i)}`,
+        `${Math.floor((max1 / 10) * i)}`,
         p5.width - 160 + 5,
         p5.height - i * Porcentaje10 - 1
       );
     }
     // paredes
-    p5.stroke(0);
+    p5.stroke(255);
     p5.line(p5.width - 160, 25, p5.width - 160, p5.height);
     p5.line(p5.width - 110, 25, p5.width - 110, p5.height);
     p5.line(0, 0, 0, p5.height);
@@ -211,19 +211,19 @@ function Dashboard() {
     p5.line(0, p5.height, p5.width, p5.height);
     p5.textSize(20);
     // leyendas avg
-    p5.text(`Avg:${avg}`, p5.width - 100, 115);
-    for (var x = 0; x < varHumidityAbs.length; x += 1) {
+    p5.text(`Avg:${avg1}`, p5.width - 100, 115);
+    for (var x = 0; x < varHumidityRel.length; x += 1) {
       p5.stroke(218, 126, 255);
-      if (varHumidityAbs[x] >= avg) p5.stroke(0, 100, 255);
+      if (varHumidityRel[x] >= avg1) p5.stroke(0, 100, 255);
       // if (porcentajeX * x < a) {
       p5.line(
         porcentajeX * x,
         p5.height,
         porcentajeX * x,
-        p5.height - varHumidityAbs[x] * porcentajeY
+        p5.height - varHumidityRel[x] * porcentajeY
       );
       // }
-      // p5.ellipse(porcentajeX*x,  p5.height-varHumidityAbs[x]*porcentajeY, 1, 1);
+      // p5.ellipse(porcentajeX*x,  p5.height-varHumidityRel[x]*porcentajeY, 1, 1);
     }
     if (a > p5.width - 160) a = 0;
   };
@@ -323,7 +323,7 @@ function Dashboard() {
     }
   };
   // ! HUMEDAD ABSOLUTA
-  let a = 0;
+  a = 0;
   const spacer = 10;
   const setup6 = (p5, canvasParentRef) => {
     p5.createCanvas(1130, 300).parent(canvasParentRef);
@@ -410,7 +410,7 @@ function Dashboard() {
     setShowSketch2(false);
     setShowSketch1(false);
     setShowSketch2(false);
-    setShowSketch3(!showSketch2);
+    setShowSketch3(!showSketch3);
     setShowSketch4(false);
     setShowSketch5(false);
     setShowSketch6(false);
@@ -420,7 +420,7 @@ function Dashboard() {
     setShowSketch1(false);
     setShowSketch2(false);
     setShowSketch3(false);
-    setShowSketch4(!showSketch2);
+    setShowSketch4(!showSketch4);
     setShowSketch5(false);
     setShowSketch6(false);
   };
@@ -430,17 +430,16 @@ function Dashboard() {
     setShowSketch2(false);
     setShowSketch3(false);
     setShowSketch4(false);
-    setShowSketch5(!showSketch2);
+    setShowSketch5(!showSketch5);
     setShowSketch6(false);
   };
   const handleClick6 = () => {
     setShowSketch2(false);
     setShowSketch1(false);
-    setShowSketch2(false);
     setShowSketch3(false);
     setShowSketch4(false);
     setShowSketch5(false);
-    setShowSketch6(!showSketch2);
+    setShowSketch6(!showSketch6);
   };
   return (
     <DashboardLayout>
