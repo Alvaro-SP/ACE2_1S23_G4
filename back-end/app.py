@@ -26,7 +26,7 @@ mycursor = conecction.cursor()
 
 #Obtiene todos los datos de la tabla
 def getAllData():
-    mycursor.execute("SELECT * FROM datos")
+    mycursor.execute("SELECT * FROM datos;")
     myresult = mycursor.fetchall()
     return myresult
 
@@ -69,7 +69,7 @@ CORS(app)
 def index():
     return "<h1>Ruta Principal 14k</h1>"
 
-@app.route('/get-all-temperature-data',methods=['GET'])
+'''@app.route('/get-all-temperature-data',methods=['GET'])
 def get_temperature_data():
     keys = ['ID', 'Tipo', 'Valor']
     data=getData(1)
@@ -110,7 +110,14 @@ def get_absolute_pressure_data():
     data=getData(6)
     json_data = [dict(zip(keys, row)) for row in data]
     return json.dumps(json_data)
+'''
 
+@app.route('/get-all-data',methods=['GET'])
+def get_all_values():
+    keys = ['ID', 'Tipo', 'Valor']
+    data=getAllData()
+    json_data = [dict(zip(keys, row)) for row in data]
+    return json.dumps(json_data)
 
 @app.route('/get-latest-data',methods=['GET'])
 def get_latest_data():
