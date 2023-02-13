@@ -11,7 +11,7 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 // import PieChart from "examples/Charts/PieChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 // Data
-import RadarChart from "examples/Charts/RadarChart";
+// import RadarChart from "examples/Charts/RadarChart";
 
 import Sketch from "react-p5";
 // import axios from "axios";
@@ -24,6 +24,7 @@ import Sketch from "react-p5";
 // /get-all-barometric-pressure-data
 // /get-latest-data
 function Dashboard() {
+  // ! *************** VARIABLES DE DASH PRINCIPAL LATEST *****************
   const [textdirection, setTextdirection] = useState("CONNECT");
   const [statTemperature, setStatTemperature] = useState(0);
   const [statHumidityRel, setStatHumidityRel] = useState(0);
@@ -31,7 +32,7 @@ function Dashboard() {
   const [statSpeed, setStatSpeed] = useState(0);
   const [statDirection, setStatDirection] = useState([0, 0, 0.3, 1, 0.3, 0, 0, 0]);
   const [statPressure, setStatPressure] = useState(0);
-  // ! *************** VARIABLE DASH (the latest variables) *****************
+  // ! *************** VARIABLES DE REPORTES EN EL TIEMPO *****************
   const [varTemperature, setVarTemperature] = useState([]);
   const [varPressure, setVarPressure] = useState([]);
   const [varSpeed, setVarSpeed] = useState([]);
@@ -39,46 +40,45 @@ function Dashboard() {
   const [varHumidityRel, setVarHumidityRel] = useState([]);
   const [varHumidityAbs, setVarHumidityAbs] = useState([]);
   const [direccionNum, setDireccionNum] = useState(0);
+  const [max, setMax] = useState(0);
+  const [avg, setAvg] = useState(0);
+  const [max1, setMax1] = useState(0);
+  const [avg1, setAvg1] = useState(0);
+
   console.log(varPressure);
   console.log(varSpeed);
   console.log(varDirection);
   console.log(varHumidityRel);
   console.log(varHumidityAbs);
+  //! # 0 = Temperatura
+  //! # 1 = Humedad relativa
+  //! # 2 = Velcidad del viento
+  //! # 3 = Direccion del viento
+  //! # 4 = Presion barometriva
+  //! # 5 = Humedad absoluta
   useEffect(() => {
     const fetchDataL = async () => {
-      const response0 = await fetch("http://localhost:5000/get-all-temperature-data");
+      const response0 = await fetch("http://localhost:5000/get-all-data");
       const json0 = await response0.json();
-      setVarTemperature(json0.map((item) => item.Valor));
-      // console.log("varPressure: ", varHumidityRel);
+      setVarTemperature(json0[0].map((item) => item.Valor));
+      setVarHumidityRel(json0[1].map((item) => item.Valor));
+      setVarHumidityAbs(json0[5].map((item) => item.Valor));
+      setVarSpeed(json0[2].map((item) => item.Valor));
+      setVarDirection(json0[3].map((item) => item.Valor));
+      setVarPressure(json0[4].map((item) => item.Valor));
 
-      const response1 = await fetch("http://localhost:5000/get-all-humidity-data");
-      const json1 = await response1.json();
-      setVarHumidityRel(json1.map((item) => item.Valor));
-      // console.log("varPressure: ", varHumidityRel);
-
-      const response2 = await fetch("http://localhost:5000/get-all-absoulute-humidity-data");
-      const json2 = await response2.json();
-      setVarHumidityAbs(json2.map((item) => item.Valor));
-      // console.log("varPressure: ", varHumidityAbs);
-
-      const response3 = await fetch("http://localhost:5000/get-all-wind-speed-data");
-      const json3 = await response3.json();
-      setVarSpeed(json3.map((item) => item.Valor));
-      // console.log("varPressure: ", varSpeed);
-
-      const response4 = await fetch("http://localhost:5000/get-all-wind-direction-data");
-      const json4 = await response4.json();
-      setVarDirection(json4.map((item) => item.Valor));
-      // console.log("varPressure: ", varDirection);
-
-      // const response5 = await fetch("http://localhost:5000/get-all-barometric-pressure-data");
-      // const json5 = await response5.json();
-
-      // setVarPressure(json5.map((item) => item.Valor));
-      setVarPressure([
-        20, 22, 25, 23, 21, 19, 18, 21, 25, 28, 29, 32, 34, 33, 31, 28, 25, 23, 20, 18,
-      ]);
-      // console.log("varPressure: ", varPressure);
+      varHumidityAbs.push(Math.floor(Math.random() * 1000) + Math.random());
+      varHumidityRel.push(Math.floor(Math.random() * 1000) + Math.random());
+      setVarHumidityAbs(varHumidityAbs);
+      setVarHumidityRel(varHumidityRel);
+      const maxtemp = Math.floor(Math.max(...varHumidityAbs)) + 1;
+      const avgtemp = Math.floor(varHumidityAbs.reduce((a, b) => a + b, 0) / varHumidityAbs.length);
+      setMax(maxtemp);
+      setAvg(avgtemp);
+      const maxtemp1 = Math.floor(Math.max(...varHumidityRel)) + 1;
+      const avgtemp1 = Math.floor(varHumidityRel.reduce((a, b) => a + b, 0) / varHumidityRel.length);
+      setMax(maxtemp1);
+      setAvg(avgtemp1);
 
       const response6 = await fetch("http://localhost:5000/get-latest-data");
       const json6 = await response6.json();
@@ -86,9 +86,8 @@ function Dashboard() {
       setStatHumidityRel(json6[1].Valor);
       setStatSpeed(json6[2].Valor);
       setStatPressure(json6[4].Valor);
-      console.log(json6[3].Valor);
       setStatHumidityAbs(json6[5].Valor);
-      const newDirections = [0, 0, 0, 0, 0, 0, 0, 0];
+      let newDirections = [0, 0, 0, 0, 0, 0, 0, 0];
       json6[3].Valor = 5;
       setDireccionNum(json6[3].Valor);
       switch (direccionNum) {
@@ -144,6 +143,7 @@ function Dashboard() {
           break;
       }
       setStatDirection(newDirections);
+      newDirections = statDirection;
     };
     const intervalId1 = setInterval(fetchDataL, 5000);
     return () => {
@@ -174,15 +174,60 @@ function Dashboard() {
     p5.endShape(p5.CLOSE);
   }
   // ! HUMEDAD RELATIVA
+  let a1 = 0;
+  const spacer1 = 10;
   const setup2 = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
+    p5.createCanvas(1130, 300).parent(canvasParentRef);
   };
   const draw2 = (p5) => {
-    p5.background("#F6A55F");
-    p5.textSize(32);
-    p5.text("Pressure Over Time", 150, 30);
+    const porcentajeX = (p5.width - 160) / varHumidityAbs.length;
+    const porcentajeY = (p5.height - 30) / max1;
+    const Porcentaje10 = p5.height / 11;
+    p5.background(255);
+    // titulo
+    p5.stroke(255);
+    p5.text("Humedad Absoluta (GR/m^3)", 400, 20);
+    a += 1;
+    p5.line(a, 25, a, p5.height);
+    // lineas de grafo
+    for (let i = 0; i < 11; i += 1) {
+      p5.textSize(15);
+      p5.stroke(140);
+      p5.line(0, p5.height - i * Porcentaje10, p5.width - 160, p5.height - i * Porcentaje10);
+      p5.stroke(255);
+      p5.text(
+        `${Math.floor((max / 10) * i)}`,
+        p5.width - 160 + 5,
+        p5.height - i * Porcentaje10 - 1
+      );
+    }
+    // paredes
+    p5.stroke(0);
+    p5.line(p5.width - 160, 25, p5.width - 160, p5.height);
+    p5.line(p5.width - 110, 25, p5.width - 110, p5.height);
+    p5.line(0, 0, 0, p5.height);
+    p5.line(0, 0, p5.width, 0);
+    p5.line(p5.width, 0, p5.width, p5.height);
+    p5.line(0, p5.height, p5.width, p5.height);
+    p5.textSize(20);
+    // leyendas avg
+    p5.text(`Avg:${avg}`, p5.width - 100, 115);
+    for (var x = 0; x < varHumidityAbs.length; x += 1) {
+      p5.stroke(218, 126, 255);
+      if (varHumidityAbs[x] >= avg) p5.stroke(0, 100, 255);
+      // if (porcentajeX * x < a) {
+      p5.line(
+        porcentajeX * x,
+        p5.height,
+        porcentajeX * x,
+        p5.height - varHumidityAbs[x] * porcentajeY
+      );
+      // }
+      // p5.ellipse(porcentajeX*x,  p5.height-varHumidityAbs[x]*porcentajeY, 1, 1);
+    }
+    if (a > p5.width - 160) a = 0;
   };
-  // // ! VELOCIDAD
+  // ! VELOCIDAD
   const setup3 = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
   };
@@ -278,28 +323,73 @@ function Dashboard() {
     }
   };
   // ! HUMEDAD ABSOLUTA
+  let a = 0;
+  const spacer = 10;
   const setup6 = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
+    p5.createCanvas(1130, 300).parent(canvasParentRef);
   };
   const draw6 = (p5) => {
-    p5.background("#F6A55F");
-    p5.textSize(32);
-    p5.text("Pressure Over Time", 150, 30);
+    const porcentajeX = (p5.width - 160) / varHumidityAbs.length;
+    const porcentajeY = (p5.height - 30) / max;
+    const Porcentaje10 = p5.height / 11;
+    p5.background(255);
+    // titulo
+    p5.stroke(255);
+    p5.text("Humedad Absoluta (GR/m^3)", 400, 20);
+    a += 1;
+    p5.line(a, 25, a, p5.height);
+    // lineas de grafo
+    for (let i = 0; i < 11; i += 1) {
+      p5.textSize(15);
+      p5.stroke(140);
+      p5.line(0, p5.height - i * Porcentaje10, p5.width - 160, p5.height - i * Porcentaje10);
+      p5.stroke(255);
+      p5.text(
+        `${Math.floor((max / 10) * i)}`,
+        p5.width - 160 + 5,
+        p5.height - i * Porcentaje10 - 1
+      );
+    }
+    // paredes
+    p5.stroke(0);
+    p5.line(p5.width - 160, 25, p5.width - 160, p5.height);
+    p5.line(p5.width - 110, 25, p5.width - 110, p5.height);
+    p5.line(0, 0, 0, p5.height);
+    p5.line(0, 0, p5.width, 0);
+    p5.line(p5.width, 0, p5.width, p5.height);
+    p5.line(0, p5.height, p5.width, p5.height);
+    p5.textSize(20);
+    // leyendas avg
+    p5.text(`Avg:${avg}`, p5.width - 100, 115);
+    for (var x = 0; x < varHumidityAbs.length; x += 1) {
+      p5.stroke(218, 126, 255);
+      if (varHumidityAbs[x] >= avg) p5.stroke(0, 100, 255);
+      // if (porcentajeX * x < a) {
+      p5.line(
+        porcentajeX * x,
+        p5.height,
+        porcentajeX * x,
+        p5.height - varHumidityAbs[x] * porcentajeY
+      );
+      // }
+      // p5.ellipse(porcentajeX*x,  p5.height-varHumidityAbs[x]*porcentajeY, 1, 1);
+    }
+    if (a > p5.width - 160) a = 0;
   };
   console.log("varHumidityRel: ", varHumidityRel);
-  console.log("varHumidityAbs: ", varHumidityAbs);
+  // console.log("varHumidityAbs: ", varHumidityAbs);
   console.log("varSpeed: ", varSpeed);
   console.log("varDirection: ", varDirection);
   console.log("varPressure: ", varPressure);
   console.log("varTemperature: ", varTemperature);
   console.log("varTemperature: ", varTemperature);
+  // ! *************** HANDLERS DE Dashboard *****************
   const [showSketch1, setShowSketch1] = useState(false);
   const [showSketch2, setShowSketch2] = useState(false);
   const [showSketch3, setShowSketch3] = useState(false);
   const [showSketch4, setShowSketch4] = useState(false);
   const [showSketch5, setShowSketch5] = useState(false);
   const [showSketch6, setShowSketch6] = useState(false);
-
   const handleClick1 = () => {
     setShowSketch1(!showSketch1);
     setShowSketch2(false);
@@ -364,7 +454,7 @@ function Dashboard() {
                   <Sketch setup={setup5} draw={draw5} />
                 </div>
                 <ComplexStatisticsCard
-                  color="info"
+                  color="error"
                   icon="air"
                   title="TEMPERATURA DEL AMBIENTE"
                   count={statTemperature}
@@ -382,10 +472,10 @@ function Dashboard() {
                   <Sketch setup={setup5} draw={draw5} />
                 </div>
                 <ComplexStatisticsCard
-                  color="info"
+                  color="warning"
                   icon="air"
                   title="DIRECCION DEL VIENTO"
-                  count={statTemperature}
+                  count={textdirection}
                   percentage={{
                     color: "success",
                     amount: "GRAFICA EN EL TIEMPO",
@@ -446,23 +536,8 @@ function Dashboard() {
           </Grid>
         </MDBox>
         <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5} onClick={handleClick4}>
-              <ComplexStatisticsCard
-                color="warning"
-                icon="air"
-                title="DIRECCION DEL VIENTO"
-                count={textdirection}
-                percentage={{
-                  color: "success",
-                  amount: "GRAFICA EN EL TIEMPO",
-                  label: "",
-                }}
-              />
-            </MDBox>
-          </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5} onClick={handleClick2}>
+          <Grid item xs={12} md={6} lg={4}>
+            <MDBox mb={3} onClick={handleClick2}>
               <ComplexStatisticsCard
                 color="success"
                 icon="thunderstorm"
@@ -476,8 +551,8 @@ function Dashboard() {
               />
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5} onClick={handleClick6}>
+          <Grid item xs={12} md={6} lg={4}>
+            <MDBox mb={3} onClick={handleClick6}>
               <ComplexStatisticsCard
                 color="info"
                 icon="cloud"
@@ -491,8 +566,8 @@ function Dashboard() {
               />
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
-            <MDBox mb={1.5} onClick={handleClick5}>
+          <Grid item xs={12} md={6} lg={4}>
+            <MDBox mb={3} onClick={handleClick5}>
               <ComplexStatisticsCard
                 color="primary"
                 icon="*"
@@ -519,7 +594,7 @@ function Dashboard() {
             </Grid> */}
         </MDBox>
       </MDBox>
-      <RadarChart
+      {/* <RadarChart
         color="Info"
         title="DIRECCION DEL VIENTO"
         description={
@@ -539,7 +614,7 @@ function Dashboard() {
           ],
         }}
         date="VER GRAFICA A TRAVES DEL TIEMPO"
-      />
+      /> */}
     </DashboardLayout>
   );
 }

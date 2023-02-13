@@ -112,6 +112,13 @@ def get_absolute_humidity_data():
     json_data = [dict(zip(keys, row)) for row in data]
     return json.dumps(json_data)
 
+# @app.route('/get-all-data',methods=['GET'])
+# def get_all_values():
+#     keys = ['ID', 'Tipo', 'Valor']
+#     data=getAllData()
+#     json_data = [dict(zip(keys, row)) for row in data]
+#     return json.dumps(json_data)
+
 @app.route('/get-latest-data',methods=['GET'])
 def get_latest_data():
     keys = ['ID', 'Tipo', 'Valor']
@@ -119,7 +126,48 @@ def get_latest_data():
     json_data = [dict(zip(keys, row)) for row in data]
     return json.dumps(json_data)
 
+@app.route('/get-all-data',methods=['GET'])
+def get_all_values():
+    # Matrix with all data
+    data_matrix=[]
 
+    # Temperature Data
+    temperature_keys=['ID', 'Tipo', 'Valor']
+    temperature_data=getData(1)
+    temperature_json = [dict(zip(temperature_keys, row)) for row in temperature_data]
+    data_matrix.append((temperature_json))
+    #======================================================================================
+    # Relative Humidity Data
+    rel_humiduty_keys=['ID', 'Tipo', 'Valor']
+    rel_humiduty_data=getData(2)
+    rel_humiduty_json = [dict(zip(rel_humiduty_keys, row)) for row in rel_humiduty_data]
+    data_matrix.append((rel_humiduty_json))
+    #======================================================================================
+    # Absolute Humidity Data
+    abs_humiduty_keys=['ID', 'Tipo', 'Valor']
+    abs_humiduty_data=getData(3)
+    abs_humiduty_json = [dict(zip(abs_humiduty_keys, row)) for row in abs_humiduty_data]
+    data_matrix.append((abs_humiduty_json))
+    #======================================================================================
+    # Wind Speed Data
+    wind_speed_keys=['ID', 'Tipo', 'Valor']
+    wind_speed_data=getData(4)
+    wind_speed_json = [dict(zip(wind_speed_keys, row)) for row in wind_speed_data]
+    data_matrix.append((wind_speed_json))
+    #======================================================================================
+    # Wind Direction Data
+    wind_dir_keys=['ID', 'Tipo', 'Valor']
+    wind_dir_data=getData(5)
+    wind_dir_json = [dict(zip(wind_dir_keys, row)) for row in wind_dir_data]
+    data_matrix.append((wind_dir_json))
+    #======================================================================================
+    # Barometric Pressure Data
+    pressure_keys=['ID', 'Tipo', 'Valor']
+    pressure_data=getData(6)
+    pressure_json = [dict(zip(pressure_keys, row)) for row in pressure_data]
+    data_matrix.append((pressure_json))
+    #======================================================================================
+    return json.dumps(data_matrix)
 #Pruebas de las funciones de la base de datos
 if __name__ == '__main__':
     app.run(threaded=True, port=5000,debug=True)
