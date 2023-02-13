@@ -26,7 +26,7 @@ const HumedadAbs=()=>{
 
       //titulo
       p5.stroke(255);
-      p5.text('Humedad Absoluta GR/m^3', 400, 20);
+      p5.text('Humedad Absoluta (GR/m^3)', 400, 20);
 
 
       a = a + 1; 

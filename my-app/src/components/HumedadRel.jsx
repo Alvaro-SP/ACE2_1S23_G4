@@ -27,7 +27,7 @@ const HumedadRel=()=>{
 
       //titulo
       p5.stroke(0);
-      p5.text('Humedad Relativa %', 400, 20);
+      p5.text('Humedad Relativa (%)', 400, 20);
 
 
       a = a + 1; 

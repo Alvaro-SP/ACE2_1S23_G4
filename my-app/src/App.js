@@ -8,6 +8,9 @@ import Temperatura from './components/Temperatura';
 function App() {
   return (
     <div className="App">
+      <Velocidad />
+      <HumedadAbs />
+      <HumedadRel />
       <Temperatura />
     </div>
   );
