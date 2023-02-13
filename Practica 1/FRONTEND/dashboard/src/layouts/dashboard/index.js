@@ -6,8 +6,8 @@ import React, { useState, useEffect } from "react";
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
+// import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
+// import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 // import PieChart from "examples/Charts/PieChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 // Data
@@ -32,11 +32,13 @@ function Dashboard() {
   const [statDirection, setStatDirection] = useState([0, 0, 0.3, 1, 0.3, 0, 0, 0]);
   const [statPressure, setStatPressure] = useState(0);
   // ! *************** VARIABLE DASH (the latest variables) *****************
-  const [varPressure, setVarPressure] = useState(0);
-  const [varSpeed, setVarSpeed] = useState(0);
+  const [varTemperature, setVarTemperature] = useState([]);
+  const [varPressure, setVarPressure] = useState([]);
+  const [varSpeed, setVarSpeed] = useState([]);
   const [varDirection, setVarDirection] = useState(0);
-  const [varHumidityRel, setVarHumidityRel] = useState(0);
-  const [varHumidityAbs, setVarHumidityAbs] = useState(0);
+  const [varHumidityRel, setVarHumidityRel] = useState([]);
+  const [varHumidityAbs, setVarHumidityAbs] = useState([]);
+  const [direccionNum, setDireccionNum] = useState(0);
   console.log(varPressure);
   console.log(varSpeed);
   console.log(varDirection);
@@ -46,32 +48,36 @@ function Dashboard() {
     const fetchDataL = async () => {
       const response0 = await fetch("http://localhost:5000/get-all-temperature-data");
       const json0 = await response0.json();
-      setVarHumidityRel(json0);
+      setVarTemperature(json0.map((item) => item.Valor));
       // console.log("varPressure: ", varHumidityRel);
 
       const response1 = await fetch("http://localhost:5000/get-all-humidity-data");
       const json1 = await response1.json();
-      setVarHumidityRel(json1);
+      setVarHumidityRel(json1.map((item) => item.Valor));
       // console.log("varPressure: ", varHumidityRel);
 
       const response2 = await fetch("http://localhost:5000/get-all-absoulute-humidity-data");
       const json2 = await response2.json();
-      setVarHumidityAbs(json2);
+      setVarHumidityAbs(json2.map((item) => item.Valor));
       // console.log("varPressure: ", varHumidityAbs);
 
       const response3 = await fetch("http://localhost:5000/get-all-wind-speed-data");
       const json3 = await response3.json();
-      setVarSpeed(json3);
+      setVarSpeed(json3.map((item) => item.Valor));
       // console.log("varPressure: ", varSpeed);
 
       const response4 = await fetch("http://localhost:5000/get-all-wind-direction-data");
       const json4 = await response4.json();
-      setVarDirection(json4);
+      setVarDirection(json4.map((item) => item.Valor));
       // console.log("varPressure: ", varDirection);
 
-      const response5 = await fetch("http://localhost:5000/get-all-barometric-pressure-data");
-      const json5 = await response5.json();
-      setVarPressure(json5);
+      // const response5 = await fetch("http://localhost:5000/get-all-barometric-pressure-data");
+      // const json5 = await response5.json();
+
+      // setVarPressure(json5.map((item) => item.Valor));
+      setVarPressure([
+        20, 22, 25, 23, 21, 19, 18, 21, 25, 28, 29, 32, 34, 33, 31, 28, 25, 23, 20, 18,
+      ]);
       // console.log("varPressure: ", varPressure);
 
       const response6 = await fetch("http://localhost:5000/get-latest-data");
@@ -84,7 +90,8 @@ function Dashboard() {
       setStatHumidityAbs(json6[5].Valor);
       const newDirections = [0, 0, 0, 0, 0, 0, 0, 0];
       json6[3].Valor = 5;
-      switch (json6[3].Valor) {
+      setDireccionNum(json6[3].Valor);
+      switch (direccionNum) {
         case 1:
           newDirections[0] = 1;
           newDirections[7] = 0.3;
@@ -144,45 +151,28 @@ function Dashboard() {
     };
   }, []);
   // ! TEMPERATURA
-  let angle = 0;
   const setup1 = (p5, canvasParentRef) => {
-    p5.createCanvas(720, 500, p5.WEBGL).parent(canvasParentRef);
-    p5.strokeWeight(4);
-    p5.stroke(0);
-    p5.fill(255);
-    p5.ellipse(100, 100, 150, 150);
-    p5.strokeWeight(1);
-    p5.fill(0);
-    p5.textAlign(p5.CENTER, p5.TOP);
-    p5.text("N", 100, 60);
-    p5.textAlign(p5.RIGHT, p5.CENTER);
-    p5.text("E", 170, 100);
-    p5.textAlign(p5.CENTER, p5.BOTTOM);
-    p5.text("S", 100, 140);
-    p5.textAlign(p5.LEFT, p5.CENTER);
-    p5.text("W", 30, 100);
+    p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
   };
   const draw1 = (p5) => {
-    p5.background(255);
-    p5.fill(255);
-    p5.ellipse(100, 100, 150, 150);
-    p5.fill(0);
-    p5.textAlign(p5.CENTER, p5.TOP);
-    p5.text("N", 100, 60);
-    p5.textAlign(p5.RIGHT, p5.CENTER);
-    p5.text("E", 170, 100);
-    p5.textAlign(p5.CENTER, p5.BOTTOM);
-    p5.text("S", 100, 140);
-    p5.textAlign(p5.LEFT, p5.CENTER);
-    p5.text("W", 30, 100);
-    p5.fill(255, 0, 0);
-    p5.push();
-    p5.translate(100, 100);
-    p5.rotate(p5.radians(angle));
-    p5.triangle(-10, 0, -10, -20, 10, 0);
-    p5.pop();
-    angle += 1;
+    p5.background("#F6A55F");
+    p5.textSize(32);
+    p5.text("Pressure Over Time", 150, 30);
   };
+  function star(p5, x, y, radius1, radius2, npoints) {
+    const angle = p5.TWO_PI / npoints;
+    const halfAngle = angle / 2.0;
+    p5.beginShape();
+    for (let a = 0; a < p5.TWO_PI; a += angle) {
+      let sx = x + p5.cos(a) * radius2;
+      let sy = y + p5.sin(a) * radius2;
+      p5.vertex(sx, sy);
+      sx = x + p5.cos(a + halfAngle) * radius1;
+      sy = y + p5.sin(a + halfAngle) * radius1;
+      p5.vertex(sx, sy);
+    }
+    p5.endShape(p5.CLOSE);
+  }
   // ! HUMEDAD RELATIVA
   const setup2 = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
@@ -203,21 +193,89 @@ function Dashboard() {
   };
   // ! DIRECCION
   const setup4 = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
+    p5.createCanvas(500, 500).parent(canvasParentRef);
   };
   const draw4 = (p5) => {
-    p5.background("#F6A55F");
-    p5.textSize(32);
-    p5.text("Pressure Over Time", 150, 30);
+    p5.background(255);
+    p5.strokeWeight(8);
+    p5.stroke(0);
+    p5.fill(255);
+    p5.ellipse(250, 250, 400, 400);
+
+    p5.strokeWeight(1);
+    p5.fill(0);
+    p5.textSize(40); // Increase text size for better visibility
+
+    p5.fill(255);
+    p5.ellipse(250, 250, 400, 400);
+    p5.fill(0);
+    p5.textAlign(p5.CENTER, p5.TOP);
+    p5.text("N", 250, 70);
+    p5.textSize(24);
+    p5.text("NE", 365, 130);
+    p5.textAlign(p5.RIGHT, p5.CENTER);
+    p5.textSize(40);
+    p5.text("E", 430, 250);
+    p5.textSize(24);
+    p5.text("SE", 400, 360);
+    p5.textAlign(p5.CENTER, p5.BOTTOM);
+    p5.textSize(40);
+    p5.text("S", 250, 440);
+    p5.textSize(24);
+    p5.text("SW", 145, 385);
+    p5.textAlign(p5.LEFT, p5.CENTER);
+    p5.textSize(40);
+    p5.text("W", 80, 250);
+    p5.textSize(24);
+    p5.text("NW", 100, 150);
+
+    p5.strokeWeight(4);
+    p5.fill(255, 0, 0);
+    p5.push();
+    p5.translate(250, 250);
+    p5.rotate(p5.radians(direccionNum * 45 - 135));
+    p5.push();
+    p5.translate(0, 0);
+    p5.rotate(p5.frameCount / 200.0);
+    star(p5, 0, 0, 10, 80, 6);
+    p5.pop();
+    p5.strokeWeight(10);
+    p5.line(0, 0, 120, 0);
+    p5.strokeWeight(4);
+    p5.triangle(130, 0, 90, -10, 90, 10);
+    p5.pop();
+    // angle += 1;
   };
   // ! PRESION
+  let x = 0;
   const setup5 = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
+    p5.createCanvas(400, 200).parent(canvasParentRef);
   };
   const draw5 = (p5) => {
-    p5.background("#F6A55F");
-    p5.textSize(32);
+    p5.background("#F0FFFF");
+    p5.background("#F0FFFF");
+    p5.noFill();
+    p5.stroke("#006400");
+    p5.strokeWeight(2);
+    p5.rect(0, 0, 400, 200);
+    p5.fill("#000000");
+    p5.textSize(20);
     p5.text("Pressure Over Time", 150, 30);
+    p5.rect(0, 0, 400, 200);
+    p5.fill("#000000");
+    p5.textSize(20);
+    p5.text("Pressure Over Time", 150, 30);
+    p5.beginShape();
+    for (let i = 0; i < varPressure.length; i += 1) {
+      p5.vertex(i * 20, 200 - varPressure[i] * 4);
+    }
+    p5.endShape();
+    p5.stroke("#8B008B");
+    p5.line(x, 0, x, 200);
+    x += 1;
+    if (x > 400) {
+      x = 0;
+    }
   };
   // ! HUMEDAD ABSOLUTA
   const setup6 = (p5, canvasParentRef) => {
@@ -233,6 +291,8 @@ function Dashboard() {
   console.log("varSpeed: ", varSpeed);
   console.log("varDirection: ", varDirection);
   console.log("varPressure: ", varPressure);
+  console.log("varTemperature: ", varTemperature);
+  console.log("varTemperature: ", varTemperature);
   const [showSketch1, setShowSketch1] = useState(false);
   const [showSketch2, setShowSketch2] = useState(false);
   const [showSketch3, setShowSketch3] = useState(false);
@@ -300,105 +360,57 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3} onClick={handleClick1}>
-                <ReportsBarChart
+                <div align="center">
+                  <Sketch setup={setup5} draw={draw5} />
+                </div>
+                <ComplexStatisticsCard
                   color="info"
-                  title="TEMPERATURA"
-                  description={
-                    <>
-                      (<strong>Temperatura del ambiente( {statTemperature} °C) </strong>)
-                    </>
-                  }
-                  chart={{
-                    labels: [
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "T",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                      "",
-                    ],
-                    datasets: {
-                      label: "Temperatura",
-                      data: [
-                        0,
-                        0,
-                        0,
-                        0,
-                        0,
-                        statTemperature,
-                        0,
-                        statTemperature,
-                        0,
-                        statTemperature,
-                        0,
-                        statTemperature,
-                        0,
-                        statTemperature,
-                        0,
-                        statTemperature,
-                        0,
-                        statTemperature,
-                        0,
-                        statTemperature,
-                        0,
-                        statTemperature,
-                      ],
-                    },
+                  icon="air"
+                  title="TEMPERATURA DEL AMBIENTE"
+                  count={statTemperature}
+                  percentage={{
+                    color: "success",
+                    amount: "GRAFICA EN EL TIEMPO",
+                    label: "",
                   }}
-                  date="VER GRAFICA A TRAVES DEL TIEMPO"
                 />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3} onClick={handleClick4}>
-                <RadarChart
-                  color="Info"
+                <div align="center">
+                  <Sketch setup={setup5} draw={draw5} />
+                </div>
+                <ComplexStatisticsCard
+                  color="info"
+                  icon="air"
                   title="DIRECCION DEL VIENTO"
-                  description={
-                    <>
-                      (<strong>Velocidad del viento (K/h)</strong>)
-                    </>
-                  }
-                  chart={{
-                    labels: ["N", "NE", "E", "SE", "S", "SO", "O", "NO"],
-                    datasets: [
-                      {
-                        label: "DIRECCION DEL VIENTO",
-                        color: "info",
-                        data: statDirection,
-                        borderDash: [5, 5],
-                      },
-                    ],
+                  count={statTemperature}
+                  percentage={{
+                    color: "success",
+                    amount: "GRAFICA EN EL TIEMPO",
+                    label: "",
                   }}
-                  date="VER GRAFICA A TRAVES DEL TIEMPO"
                 />
               </MDBox>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3} onClick={handleClick3}>
-                <ReportsLineChart
+                <div align="center">
+                  <Sketch setup={setup5} draw={draw5} />
+                </div>
+                <ComplexStatisticsCard
+                  color="info"
+                  icon="air"
+                  title="VELOCIDAD DEL VIENTO"
+                  count={statSpeed}
+                  percentage={{
+                    color: "success",
+                    amount: "GRAFICA EN EL TIEMPO",
+                    label: "",
+                  }}
+                />
+                {/* <ReportsLineChart
                   color="dark"
                   title="VELOCIDAD"
                   description={
@@ -428,7 +440,7 @@ function Dashboard() {
                     },
                   }}
                   date="VER GRAFICA A TRAVES DEL TIEMPO"
-                />
+                /> */}
               </MDBox>
             </Grid>
           </Grid>
@@ -507,6 +519,27 @@ function Dashboard() {
             </Grid> */}
         </MDBox>
       </MDBox>
+      <RadarChart
+        color="Info"
+        title="DIRECCION DEL VIENTO"
+        description={
+          <>
+            (<strong>Velocidad del viento (K/h)</strong>)
+          </>
+        }
+        chart={{
+          labels: ["N", "NE", "E", "SE", "S", "SO", "O", "NO"],
+          datasets: [
+            {
+              label: "DIRECCION DEL VIENTO",
+              color: "info",
+              data: statDirection,
+              borderDash: [5, 5],
+            },
+          ],
+        }}
+        date="VER GRAFICA A TRAVES DEL TIEMPO"
+      />
     </DashboardLayout>
   );
 }
