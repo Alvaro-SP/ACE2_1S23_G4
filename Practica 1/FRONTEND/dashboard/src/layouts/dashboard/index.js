@@ -150,7 +150,7 @@ function Dashboard() {
       clearInterval(intervalId1);
     };
   }, []);
-  // ! TEMPERATURA
+  // ! TEMPERATURA A TRAVEZ DEL TIEMPO
   const setup1 = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
   };
@@ -173,7 +173,7 @@ function Dashboard() {
     }
     p5.endShape(p5.CLOSE);
   }
-  // ! HUMEDAD RELATIVA
+  // ! HUMEDAD RELATIVA A TRAVEZ DEL TIEMPO
   let a = 0;
   const spacer1 = 10;
   const setup2 = (p5, canvasParentRef) => {
@@ -227,7 +227,7 @@ function Dashboard() {
     }
     if (a > p5.width - 160) a = 0;
   };
-  // ! VELOCIDAD
+  // ! VELOCIDAD A TRAVEZ DEL TIEMPO
   const setup3 = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
   };
@@ -236,11 +236,65 @@ function Dashboard() {
     p5.textSize(32);
     p5.text("Pressure Over Time", 150, 30);
   };
-  // ! DIRECCION
+  // ! DIRECCION A TRAVEZ DEL TIEMPO
   const setup4 = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 500).parent(canvasParentRef);
+    p5.createCanvas(400, 200).parent(canvasParentRef);
   };
   const draw4 = (p5) => {
+    p5.background(255);
+    p5.background(255);
+  p5.strokeWeight(8);
+  p5.stroke(0);
+  p5.fill(255);
+  p5.ellipse(200, 100, 320, 160);
+
+  p5.strokeWeight(1);
+  p5.fill(0);
+  p5.textSize(32);
+
+  p5.fill(255);
+  p5.ellipse(200, 100, 320, 160);
+  p5.fill(0);
+  p5.textAlign(p5.CENTER, p5.TOP);
+  p5.text("N", 200, 35);
+  p5.textSize(18);
+  p5.text("NE", 288, 65);
+  p5.textAlign(p5.RIGHT, p5.CENTER);
+  p5.textSize(32);
+  p5.text("E", 320, 100);
+  p5.textSize(18);
+  p5.text("SE", 295, 135);
+  p5.textAlign(p5.CENTER, p5.BOTTOM);
+  p5.textSize(32);
+  p5.text("S", 200, 165);
+  p5.textSize(18);
+  p5.text("SW", 113, 135);
+  p5.textAlign(p5.LEFT, p5.CENTER);
+  p5.textSize(32);
+  p5.text("W", 80, 100);
+  p5.textSize(18);
+  p5.text("NW", 107, 65);
+
+  p5.strokeWeight(4);
+  p5.fill(255, 0, 0);
+  p5.push();
+  p5.translate(200, 100);
+  p5.rotate(p5.radians(direccionNum * 45 - 135));
+  p5.push();
+  p5.translate(0, 0);
+  p5.rotate(p5.frameCount / 200.0);
+  star(p5, 0, 0, 7, 40, 6);
+  p5.pop();
+  p5.strokeWeight(8);
+  p5.line(0, 0, 60, 0);
+  p5.strokeWeight(4);
+  p5.triangle(65, 0, 45, -6, 45, 6);
+  p5.pop();
+  };
+  const setup4E = (p5, canvasParentRef) => {
+    p5.createCanvas(500, 500).parent(canvasParentRef);
+  };
+  const draw4E = (p5) => {
     p5.background(255);
     p5.strokeWeight(8);
     p5.stroke(0);
@@ -291,7 +345,7 @@ function Dashboard() {
     p5.pop();
     // angle += 1;
   };
-  // ! PRESION
+  // ! PRESION A TRAVEZ DEL TIEMPO
   let x = 0;
   const setup5 = (p5, canvasParentRef) => {
     p5.createCanvas(400, 200).parent(canvasParentRef);
@@ -322,7 +376,7 @@ function Dashboard() {
       x = 0;
     }
   };
-  // ! HUMEDAD ABSOLUTA
+  // ! HUMEDAD ABSOLUTA A TRAVEZ DEL TIEMPO
   a = 0;
   const spacer = 10;
   const setup6 = (p5, canvasParentRef) => {
@@ -376,6 +430,7 @@ function Dashboard() {
     }
     if (a > p5.width - 160) a = 0;
   };
+
   console.log("varHumidityRel: ", varHumidityRel);
   // console.log("varHumidityAbs: ", varHumidityAbs);
   console.log("varSpeed: ", varSpeed);
@@ -468,7 +523,7 @@ function Dashboard() {
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3} onClick={handleClick4}>
                 <div align="center">
-                  <Sketch setup={setup5} draw={draw5} />
+                  <Sketch setup={setup4} draw={draw4} />
                 </div>
                 <ComplexStatisticsCard
                   color="warning"
