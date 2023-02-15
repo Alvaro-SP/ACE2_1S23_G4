@@ -1,5 +1,6 @@
 import mysql.connector 
 from flask import Flask
+from flask.globals import request
 from flask_cors import CORS
 import json
 conecction  = mysql.connector.connect(
@@ -16,12 +17,14 @@ conecction  = mysql.connector.connect(
 #Crea el cursor para ejecutar las consultas
 mycursor = conecction.cursor()
 
-# Tipos:
+#Tipos:
 # 1 = Temperatura
-# 2 = Humedad
-# 3 = Velcidad del viento
-# 4 = Direccion del viento
-# 5 = Presion barometrica
+# 2 = Humedad relativa
+# 3 = Humedad absoluta
+# 4 = Velcidad del viento
+# 5 = Direccion del viento
+# 6 = Presion barometrica
+
 
 
 #Obtiene todos los datos de la tabla
@@ -121,37 +124,37 @@ def get_all_values():
     temperature_keys=['ID', 'Tipo', 'Valor']
     temperature_data=getData(1)
     temperature_json = [dict(zip(temperature_keys, row)) for row in temperature_data]
-    data_matrix.append(json.dumps(temperature_json))
+    data_matrix.append((temperature_json))
     #======================================================================================
     # Relative Humidity Data
     rel_humiduty_keys=['ID', 'Tipo', 'Valor']
     rel_humiduty_data=getData(2)
     rel_humiduty_json = [dict(zip(rel_humiduty_keys, row)) for row in rel_humiduty_data]
-    data_matrix.append(json.dumps(rel_humiduty_json))
+    data_matrix.append((rel_humiduty_json))
     #======================================================================================
     # Absolute Humidity Data
     abs_humiduty_keys=['ID', 'Tipo', 'Valor']
     abs_humiduty_data=getData(3)
     abs_humiduty_json = [dict(zip(abs_humiduty_keys, row)) for row in abs_humiduty_data]
-    data_matrix.append(json.dumps(abs_humiduty_json))
+    data_matrix.append((abs_humiduty_json))
     #======================================================================================
     # Wind Speed Data
     wind_speed_keys=['ID', 'Tipo', 'Valor']
     wind_speed_data=getData(4)
     wind_speed_json = [dict(zip(wind_speed_keys, row)) for row in wind_speed_data]
-    data_matrix.append(json.dumps(wind_speed_json))
+    data_matrix.append((wind_speed_json))
     #======================================================================================
     # Wind Direction Data
     wind_dir_keys=['ID', 'Tipo', 'Valor']
     wind_dir_data=getData(5)
     wind_dir_json = [dict(zip(wind_dir_keys, row)) for row in wind_dir_data]
-    data_matrix.append(json.dumps(wind_dir_json))
+    data_matrix.append((wind_dir_json))
     #======================================================================================
     # Barometric Pressure Data
     pressure_keys=['ID', 'Tipo', 'Valor']
     pressure_data=getData(6)
     pressure_json = [dict(zip(pressure_keys, row)) for row in pressure_data]
-    data_matrix.append(json.dumps(pressure_json))
+    data_matrix.append((pressure_json))
     #======================================================================================
     return data_matrix
 
@@ -161,6 +164,29 @@ def get_latest_data():
     data=get_latest_query()
     json_data = [dict(zip(keys, row)) for row in data]
     return json.dumps(json_data)
+
+@app.route('/insert-data',methods=['POST'])
+def insert_new_data():
+    
+    response = {}
+    temperature_parameter = request.json['temperatura']
+    pressure_parameter = request.json['presion']
+    abs_parameter = request.json['humedadA']
+    relative_parameter = request.json['humedadR']
+    speed_parameter = request.json['velocidad']
+    direction_parameter = request.json['direccion']
+    insertData(1,float(temperature_parameter))
+    insertData(2,float(relative_parameter))
+    insertData(3,float(abs_parameter))
+    insertData(4,float(speed_parameter))
+    insertData(5,float(direction_parameter))
+    insertData(6,float(pressure_parameter))
+    response = {
+        "state": "perfect",
+        "message": "Datos ingresados con éxito"
+    }
+    return response
+
 
 
 #Pruebas de las funciones de la base de datos
@@ -177,7 +203,7 @@ if __name__ == '__main__':
     print('Direccion del viento',getData(4))
     print('Presion barometriva',getData(5))'''
 
-    print('----INSERT INTO----')
+    #print('----INSERT INTO----')
     #print('temperature',insertData(1,7))
     #print('Humedad',insertData(2,7))
     #print('Velcidad del viento',insertData(3,7))
