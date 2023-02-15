@@ -179,8 +179,22 @@ def insert_new_data():
     insertData(2,float(relative_parameter))
     insertData(3,float(abs_parameter))
     insertData(4,float(speed_parameter))
-    insertData(5,float(direction_parameter))
     insertData(6,float(pressure_parameter))
+    #N, NE, E, SE, E, SW, W, NW
+    direction_values = {
+        "N": 1,
+        "NE":2,
+        "E": 3,
+        "SE":4,
+        "S": 5,
+        "SW":6,
+        "W": 7,
+        "NW":8,
+    }
+
+    if(direction_parameter in direction_values):
+        dir_value= direction_values[direction_parameter]
+        insertData(5,float(dir_value))
     response = {
         "state": "perfect",
         "message": "Datos ingresados con éxito"
