@@ -90,12 +90,12 @@ function Dashboard() {
       const json6 = await response6.json();
       setStatTemperature(json6[0].Valor);
       setStatHumidityRel(json6[1].Valor);
-      setStatSpeed(json6[2].Valor);
-      setStatPressure(json6[4].Valor);
-      setStatHumidityAbs(json6[5].Valor);
+      setStatSpeed(json6[5].Valor);
+      setStatPressure(json6[3].Valor);
+      setDireccionNum(json6[4].Valor);
+      setStatHumidityAbs(json6[2].Valor);
       let newDirections = [0, 0, 0, 0, 0, 0, 0, 0];
-      json6[3].Valor = 5;
-      setDireccionNum(json6[3].Valor);
+      // json6[3].Valor = 5;
       switch (direccionNum) {
         case 1:
           newDirections[0] = 1;
