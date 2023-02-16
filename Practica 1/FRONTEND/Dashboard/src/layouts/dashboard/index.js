@@ -151,7 +151,7 @@ function Dashboard() {
       setStatDirection(newDirections);
       newDirections = statDirection;
     };
-    const intervalId1 = setInterval(fetchDataL, 5000);
+    const intervalId1 = setInterval(fetchDataL, 15000);
     return () => {
       clearInterval(intervalId1);
     };
