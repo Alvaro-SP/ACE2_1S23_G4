@@ -183,7 +183,7 @@ if __name__ == '__main__':
     print('Direccion del viento',getData(4))
     print('Presion barometriva',getData(5))'''
 
-    print('----INSERT INTO----')
+    print('----CONEXION FINALIZADA----')
     #print('temperature',insertData(1,7))
     #print('Humedad',insertData(2,7))
     #print('Velcidad del viento',insertData(3,7))

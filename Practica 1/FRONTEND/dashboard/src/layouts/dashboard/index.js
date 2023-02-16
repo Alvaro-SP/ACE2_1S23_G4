@@ -2,7 +2,7 @@
 import Grid from "@mui/material/Grid";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -150,6 +150,7 @@ function Dashboard() {
       clearInterval(intervalId1);
     };
   }, []);
+  // ? --------------------------- PROCESSING OVER THE TIME ---------------------------------
   // ! TEMPERATURA A TRAVEZ DEL TIEMPO
   const setup1 = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500, p5.WEBGL).parent(canvasParentRef);
@@ -243,53 +244,53 @@ function Dashboard() {
   const draw4 = (p5) => {
     p5.background(255);
     p5.background(255);
-  p5.strokeWeight(8);
-  p5.stroke(0);
-  p5.fill(255);
-  p5.ellipse(200, 100, 320, 160);
+    p5.strokeWeight(8);
+    p5.stroke(0);
+    p5.fill(255);
+    p5.ellipse(200, 100, 320, 160);
 
-  p5.strokeWeight(1);
-  p5.fill(0);
-  p5.textSize(32);
+    p5.strokeWeight(1);
+    p5.fill(0);
+    p5.textSize(32);
 
-  p5.fill(255);
-  p5.ellipse(200, 100, 320, 160);
-  p5.fill(0);
-  p5.textAlign(p5.CENTER, p5.TOP);
-  p5.text("N", 200, 35);
-  p5.textSize(18);
-  p5.text("NE", 288, 65);
-  p5.textAlign(p5.RIGHT, p5.CENTER);
-  p5.textSize(32);
-  p5.text("E", 320, 100);
-  p5.textSize(18);
-  p5.text("SE", 295, 135);
-  p5.textAlign(p5.CENTER, p5.BOTTOM);
-  p5.textSize(32);
-  p5.text("S", 200, 165);
-  p5.textSize(18);
-  p5.text("SW", 113, 135);
-  p5.textAlign(p5.LEFT, p5.CENTER);
-  p5.textSize(32);
-  p5.text("W", 80, 100);
-  p5.textSize(18);
-  p5.text("NW", 107, 65);
+    p5.fill(255);
+    p5.ellipse(200, 100, 320, 160);
+    p5.fill(0);
+    p5.textAlign(p5.CENTER, p5.TOP);
+    p5.text("N", 200, 35);
+    p5.textSize(18);
+    p5.text("NE", 288, 65);
+    p5.textAlign(p5.RIGHT, p5.CENTER);
+    p5.textSize(32);
+    p5.text("E", 320, 100);
+    p5.textSize(18);
+    p5.text("SE", 295, 135);
+    p5.textAlign(p5.CENTER, p5.BOTTOM);
+    p5.textSize(32);
+    p5.text("S", 200, 165);
+    p5.textSize(18);
+    p5.text("SW", 113, 135);
+    p5.textAlign(p5.LEFT, p5.CENTER);
+    p5.textSize(32);
+    p5.text("W", 80, 100);
+    p5.textSize(18);
+    p5.text("NW", 107, 65);
 
-  p5.strokeWeight(4);
-  p5.fill(255, 0, 0);
-  p5.push();
-  p5.translate(200, 100);
-  p5.rotate(p5.radians(direccionNum * 45 - 135));
-  p5.push();
-  p5.translate(0, 0);
-  p5.rotate(p5.frameCount / 200.0);
-  star(p5, 0, 0, 7, 40, 6);
-  p5.pop();
-  p5.strokeWeight(8);
-  p5.line(0, 0, 60, 0);
-  p5.strokeWeight(4);
-  p5.triangle(65, 0, 45, -6, 45, 6);
-  p5.pop();
+    p5.strokeWeight(4);
+    p5.fill(255, 0, 0);
+    p5.push();
+    p5.translate(200, 100);
+    p5.rotate(p5.radians(direccionNum * 45 - 135));
+    p5.push();
+    p5.translate(0, 0);
+    p5.rotate(p5.frameCount / 200.0);
+    star(p5, 0, 0, 7, 40, 6);
+    p5.pop();
+    p5.strokeWeight(8);
+    p5.line(0, 0, 60, 0);
+    p5.strokeWeight(4);
+    p5.triangle(65, 0, 45, -6, 45, 6);
+    p5.pop();
   };
   const setup4E = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500).parent(canvasParentRef);
@@ -430,7 +431,175 @@ function Dashboard() {
     }
     if (a > p5.width - 160) a = 0;
   };
+  // ? --------------------------- PROCESSING DASHBOARD ---------------------------------
+  // ! TEMPERATURA DASHBOARD
+  const setup1A = (p5, canvasParentRef) => {
+    p5.createCanvas(400, 200, p5.WEBGL).parent(canvasParentRef);
+  };
+  const draw1A = (p5) => {
+    p5.background("#F6A55F");
+  };
+  // ! HUMEDAD DASHBOARD
+  const setup2A = (p5, canvasParentRef) => {
+    p5.createCanvas(400, 200).parent(canvasParentRef);
+  };
+  const draw2A = (p5) => {
+    p5.background(0);
+  };
 
+
+
+  // ! VELOCIDAD DASHBOARD
+  let maxSpeed = 80;
+  let angle = 0;
+  const setup3A = (p,canvasParentRef) => {
+    p.createCanvas(400, 200).parent(canvasParentRef);;
+    p.angleMode(p.DEGREES);
+  };
+
+  const draw3A = (p) => {
+    p.background("skyblue");
+    p.translate(p.width / 2, p.height / 2);
+    // Dibujamos el dial del velocímetro
+    p.stroke(0);
+    p.strokeWeight(2);
+    p.noFill();
+    for (let i = 0; i <= maxSpeed; i += 2) {
+      let angle = p.map(i, 0, maxSpeed, -250, 750);
+      let x = Math.cos(angle) * 80;
+      let y = Math.sin(angle) * 80;
+      p.line(0, 0, x, y);
+    }
+
+    // Dibujamos los números del dial
+    p.textAlign(p.CENTER, p.CENTER);
+    p.noStroke();
+    p.fill(0);
+    for (let i = 0; i <= maxSpeed; i += 5) {
+      let angle = p.map(i, 0, maxSpeed, -230, 80);
+      let x = p.cos(angle) * 90;
+      let y = p.sin(angle) * 90;
+      p.text(i, x, y);
+    }
+    // Dibujamos el indicador de velocidad
+    p.fill(255, 0, 0);
+    p.noStroke();
+    angle = p.map(statSpeed, 0, maxSpeed, -140, 160); // se actualiza el ángulo del indicador
+    p.rotate(angle);
+    p.triangle(-10, -30, 10, -30, 0, -140);
+  };
+  // ! DIRECCION DASHBOARD
+  const setup4A = (p5, canvasParentRef) => {
+    p5.createCanvas(400, 200).parent(canvasParentRef);
+  };
+  const draw4A = (p5) => {
+    p5.background(255);
+    p5.strokeWeight(8);
+    p5.stroke(0);
+    p5.fill(255);
+    p5.ellipse(200, 100, 196, 196);
+
+    p5.strokeWeight(1);
+    p5.fill(0);
+    p5.textSize(32);
+
+    p5.fill(255);
+    p5.ellipse(200, 100, 196, 196);
+    p5.fill(0);
+    p5.textAlign(p5.CENTER, p5.TOP);
+    p5.text("N", 200, 2);
+    p5.textSize(18);
+    p5.text("NE", 270, 40);
+    p5.textAlign(p5.RIGHT, p5.CENTER);
+    p5.textSize(32);
+    p5.text("E", 300, 100);
+    p5.textSize(18);
+    p5.text("SE", 280, 154);
+    p5.textAlign(p5.CENTER, p5.BOTTOM);
+    p5.textSize(32);
+    p5.text("S", 200, 200);
+    p5.textSize(18);
+    p5.text("SW", 135, 165);
+    p5.textAlign(p5.LEFT, p5.CENTER);
+    p5.textSize(32);
+    p5.text("W", 100, 100);
+    p5.textSize(18);
+    p5.text("NW", 120, 48);
+
+    p5.strokeWeight(4);
+    p5.fill(255, 0, 0);
+    p5.push();
+    p5.translate(200, 100);
+    p5.rotate(p5.radians(direccionNum * 45 - 135));
+    p5.push();
+    p5.translate(0, 0);
+    p5.rotate(p5.frameCount / 200.0);
+    star(p5, 0, 0, 7, 40, 6);
+    p5.pop();
+    p5.strokeWeight(8);
+    p5.line(0, 0, 60, 0);
+    p5.strokeWeight(3);
+    p5.triangle(75, 0, 45, -6, 45, 6);
+    p5.pop();
+  };
+  // ! PRESION DASHBOARD
+  const setup5A = (p5, canvasParentRef) => {
+    p5.createCanvas(400, 200).parent(canvasParentRef);
+  };
+  const draw5A = (p5) => {
+  };
+  // ! HUMEDAD ABSOLUTA DASHBOARD
+  const setup6A = (p5, canvasParentRef) => {
+    p5.createCanvas(1130, 300).parent(canvasParentRef);
+  };
+  const draw6A = (p5) => {
+    const porcentajeX = (p5.width - 160) / varHumidityAbs.length;
+    const porcentajeY = (p5.height - 30) / max;
+    const Porcentaje10 = p5.height / 11;
+    p5.background(255);
+    // titulo
+    p5.stroke(255);
+    p5.text("Humedad Absoluta (GR/m^3)", 400, 20);
+    a += 1;
+    p5.line(a, 25, a, p5.height);
+    // lineas de grafo
+    for (let i = 0; i < 11; i += 1) {
+      p5.textSize(15);
+      p5.stroke(140);
+      p5.line(0, p5.height - i * Porcentaje10, p5.width - 160, p5.height - i * Porcentaje10);
+      p5.stroke(255);
+      p5.text(
+        `${Math.floor((max / 10) * i)}`,
+        p5.width - 160 + 5,
+        p5.height - i * Porcentaje10 - 1
+      );
+    }
+    // paredes
+    p5.stroke(0);
+    p5.line(p5.width - 160, 25, p5.width - 160, p5.height);
+    p5.line(p5.width - 110, 25, p5.width - 110, p5.height);
+    p5.line(0, 0, 0, p5.height);
+    p5.line(0, 0, p5.width, 0);
+    p5.line(p5.width, 0, p5.width, p5.height);
+    p5.line(0, p5.height, p5.width, p5.height);
+    p5.textSize(20);
+    // leyendas avg
+    p5.text(`Avg:${avg}`, p5.width - 100, 115);
+    for (var x = 0; x < varHumidityAbs.length; x += 1) {
+      p5.stroke(218, 126, 255);
+      if (varHumidityAbs[x] >= avg) p5.stroke(0, 100, 255);
+      // if (porcentajeX * x < a) {
+      p5.line(
+        porcentajeX * x,
+        p5.height,
+        porcentajeX * x,
+        p5.height - varHumidityAbs[x] * porcentajeY
+      );
+      // }
+      // p5.ellipse(porcentajeX*x,  p5.height-varHumidityAbs[x]*porcentajeY, 1, 1);
+    }
+    if (a > p5.width - 160) a = 0;
+  };
   console.log("varHumidityRel: ", varHumidityRel);
   // console.log("varHumidityAbs: ", varHumidityAbs);
   console.log("varSpeed: ", varSpeed);
@@ -504,14 +673,14 @@ function Dashboard() {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3} onClick={handleClick1}>
-                <div align="center">
-                  <Sketch setup={setup5} draw={draw5} />
+              <div align="center">
+                  <Sketch setup={setup1A} draw={draw1A} />
                 </div>
                 <ComplexStatisticsCard
                   color="error"
                   icon="air"
                   title="TEMPERATURA DEL AMBIENTE"
-                  count={statTemperature}
+                  count={statTemperature + " C °"}
                   percentage={{
                     color: "success",
                     amount: "GRAFICA EN EL TIEMPO",
@@ -522,8 +691,8 @@ function Dashboard() {
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3} onClick={handleClick4}>
-                <div align="center">
-                  <Sketch setup={setup4} draw={draw4} />
+                <div >
+                  <Sketch setup={setup4A} draw={draw4A} />
                 </div>
                 <ComplexStatisticsCard
                   color="warning"
@@ -540,51 +709,20 @@ function Dashboard() {
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3} onClick={handleClick3}>
-                <div align="center">
-                  <Sketch setup={setup5} draw={draw5} />
+                <div >
+                  <Sketch setup={setup3A} draw={draw3A} />
                 </div>
                 <ComplexStatisticsCard
                   color="info"
                   icon="air"
                   title="VELOCIDAD DEL VIENTO"
-                  count={statSpeed}
+                  count={statSpeed + " Km/h  "}
                   percentage={{
                     color: "success",
                     amount: "GRAFICA EN EL TIEMPO",
                     label: "",
                   }}
                 />
-                {/* <ReportsLineChart
-                  color="dark"
-                  title="VELOCIDAD"
-                  description={
-                    <>
-                      (<strong>Velocidad del viento {statSpeed} (K/h)</strong>)
-                    </>
-                  }
-                  chart={{
-                    labels: [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "],
-                    datasets: {
-                      label: "PRESION",
-                      data: [
-                        0,
-                        0,
-                        statSpeed,
-                        0,
-                        statSpeed,
-                        0,
-                        statSpeed,
-                        0,
-                        statSpeed,
-                        0,
-                        statSpeed,
-                        0,
-                        0,
-                      ],
-                    },
-                  }}
-                  date="VER GRAFICA A TRAVES DEL TIEMPO"
-                /> */}
               </MDBox>
             </Grid>
           </Grid>
@@ -592,11 +730,14 @@ function Dashboard() {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={3} onClick={handleClick2}>
+              <div >
+                <Sketch setup={setup2A} draw={draw2A} />
+              </div>
               <ComplexStatisticsCard
                 color="success"
                 icon="thunderstorm"
                 title="HUMEDAD RELATIVA"
-                count={statHumidityRel}
+                count={statHumidityRel + " %  "}
                 percentage={{
                   color: "success",
                   amount: "GRAFICA EN EL TIEMPO",
@@ -607,11 +748,14 @@ function Dashboard() {
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={3} onClick={handleClick6}>
+              <div align="center">
+                <Sketch setup={setup4A} draw={draw4A} />
+              </div>
               <ComplexStatisticsCard
                 color="info"
                 icon="cloud"
                 title="HUMEDAD ABSOLUTA"
-                count={statHumidityAbs}
+                count={statHumidityAbs + " g/m3  "}
                 percentage={{
                   color: "success",
                   amount: "GRAFICA EN EL TIEMPO",
@@ -622,11 +766,14 @@ function Dashboard() {
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <MDBox mb={3} onClick={handleClick5}>
+              <div align="center">
+                <Sketch setup={setup4A} draw={draw4A} />
+              </div>
               <ComplexStatisticsCard
                 color="primary"
                 icon="*"
                 title="PRESION"
-                count={statPressure}
+                count={statPressure + " mmHg     "}
                 percentage={{
                   color: "success",
                   amount: "GRAFICA EN EL TIEMPO",
@@ -648,6 +795,8 @@ function Dashboard() {
             </Grid> */}
         </MDBox>
       </MDBox>
+
+
       {/* <RadarChart
         color="Info"
         title="DIRECCION DEL VIENTO"
