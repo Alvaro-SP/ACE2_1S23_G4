@@ -1,11 +1,12 @@
 import mysql.connector 
+import traceback
 from flask import Flask
 from flask.globals import request
 from flask_cors import CORS
 import json
 conecction  = mysql.connector.connect(
     user='root',
-    password='password',
+    password='secret',
     host='localhost',
     database='Practica1', 
     port='3306'
@@ -29,7 +30,7 @@ mycursor = conecction.cursor()
 
 #Obtiene todos los datos de la tabla
 def getAllData():
-    mycursor.execute("SELECT * FROM datos;")
+    mycursor.execute("SELECT * FROM Datos;")
     myresult = mycursor.fetchall()
     return myresult
 
@@ -39,13 +40,13 @@ def getData(noType):
 
 #Obtiene los datos de la tabla segun el noType
 def getQuery(noType):
-    mycursor.execute(f"SELECT * FROM datos WHERE tipo = {noType};")
+    mycursor.execute(f"SELECT * FROM Datos WHERE tipo = {noType};")
     myresult = mycursor.fetchall()
     return myresult
 
 #Obtiene los datos más recientes
 def get_latest_query():
-    mycursor.execute("SELECT ID, Tipo, Valor FROM Practica1.Datos WHERE ID IN ( SELECT MAX(ID) FROM Practica1.Datos WHERE Tipo IN (1, 2, 3,4,5,6) GROUP BY Tipo);")
+    mycursor.execute("SELECT ID, Tipo, Valor FROM Datos WHERE ID IN ( SELECT MAX(ID) FROM Datos WHERE Tipo IN (1, 2, 3,4,5,6) GROUP BY Tipo);")
     myresult = mycursor.fetchall()
     return myresult
 
@@ -56,10 +57,13 @@ def insertData(noType, value):
 #Inserta los datos en la tabla segun el noType
 def insertQuery(noType, value):
     try:
-        mycursor.execute(f"INSERT INTO datos (tipo, valor) VALUES ({noType}, {value});")
+        sql = f"INSERT INTO Datos (tipo, valor) VALUES ({noType}, {value});"
+        mycursor.execute(sql)
         return conecction.commit()
 
-    except:
+
+    except Exception:
+        traceback.print_exc()
         print('Error al insertar los datos')
         return conecction.rollback()
 
