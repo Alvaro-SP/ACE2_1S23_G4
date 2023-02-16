@@ -33,7 +33,7 @@ const Velocidad=()=>{
 
 
       a = a + 1; 
-   
+      p5.stroke(255);
       p5.line(a, 25, a, p5.height);
 
        //lineas de grafo
