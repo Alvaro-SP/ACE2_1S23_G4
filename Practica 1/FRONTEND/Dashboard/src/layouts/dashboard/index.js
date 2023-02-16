@@ -53,6 +53,7 @@ function Dashboard() {
       var ArrDireccionNumTemp = [];
       var ArrPressureTemp = [];
 
+
       data.forEach(element => {
         if(element.Tipo == 1){
           ArrTemperatureTemp.push(element)
@@ -153,6 +154,7 @@ function Dashboard() {
     }
 
     const intervalId1 = setInterval(fetchDataL, 5500);
+
     return () => {
       clearInterval(intervalId1);
     };

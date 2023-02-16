@@ -27,7 +27,7 @@ while 1 :
         start = False
         print("\n")
         
-        url = '127.0.0.1:3000'
+        url = 'http://127.0.0.1:5000/insert-data'
         
         myobj = {'temperatura': temperatura, 
                  'presion': presion,
@@ -39,7 +39,10 @@ while 1 :
         print(myobj)
         print("\n")
         
-        # x = requests.post(url, json = myobj)
+        try:
+            x = requests.post(url, json = myobj)
+        except:
+            print("Error al enviar datos")
     
     if start:
         print(text)
