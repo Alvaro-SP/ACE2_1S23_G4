@@ -105,7 +105,7 @@ const Temperatura=({Crr_Arr})=>{
 
    return (
       <div>
-         <p>Temperatura</p>
+         <p>Temperatura del ambiente</p>
          <Sketch setup={setup} draw={draw} />
       </div>
    );

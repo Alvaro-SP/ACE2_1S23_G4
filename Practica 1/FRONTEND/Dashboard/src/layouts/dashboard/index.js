@@ -14,15 +14,11 @@ import VientoDash from "components/Dash/VientoDash";
 import PresionDash from "components/Dash/PresionDash";
 
 
-//Over Time
-import HumedadAbs from "components/OverTime/HumedadAbs";
-import HumedadRel from "components/OverTime/HumedadRel";
-import Temperatura from "components/OverTime/Temperatura";
-import Velocidad from "components/OverTime/Velocidad";
-import Direccion from "components/OverTime/Direccion";
-import Presion from "components/OverTime/Presion";
 
+//Page
+import Reports from "pages/Reports";
 function Dashboard() {
+  const [option, setOption] = useState(0);
   // ! *************** VARIABLES DE DASH PRINCIPAL LATEST *****************
   const [Temperature, setTemperature] = useState(0);
   const [HumidityRel, setHumidityRel] = useState(0);
@@ -45,7 +41,7 @@ function Dashboard() {
       const response = await fetch("http://localhost:5000/getAll");
       const data = await response.json();
       // console.log("data", data)
-
+ 
       var ArrTemperatureTemp = [];
       var ArrHumidityRelTemp = [];
       var ArrHumidityAbsTemp = [];
@@ -159,24 +155,26 @@ function Dashboard() {
       clearInterval(intervalId1);
     };
   }, []);
-
+  const handleClick0 = () => {
+    setOption(0);
+  };
   const handleClick1 = () => {
-
+    setOption(1);
   };
   const handleClick2 = () => {
-
+    setOption(2);
   };
   const handleClick3 = () => {
- 
+    setOption(3);
   };
   const handleClick4 = () => {
-
+    setOption(4);
   };
   const handleClick5 = () => {
-
+    setOption(5);
   };
   const handleClick6 = () => {
-
+    setOption(6);
   };
   return (
     <DashboardLayout>
@@ -301,12 +299,17 @@ function Dashboard() {
         </Grid>
         <MDBox py={1}>
           <div align="center">
-            <HumedadAbs Crr_Arr={ArrHumidityAbs}/>
-            <HumedadRel Crr_Arr={ArrHumidityRel}/>
-            <Temperatura Crr_Arr={ArrTemperature}/>
-            <Velocidad Crr_Arr={ArrStatSpeed}/>
-            <Direccion Crr_Arr={ArrDireccionNum}/>
-            <Presion Crr_Arr={ArrPressure}/>
+            <Reports 
+            option={option} 
+            ArrHumidityAbs ={ArrHumidityAbs}
+            ArrHumidityRel ={ArrHumidityRel}
+            ArrTemperature={ArrTemperature}
+            ArrStatSpeed={ArrStatSpeed}
+            ArrDireccionNum={ArrDireccionNum}
+            ArrPressure={ArrPressure}
+            handleClick0={handleClick0}
+            />
+           
           </div>
         </MDBox>
       </MDBox>

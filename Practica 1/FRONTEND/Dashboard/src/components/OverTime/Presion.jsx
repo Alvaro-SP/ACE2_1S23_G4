@@ -74,7 +74,7 @@ const Direccion=({Crr_Arr})=>{
 
    return (
       <div>
-         <p>Direccion</p>
+         <p>Direccion Barométrica</p>
          <Sketch setup={setup5} draw={draw5} />
       </div>
    );

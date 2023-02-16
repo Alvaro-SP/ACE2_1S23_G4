@@ -79,7 +79,7 @@ const Velocidad=({Crr_Arr})=>{
 
    return (
       <div>
-         <p>Velocidad</p>
+         <p>Velocidad del tiempo</p>
          <Sketch setup={setup} draw={draw} />
       </div>
    );

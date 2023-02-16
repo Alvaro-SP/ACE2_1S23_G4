@@ -71,7 +71,7 @@ const HumedadRel=({Crr_Arr})=>{
 
    return (
       <div>
-         <p>Humedad</p>
+         <p>Humedad Relativa</p>
          <Sketch setup={setup} draw={draw} />
       </div>
    );
