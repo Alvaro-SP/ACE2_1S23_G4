@@ -13,13 +13,13 @@ function App() {
   return (
     <div className="App">
       <TemperaturaDash/>
-      {/* <HumedadRelDash/>
-      <HumedadAbsDash/> */}
-      {/* <Direccion />
+      <HumedadRelDash/>
+      <HumedadAbsDash/>
+      <Direccion />
       <Velocidad />
       <HumedadAbs />
       <HumedadRel />
-      <Temperatura /> */}
+      <Temperatura />
     </div>
   );
 }
