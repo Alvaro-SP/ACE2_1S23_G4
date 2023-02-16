@@ -1,19 +1,22 @@
 import mysql.connector 
 import traceback
-from flask import Flask
+from flask import Flask, jsonify
 from flask.globals import request
 from flask_cors import CORS
 import json
+
+#Flask config
+app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
+
+
 conecction  = mysql.connector.connect(
     user='root',
-    password='secret',
+    password='SerchiBoi502@',
     host='localhost',
     database='Practica1', 
     port='3306'
 ) 
-
-
-
 
 #Crea el cursor para ejecutar las consultas
 mycursor = conecction.cursor()
@@ -52,7 +55,7 @@ def get_latest_query():
 
 #Valida que el noType este entre 1 y 6 y llama a la funcion insertQuery
 def insertData(noType, value):
-    return  insertQuery(noType,value) if noType > 0 and noType < 6 else []
+    return  insertQuery(noType,value) if noType > 0 and noType < 7 else []
 
 #Inserta los datos en la tabla segun el noType
 def insertQuery(noType, value):
@@ -66,15 +69,6 @@ def insertQuery(noType, value):
         traceback.print_exc()
         print('Error al insertar los datos')
         return conecction.rollback()
-
-
-#Flask config
-app = Flask(__name__)
-CORS(app)
-
-@app.route("/")
-def index():
-    return "<h1>Ruta Principal 14k</h1>"
 
 '''@app.route('/get-all-temperature-data',methods=['GET'])
 def get_temperature_data():
@@ -110,68 +104,88 @@ def get_barometric_pressure_data():
     data=getData(5)
     json_data = [dict(zip(keys, row)) for row in data]
     return json.dumps(json_data)
-
-@app.route('/get-all-absoulute-pressure-data',methods=['GET'])
-def get_absolute_pressure_data():
-    keys = ['ID', 'Tipo', 'Valor']
-    data=getData(6)
-    json_data = [dict(zip(keys, row)) for row in data]
-    return json.dumps(json_data)
 '''
 
-@app.route('/get-all-data',methods=['GET'])
+# @app.route('/getHumadityAbsolute',methods=['GET'])
+# def get_absolute_pressure_data():
+#     keys = ['ID', 'Tipo', 'Valor']
+#     data=getData(6)
+#     json_data = [dict(zip(keys, row)) for row in data]
+    
+#     response = jsonify(json_data)
+#     response.headers.add('Access-Control-Allow-Origin', '*')
+#     return response
+
+
+@app.route('/getAll',methods=['GET'])
 def get_all_values():
-    # Matrix with all data
-    data_matrix=[]
-
-    # Temperature Data
-    temperature_keys=['ID', 'Tipo', 'Valor']
-    temperature_data=getData(1)
-    temperature_json = [dict(zip(temperature_keys, row)) for row in temperature_data]
-    data_matrix.append((temperature_json))
-    #======================================================================================
-    # Relative Humidity Data
-    rel_humiduty_keys=['ID', 'Tipo', 'Valor']
-    rel_humiduty_data=getData(2)
-    rel_humiduty_json = [dict(zip(rel_humiduty_keys, row)) for row in rel_humiduty_data]
-    data_matrix.append((rel_humiduty_json))
-    #======================================================================================
-    # Absolute Humidity Data
-    abs_humiduty_keys=['ID', 'Tipo', 'Valor']
-    abs_humiduty_data=getData(3)
-    abs_humiduty_json = [dict(zip(abs_humiduty_keys, row)) for row in abs_humiduty_data]
-    data_matrix.append((abs_humiduty_json))
-    #======================================================================================
-    # Wind Speed Data
-    wind_speed_keys=['ID', 'Tipo', 'Valor']
-    wind_speed_data=getData(4)
-    wind_speed_json = [dict(zip(wind_speed_keys, row)) for row in wind_speed_data]
-    data_matrix.append((wind_speed_json))
-    #======================================================================================
-    # Wind Direction Data
-    wind_dir_keys=['ID', 'Tipo', 'Valor']
-    wind_dir_data=getData(5)
-    wind_dir_json = [dict(zip(wind_dir_keys, row)) for row in wind_dir_data]
-    data_matrix.append((wind_dir_json))
-    #======================================================================================
-    # Barometric Pressure Data
-    pressure_keys=['ID', 'Tipo', 'Valor']
-    pressure_data=getData(6)
-    pressure_json = [dict(zip(pressure_keys, row)) for row in pressure_data]
-    data_matrix.append((pressure_json))
-    #======================================================================================
-    return data_matrix
-
-@app.route('/get-latest-data',methods=['GET'])
-def get_latest_data():
     keys = ['ID', 'Tipo', 'Valor']
-    data=get_latest_query()
+    data=getAllData()
     json_data = [dict(zip(keys, row)) for row in data]
-    return json.dumps(json_data)
+
+    response = jsonify(json_data)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+
+# @app.route('/get-latest-data',methods=['GET'])
+# def get_latest_data():
+#     keys = ['ID', 'Tipo', 'Valor']
+#     data=get_latest_query()
+#     json_data = [dict(zip(keys, row)) for row in data]
+
+#     response = jsonify(json_data)
+#     response.headers.add('Access-Control-Allow-Origin', '*')
+#     return response
+   
+
+# @app.route('/get-all-data',methods=['GET'])
+# def get_all_values():
+#     # Matrix with all data
+#     data_matrix=[]
+
+#     # Temperature Data
+#     temperature_keys=['ID', 'Tipo', 'Valor']
+#     temperature_data=getData(1)
+#     temperature_json = [dict(zip(temperature_keys, row)) for row in temperature_data]
+#     data_matrix.append((temperature_json))
+#     #======================================================================================
+#     # Relative Humidity Data
+#     rel_humiduty_keys=['ID', 'Tipo', 'Valor']
+#     rel_humiduty_data=getData(2)
+#     rel_humiduty_json = [dict(zip(rel_humiduty_keys, row)) for row in rel_humiduty_data]
+#     data_matrix.append((rel_humiduty_json))
+#     #======================================================================================
+#     # Absolute Humidity Data
+#     abs_humiduty_keys=['ID', 'Tipo', 'Valor']
+#     abs_humiduty_data=getData(3)
+#     abs_humiduty_json = [dict(zip(abs_humiduty_keys, row)) for row in abs_humiduty_data]
+#     data_matrix.append((abs_humiduty_json))
+#     #======================================================================================
+#     # Wind Speed Data
+#     wind_speed_keys=['ID', 'Tipo', 'Valor']
+#     wind_speed_data=getData(4)
+#     wind_speed_json = [dict(zip(wind_speed_keys, row)) for row in wind_speed_data]
+#     data_matrix.append((wind_speed_json))
+#     #======================================================================================
+#     # Wind Direction Data
+#     wind_dir_keys=['ID', 'Tipo', 'Valor']
+#     wind_dir_data=getData(5)
+#     wind_dir_json = [dict(zip(wind_dir_keys, row)) for row in wind_dir_data]
+#     data_matrix.append((wind_dir_json))
+#     #======================================================================================
+#     # Barometric Pressure Data
+#     pressure_keys=['ID', 'Tipo', 'Valor']
+#     pressure_data=getData(6)
+#     pressure_json = [dict(zip(pressure_keys, row)) for row in pressure_data]
+#     data_matrix.append((pressure_json))
+#     #======================================================================================
+#     return data_matrix
+
 
 @app.route('/insert-data',methods=['POST'])
 def insert_new_data():
-    
+    print("Valores a agregar",request.json)    
     response = {}
     temperature_parameter = request.json['temperatura']
     pressure_parameter = request.json['presion']
@@ -205,26 +219,6 @@ def insert_new_data():
     }
     return response
 
-
-
 #Pruebas de las funciones de la base de datos
 if __name__ == '__main__':
     app.run(threaded=True, port=5000,debug=True)
-    '''print('Hello, world!')
-    print(conecction)
-
-    print('----SELECT----')
-    print('all data',getAllData())
-    print('temperature',getData(1))
-    print('Humedad',getData(2))
-    print('Velcidad del viento',getData(3))
-    print('Direccion del viento',getData(4))
-    print('Presion barometriva',getData(5))'''
-
-    #print('----INSERT INTO----')
-    #print('temperature',insertData(1,7))
-    #print('Humedad',insertData(2,7))
-    #print('Velcidad del viento',insertData(3,7))
-    #print('Direccion del viento',insertData(4,7))
-    #print('Presion barometriva',insertData(5,7))
-    #print('all data',getAllData())
