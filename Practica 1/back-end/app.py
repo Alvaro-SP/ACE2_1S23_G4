@@ -10,8 +10,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 conecction  = mysql.connector.connect(
     user='root',
-    # password='secret',
-    password='SerchiBoi502@',
+    password='secret',
     host='localhost',
     database='Practica1', 
     port='3306'
@@ -67,7 +66,7 @@ def insert_new_data():
         "NW":8,
     }
     dir_value= direction_values[direction_parameter]
-    
+
     try:
         
         sql = f'''INSERT INTO Datos (tipo, valor) VALUES 
