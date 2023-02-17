@@ -194,11 +194,7 @@ def insert_new_data():
     relative_parameter = request.json['humedadR']
     speed_parameter = request.json['velocidad']
     direction_parameter = request.json['direccion']
-    insertData(1,float(temperature_parameter))
-    insertData(2,float(relative_parameter))
-    insertData(3,float(abs_parameter))
-    insertData(4,float(speed_parameter))
-    insertData(6,float(pressure_parameter))
+   
     #N, NE, E, SE, E, SW, W, NW
     direction_values = {
         "N": 1,
@@ -210,10 +206,33 @@ def insert_new_data():
         "W": 7,
         "NW":8,
     }
+    dir_value= direction_values[direction_parameter]
 
-    if(direction_parameter in direction_values):
-        dir_value= direction_values[direction_parameter]
-        insertData(5,float(dir_value))
+    # insertData(1,float(temperature_parameter))
+    # insertData(2,float(relative_parameter))
+    # insertData(3,float(abs_parameter))
+    # insertData(4,float(speed_parameter))
+    # insertData(5,float(dir_value))
+    # insertData(6,float(pressure_parameter))
+    
+
+    try:
+        
+        sql = f'''INSERT INTO Datos (tipo, valor) VALUES 
+        ({1}, {float(temperature_parameter)}),
+        ({2}, {float(relative_parameter)}),
+        ({3}, {float(abs_parameter)}),
+        ({4}, {float(speed_parameter)}),
+        ({5}, {float(dir_value)}),
+        ({6}, {float(pressure_parameter)});'''
+        mycursor.execute(sql)
+        conecction.commit()
+        
+    except Exception:
+        traceback.print_exc()
+        print('Error al insertar los datos')
+        conecction.rollback()
+    
     response = {
         "state": "perfect",
         "message": "Datos ingresados con éxito"
