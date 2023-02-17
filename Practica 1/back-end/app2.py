@@ -37,12 +37,6 @@ def getAllData():
     myresult = mycursor.fetchall()
     return myresult
 
-#Obtiene los datos más recientes
-def get_latest_query():
-    mycursor.execute("SELECT ID, Tipo, Valor FROM Datos WHERE ID IN ( SELECT MAX(ID) FROM Datos WHERE Tipo IN (1, 2, 3,4,5,6) GROUP BY Tipo);")
-    myresult = mycursor.fetchall()
-    return myresult
-
 @app.route('/getAll',methods=['GET'])
 def get_all_values():
     keys = ['ID', 'Temperatura', 'Presion', "Relativa", "Absoluta", "Velocidad", "Direccion"]

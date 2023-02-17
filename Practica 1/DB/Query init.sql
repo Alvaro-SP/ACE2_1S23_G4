@@ -1,10 +1,18 @@
 
 --Este script crea la base de datos y la tabla de datos
-CREATE SCHEMA Practica1;
-CREATE TABLE Practica1.Datos (
+
+CREATE DATABASE Practica1;
+
+
+
+CREATE TABLE Datos2 (
 	ID int NOT NULL AUTO_INCREMENT,
-    Tipo int NOT NULL,
-    Valor double NOT NULL,
+    temperatura int NOT NULL,
+    presion int NOT NULL,
+    relativa int NOT NULL,
+    absoluta int NOT NULL,
+    velocidad int NOT NULL,
+    direccion int NOT NULL,
     PRIMARY KEY(ID)
 );
 
