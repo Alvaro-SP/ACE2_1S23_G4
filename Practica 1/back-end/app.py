@@ -12,7 +12,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 conecction  = mysql.connector.connect(
     user='root',
-    password='SerchiBoi502@',
+    password='secret',
     host='localhost',
     database='Practica1', 
     port='3306'
@@ -33,7 +33,7 @@ mycursor = conecction.cursor()
 
 #Obtiene todos los datos de la tabla
 def getAllData():
-    mycursor.execute("SELECT * FROM Datos;")
+    mycursor.execute("SELECT * FROM Datos LIMIT 600;")
     myresult = mycursor.fetchall()
     return myresult
 
