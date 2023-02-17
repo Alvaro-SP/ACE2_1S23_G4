@@ -72,6 +72,13 @@ function Dashboard() {
       // console.log("ArrStatSpeedTemp", ArrStatSpeedTemp)
       // console.log("ArrDireccionNumTemp", ArrDireccionNumTemp)
       // console.log("ArrPressureTemp", ArrPressureTemp)
+      if (ArrTemperatureTemp.length>0 &&
+        ArrHumidityRelTemp.length>0 &&
+        ArrHumidityAbsTemp.length>0 &&
+        ArrStatSpeedTemp.length>0 &&
+        ArrDireccionNumTemp.length>0 &&
+        ArrPressureTemp.length>0
+        ){
 
       const maxObjTemp = ArrTemperatureTemp.reduce((prev, curr) => {
         return prev.ID > curr.ID ? prev : curr;
@@ -96,7 +103,15 @@ function Dashboard() {
       const maxObjPressurre = ArrPressureTemp.reduce((prev, curr) => {
         return prev.ID > curr.ID ? prev : curr;
       }); 
-
+    }else{
+      console.log("Hola, mas de algun array esta vacio: validar -->")
+      console.log("ArrTemperatureTemp", ArrTemperatureTemp)
+      console.log("ArrHumidityRelTemp", ArrHumidityRelTemp)
+      console.log("ArrHumidityAbsTemp", ArrHumidityAbsTemp)
+      console.log("ArrStatSpeedTemp", ArrStatSpeedTemp)
+      console.log("ArrDireccionNumTemp", ArrDireccionNumTemp)
+      console.log("ArrPressureTemp", ArrPressureTemp)
+    }
       setTemperature(maxObjTemp.Valor)
       setHumidityRel(maxObjHumidityRel.Valor)
       setHumidityAbs(maxObjHumudutyAbs.Valor)

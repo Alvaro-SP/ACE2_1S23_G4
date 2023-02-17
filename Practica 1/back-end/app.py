@@ -34,7 +34,7 @@ mycursor = conecction.cursor()
 
 #Obtiene todos los datos de la tabla
 def getAllData():
-    mycursor.execute("SELECT * FROM Datos LIMIT 600;")
+    mycursor.execute("SELECT * FROM (SELECT * FROM Datows ORDER BY id DESC LIMIT 600) AS sub ORDER BY id ASC;")
     myresult = mycursor.fetchall()
     return myresult
 
