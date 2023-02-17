@@ -9,7 +9,8 @@ import Velocidad from "components/OverTime/Velocidad";
 import Direccion from "components/OverTime/Direccion";
 import Presion from "components/OverTime/Presion";
 
-import AppBar from "@mui/material/AppBar";
+import Radial from 'components/OverTime/Radial';
+
 import { Button } from '@mui/material';
 
 const Reports=({option,ArrHumidityAbs,ArrHumidityRel,ArrTemperature,ArrStatSpeed,ArrDireccionNum,ArrPressure,handleClick0})=>{
@@ -32,8 +33,10 @@ const Reports=({option,ArrHumidityAbs,ArrHumidityRel,ArrTemperature,ArrStatSpeed
             <Velocidad Crr_Arr={ArrStatSpeed}/>
          )
       }else if(option=== 4){
-         return(  
+         return(<>
+            <Radial Crr_Arr={ArrDireccionNum}/>  
             <Direccion Crr_Arr={ArrDireccionNum}/>
+            </>
          )
       }else if(option===5){
          return(  
@@ -55,6 +58,7 @@ const Reports=({option,ArrHumidityAbs,ArrHumidityRel,ArrTemperature,ArrStatSpeed
    }
    return (
       <div>
+         
          {condicional_render_b()}
          {condicional_render()}
       </div>
