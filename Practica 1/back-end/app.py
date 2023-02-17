@@ -34,6 +34,7 @@ mycursor = conecction.cursor()
 
 #Obtiene todos los datos de la tabla
 def getAllData():
+
     mycursor.execute("SELECT * FROM Datos;")
     myresult = mycursor.fetchall()
     return myresult
