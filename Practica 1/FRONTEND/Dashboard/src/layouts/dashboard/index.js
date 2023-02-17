@@ -40,7 +40,17 @@ function Dashboard() {
     const fetchDataL = async () => {
       const response = await fetch("http://localhost:5000/getAll");
       const data = await response.json();
+      console.log("=====Inicio=====")
       console.log("Total", data.length)
+
+      var IDuniques = []
+      data.forEach(element => {
+        if(!IDuniques.includes(element.Tipo)){
+          IDuniques.push(element.Tipo)
+        }
+        });
+      
+      console.log("All Tipos", IDuniques)
  
       var ArrTemperatureTemp = [];
       var ArrHumidityRelTemp = [];
@@ -65,7 +75,7 @@ function Dashboard() {
           ArrPressureTemp.push(element)
         }
       });
-
+      console.log("=====Todos=====")
       console.log("Temperature", ArrTemperatureTemp.length)
       console.log("HumidityRel", ArrHumidityRelTemp.length)
       console.log("HumidityAbs", ArrHumidityAbsTemp.length)
@@ -107,13 +117,13 @@ function Dashboard() {
       setStatSpeed(maxObjSpeed.Valor)
       setDireccionNum(maxObjDirection.Valor)
       setPressure(maxObjPressurre.Valor)
-
-      // console.log("temperature", maxObjTemp)
-      // console.log("HumidityRel", maxObjHumidityRel)
-      // console.log("HumidityAbs", maxObjHumudutyAbs)
-      // console.log("StatSpeed", maxObjSpeed)
-      // console.log("DireccionNum", maxObjDirection)
-      // console.log("Pressure", maxObjPressurre)
+      console.log("=====ULTIMO=====")
+      console.log("Ultimo temperature", maxObjTemp)
+      console.log("Ultimo HumidityRel", maxObjHumidityRel)
+      console.log("Ultimo HumidityAbs", maxObjHumudutyAbs)
+      console.log("Ultimo StatSpeed", maxObjSpeed)
+      console.log("Ultimo DireccionNum", maxObjDirection)
+      console.log("Ultimo Pressure", maxObjPressurre)
 
       var arrayTemp = []
       ArrHumidityAbsTemp.forEach(element => {
