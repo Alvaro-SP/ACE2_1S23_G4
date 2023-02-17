@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+
+  frontend:
+    image: 'serchiboi/frontend-arqui2'
+    container_name: 'frontend-arqui2'
+    ports:
+      - '3000:3000' #del no de hub al mio
+    restart: always
+  
+#docker build --pull --rm -f "Dockerfile" -t serchiboi/frontend-arqui2:latest "./"
