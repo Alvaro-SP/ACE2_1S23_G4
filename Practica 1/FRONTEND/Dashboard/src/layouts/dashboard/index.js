@@ -40,7 +40,17 @@ function Dashboard() {
     const fetchDataL = async () => {
       const response = await fetch("http://localhost:5000/getAll");
       const data = await response.json();
-      // console.log("data", data)
+      console.log("=====Inicio=====")
+      console.log("Total", data.length)
+
+      var IDuniques = []
+      data.forEach(element => {
+        if(!IDuniques.includes(element.Tipo)){
+          IDuniques.push(element.Tipo)
+        }
+        });
+      
+      console.log("All Tipos", IDuniques)
  
       var ArrTemperatureTemp = [];
       var ArrHumidityRelTemp = [];
@@ -65,37 +75,41 @@ function Dashboard() {
           ArrPressureTemp.push(element)
         }
       });
-
-      // console.log("ArrTemperatureTemp", ArrTemperatureTemp)
-      // console.log("ArrHumidityRelTemp", ArrHumidityRelTemp)
-      // console.log("ArrHumidityAbsTemp", ArrHumidityAbsTemp)
-      // console.log("ArrStatSpeedTemp", ArrStatSpeedTemp)
-      // console.log("ArrDireccionNumTemp", ArrDireccionNumTemp)
-      // console.log("ArrPressureTemp", ArrPressureTemp)
-
-      const maxObjTemp = ArrTemperatureTemp.reduce((prev, curr) => {
+      console.log("=====Todos=====")
+      console.log("Temperature", ArrTemperatureTemp.length)
+      console.log("HumidityRel", ArrHumidityRelTemp.length)
+      console.log("HumidityAbs", ArrHumidityAbsTemp.length)
+      console.log("Speed", ArrStatSpeedTemp.length)
+      console.log("Direccion", ArrDireccionNumTemp.length)
+      console.log("Pressure", ArrPressureTemp.length)
+      
+      const err  ={
+        ID: 0,
+        Valor: 0
+      }
+      const maxObjTemp = ArrTemperatureTemp.length != 0 ? ArrTemperatureTemp.reduce((prev, curr) => {
         return prev.ID > curr.ID ? prev : curr;
-      });
-
-      const maxObjHumidityRel = ArrHumidityRelTemp.reduce((prev, curr) => {
+      }) : err;
+     
+      const maxObjHumidityRel = ArrHumidityRelTemp.length != 0 ? ArrHumidityRelTemp.reduce((prev, curr) => {
         return prev.ID > curr.ID ? prev : curr;
-      });
+      }): err;
 
-      const maxObjHumudutyAbs = ArrHumidityAbsTemp.reduce((prev, curr) => {
+      const maxObjHumudutyAbs = ArrHumidityAbsTemp.length != 0 ? ArrHumidityAbsTemp.reduce((prev, curr) => {
         return prev.ID > curr.ID ? prev : curr;
-      });
+      }): err;
 
-      const maxObjSpeed = ArrStatSpeedTemp.reduce((prev, curr) => {
+      const maxObjSpeed = ArrStatSpeedTemp.length != 0 ? ArrStatSpeedTemp.reduce((prev, curr) => {
         return prev.ID > curr.ID ? prev : curr;
-      });
+      }): err;
 
-      const maxObjDirection = ArrDireccionNumTemp.reduce((prev, curr) => {
+      const maxObjDirection = ArrDireccionNumTemp.length != 0 ? ArrDireccionNumTemp.reduce((prev, curr) => {
         return prev.ID > curr.ID ? prev : curr;
-      });
+      }): err;
 
-      const maxObjPressurre = ArrPressureTemp.reduce((prev, curr) => {
+      const maxObjPressurre = ArrPressureTemp.length != 0 ? ArrPressureTemp.reduce((prev, curr) => {
         return prev.ID > curr.ID ? prev : curr;
-      }); 
+      }): err;
 
       setTemperature(maxObjTemp.Valor)
       setHumidityRel(maxObjHumidityRel.Valor)
@@ -103,13 +117,13 @@ function Dashboard() {
       setStatSpeed(maxObjSpeed.Valor)
       setDireccionNum(maxObjDirection.Valor)
       setPressure(maxObjPressurre.Valor)
-
-      // console.log("temperature", maxObjTemp)
-      // console.log("HumidityRel", maxObjHumidityRel)
-      // console.log("HumidityAbs", maxObjHumudutyAbs)
-      // console.log("StatSpeed", maxObjSpeed)
-      // console.log("DireccionNum", maxObjDirection)
-      // console.log("Pressure", maxObjPressurre)
+      console.log("=====ULTIMO=====")
+      console.log("Ultimo temperature", maxObjTemp)
+      console.log("Ultimo HumidityRel", maxObjHumidityRel)
+      console.log("Ultimo HumidityAbs", maxObjHumudutyAbs)
+      console.log("Ultimo StatSpeed", maxObjSpeed)
+      console.log("Ultimo DireccionNum", maxObjDirection)
+      console.log("Ultimo Pressure", maxObjPressurre)
 
       var arrayTemp = []
       ArrHumidityAbsTemp.forEach(element => {
@@ -149,7 +163,7 @@ function Dashboard() {
 
     }
 
-    const intervalId1 = setInterval(fetchDataL, 5500);
+    const intervalId1 = setInterval(fetchDataL, 10000);
 
     return () => {
       clearInterval(intervalId1);
