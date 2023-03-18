@@ -1,14 +1,19 @@
 import  React from 'react';
-
-import Typography from '@mui/material/Typography';
+import {  Typography } from "@mui/material";
+import Settime from '../components/Settime';
 
 export default function Config() {
 
   return (
     <>
-      <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-      Config
-      </Typography>
+      <div style={{ textAlign: "center" }}>
+        <Typography variant="h5" component="div" mt={2}>
+          Congiración de Sesión 
+        </Typography>
+      </div>
+      <br/>
+      <Settime />
+
      </>
   );
 }

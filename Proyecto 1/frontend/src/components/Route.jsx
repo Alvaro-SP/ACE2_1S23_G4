@@ -56,7 +56,7 @@ export default function Route(handleClose,open) {
             <ListItemButton onClick={handleClose}>
               <img src={tomato} alt="tomato" width={45}/>
               <Typography sx={{ ml: 2, flex: 1,fontSize:25 }} variant="h6" component="div">
-              Pomodoro Actual
+              Sesión Actual
               </Typography>
             </ListItemButton>
           </Link>

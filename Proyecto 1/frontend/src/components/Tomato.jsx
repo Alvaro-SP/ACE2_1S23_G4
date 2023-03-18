@@ -2,28 +2,27 @@ import React from 'react';
 
 import Typography from '@mui/material/Typography';
 
-
-export default function Tomato({ pomodoro, percent, id }) {
+export default function Tomato({ pomodoro, percent, id,indice }) {
    const colorInicio = '#ff0000'; // rojo
    const colorFin = '#ffffff'; // blanco
-   const porcentaje = 100
-   // pomodoro < id ? 100 : pomodoro = id ? percent : 0;
+
+   const porcentaje = pomodoro > id ? 100 : pomodoro === id ? percent : 0;
 
    return ( 
       <>
       <div style={{ textAlign: "center" }}>
         <Typography variant="h5" component="div" mt={2}>
-          Pomodoro 1
+          Pomodoro {indice}
         </Typography>
       </div>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
          <defs>
-            <linearGradient id="Gradient2" x1="0" x2="0" y1="0" y2="1">
+            <linearGradient id={`Pomodoro${id}`} x1="0" x2="0" y1="0" y2="1">
                <stop offset={`${99 - porcentaje}%`} stopColor={colorFin} />
                <stop offset={`${100 - porcentaje}%`} stopColor={colorInicio} />
             </linearGradient>
          </defs>
-         <g fill="url(#Gradient2)" stroke='black' strokeWidth="0.2">
+         <g fill={`url(#Pomodoro${id})`} stroke='black' strokeWidth="0.2">
             <path d="M12.889,2.805l-0.324,0.136c-0.497,0.208-0.791,0.479-1.044,0.753    c0.232,0.108,0.455,0.246,0.667,0.411c0.473,0.385,0.792,0.801,1.042,1.353l0.376,0.825l-0.9-0.111    c-0.645-0.078-1.077,0.066-1.496,0.205c-0.171,0.058-0.346,0.116-0.529,0.156c0.012,0.076,0.021,0.153,0.027,0.229    c0.04,0.456-0.021,0.919-0.179,1.376c-0.211,0.573-0.499,1.009-0.94,1.425L9.292,9.842L8.955,9.614    C8.454,9.273,8.099,8.888,7.804,8.365C7.607,7.997,7.48,7.621,7.426,7.235c-0.206,0.036-0.41,0.043-0.61,0.051    C6.376,7.303,5.92,7.32,5.345,7.622L4.542,8.045L4.601,7.14c0.039-0.604,0.19-1.105,0.492-1.625    c0.183-0.302,0.398-0.564,0.646-0.784c-0.057-0.05-0.113-0.102-0.168-0.153c-0.324-0.299-0.659-0.609-1.28-0.802l-0.867-0.27    l0.531-0.467C0.957,3.942,0,6.579,0,9.539c0,4.146,3.852,7.507,8.604,7.507c4.751,0,8.604-3.361,8.604-7.507    C17.208,6.483,16.105,3.58,12.889,2.805z" />
             <circle cx="420.9" cy="296.5" r="45.7" />
             <path d="M520.5 78.1z" />
@@ -33,7 +32,9 @@ export default function Tomato({ pomodoro, percent, id }) {
             <circle cx="420.9" cy="296.5" r="45.7" />
             <path d="M520.5 78.1z" />
          </g>
+         <text x="6.5" y="13" fill="dark"  fontSize="0.1em"> {porcentaje.toFixed(2)} %</text>
       </svg>
+      
       </>
    );
 }

@@ -1,42 +1,67 @@
 import React from 'react';
-
 import Typography from '@mui/material/Typography';
-
 import Tomato from '../components/Tomato';
 import Rest from '../components/Rest';
 import Piechart from '../components/Piechart';
 
 export default function Dashboard() {
 
+  //varibles que se deben optener de la API
+  const estado = true;
+  const crr_time = 4;
+  const crr_parte = 4;
+  const conf_tiempo = 45;
+  const conf_descanzo = 5;
+  const penalizacionTotal = 30;
+
+  //calculos para funcionamiento de la pagina
+  const total_tiempo = ((conf_tiempo + conf_descanzo) * 4)
+  const Cumplimiento = 100 - penalizacionTotal / total_tiempo * 100;
+
+  const percentPomodoro = (crr_time / conf_tiempo) * 100;
+  const percentDescanzo = (crr_time / conf_descanzo) * 100;
+
+
+  function conditionalRendering (id,index ) {
+   
+    if(crr_parte === id + 1 && [2, 4, 6, 8].includes(crr_parte))
+      return( <Rest percent= {percentDescanzo} indice={index} /> )
+    
+    return( <Tomato pomodoro={crr_parte} percent={percentPomodoro} id={id} indice={index}/> )
+      
+  }
+
   return (
     <div>
       <div style={{ textAlign: "center" }}>
         <Typography variant="h5" component="div" mt={2}>
-          Pomodoro en Proceso
+          Sesión Actual - {estado ? 'en Porgreso':'Apagada'}
         </Typography>
       </div>
-      <br/>
+      <br />
 
       <div className="tabla">
-        <div className="celda"><Tomato /></div>
-        <div className="celda"><Rest /></div>
-        <div className="celda"><Tomato /></div>
-        <div className="celda"><Tomato /></div>
+        {[...Array(4)].map((_, index) => (
+          <div className="celda" key={index}>
+            {conditionalRendering(index* 2+1,index+1)}
+            
+          </div>
+        ))}
+
       </div>
-      
+
       <div style={{ textAlign: "center" }}>
-            <Typography variant="h5" component="div" mt={2}>
-              Gráfica de Productividad
-            </Typography>
-         </div>
-         
-      <div style={{marginTop: "3%",border: "1px solid black"}}>
-        <br/>
-        <Piechart/>
+        <Typography variant="h5" component="div" mt={2}>
+          Gráfica de Productividad
+        </Typography>
+      </div>
+
+      <div style={{ marginTop: "3%", border: "1px solid black" }}>
+        <br />
+        <Piechart porcentaje = {Cumplimiento}/>
       </div>
 
     </div>
-           
+
   );
 }
-
