@@ -35,19 +35,6 @@ export default function Dashboard() {
         <Piechart/>
       </div>
 
-      {/* <div className="tabla">
-        <div className="celda"><Piechart /></div>
-        <div className="celda"><Rest /></div>
-        <div className="celda"><Tomato /></div>
-        <div className="celda"><Tomato /></div>
-      </div>
-
-      <ul>
-      <li class="malo">Malos</li>
-      <li class="bueno">Buenos</li>
-    </ul> */}
-
-
     </div>
            
   );
