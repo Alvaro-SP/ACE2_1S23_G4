@@ -16,5 +16,19 @@
    padding-left: 3%;
  }
 
+ #nofound {
+   height: 93vh;
+   background-image: url("../img/404_page.jpg");
+   background-position: center;
 
+   background-size: cover;
+ }
+
+ #warning {
+  height: 93vh;
+  background-image: url("../img/warning_page.png");
+  background-position: center;
+  background-size: cover;
+}
+ 
  

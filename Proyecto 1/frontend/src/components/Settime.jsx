@@ -47,8 +47,8 @@ function Settime() {
 
    const handleReset = (e) => {
       e.preventDefault();
-      setHours("01");
-      setMinutes("01");
+      setHours("25");
+      setMinutes("05");
       alert("Se restablecio la configuracion")
    }
 

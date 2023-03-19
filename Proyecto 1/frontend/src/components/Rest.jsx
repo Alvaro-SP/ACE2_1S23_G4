@@ -7,7 +7,6 @@ export default function Rest({ percent, indice }) {
    const colorFin = '#000000'; // negro
    const porcentaje = percent
 
-
    return ( 
       <>
       <div style={{ textAlign: "center" }}>

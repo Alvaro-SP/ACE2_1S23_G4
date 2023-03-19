@@ -1,22 +1,21 @@
 import React from 'react';
+import { useNavigate   } from 'react-router-dom'
 import { ListItem, TextField,Button,Paper,Avatar,Typography } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 export default function Profile() {
-
-  const name = "Sergie_Arizandieta";
- 
-  const sesion_date = "xx/xx/xxxx xx:xx:xx";
-
-  
+  const navigate = useNavigate();
+  const name = cookies.get('usr').name ; 
+  const sesion_date = cookies.get('usr').date;
 
   const handleCloseSesion = (e) => {
     e.preventDefault();
+    cookies.remove('usr', { path: '/' });
     alert("Se cerro la sesion")
+    navigate('/singin');
   }
-
-
 
   return (
     <>
@@ -38,8 +37,6 @@ export default function Profile() {
             {name}
           </Typography>
           
-          
-          
           <ListItem >
           <TextField
               label="Usuario"
@@ -52,11 +49,9 @@ export default function Profile() {
           </ListItem>
           <ListItem>
 
-
-
           <TextField
               id="outlined-read-only-input"
-              label="Inicio Sesion hace:"
+              label="Se inicio sesión:"
               defaultValue={sesion_date}
               InputProps={{
                 readOnly: true,
@@ -65,10 +60,10 @@ export default function Profile() {
             />
           </ListItem>
 
-        </Paper>
-        <Button variant="outlined" color="error" startIcon={<LogoutIcon />} onClick={handleCloseSesion} >
-          Cerrar Sesión
-        </Button>
+        </Paper> 
+          <Button variant="outlined" color="error" startIcon={<LogoutIcon />} onClick={handleCloseSesion} >
+            Cerrar Sesión
+          </Button>
       </center>
 
     </>
