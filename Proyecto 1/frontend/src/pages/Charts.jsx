@@ -42,9 +42,9 @@ export default function Charts() {
       <div style={{ textAlign: "center" }}>
         <DialogSelect timestamps={timestamps}/>
         <br />
-        <div style={{ marginTop: "3%", border: "1px solid black" }}>
+       
           <ChartNotSitdown />
-        </div>
+        
       </div>
       
     </>

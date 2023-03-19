@@ -37,7 +37,7 @@ function App() {
   const barPlotWidth = xAxisLength / data.length;
 
   return (
-    <>
+    <div style={{ marginTop: "3%", border: "1px solid black" }}>
 
     <svg viewBox="20 20 400 320">
 
@@ -137,7 +137,7 @@ function App() {
       })}
 
     </svg>
-    </>
+    </div>
   );
 }
 
