@@ -1,18 +1,12 @@
 import  React from 'react';
-import { useState } from 'react';
-// import axios from 'axios';
 import Typography from '@mui/material/Typography';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import DialogSelect from '../components/DialogSelect';
 import ChartNotSitdown from '../components/ChartNotSitdown';
+
+
+
 export default function Charts() {
-  const handleChange = (event) => {
-    const age = event.target.value;
-    console.log(10);
-  };
+
   // ! obtener las fechas almacenadas en la base de datos
   // axios.get("http://localhost:5000/getfechas").then((res) => {
   //   console.log(res.data);

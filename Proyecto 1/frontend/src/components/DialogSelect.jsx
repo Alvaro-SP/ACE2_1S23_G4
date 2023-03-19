@@ -1,33 +1,11 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import InputLabel from '@mui/material/InputLabel';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import  React,{useState} from 'react';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 
 export default function DialogSelect({timestamps}) {
-  const [open, setOpen] = React.useState(false);
-  const [age, setAge] = React.useState('');
+  const [open, setOpen] = useState(false);
+  const [date1, setDate1] = useState('');
+  const [date2, setDate2] = useState('');
 
-  const handleChange = (event) => {
-    setAge(Number(event.target.value) || '');
-  };
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = (event, reason) => {
-    if (reason !== 'backdropClick') {
-      setOpen(false);
-    }
-  };
   const GetFechas = () => {
     // ! seteamos las fechas en el select
     let fechas = [];
@@ -43,6 +21,25 @@ export default function DialogSelect({timestamps}) {
     }
     return fechas;
   };
+
+  const fechas = GetFechas();
+
+  const handleClickOpen = (e) => {
+    e.preventDefault();
+    setOpen(true);
+  };
+
+  const handleClose = (e) => {
+    e.preventDefault();
+    setOpen(false);
+  };
+
+  const handleSend = (e) => {
+    e.preventDefault();
+    alert("se envio")
+    setOpen(false);
+  };
+
   return (
     <div>
       <Button onClick={handleClickOpen}>Elegir rango de fecha y hora</Button>
@@ -51,40 +48,34 @@ export default function DialogSelect({timestamps}) {
         <DialogContent>
           <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel htmlFor="demo-dialog-native">Inicio</InputLabel>
+              <InputLabel>Inicio</InputLabel>
               <Select
-                labelId="demo-dialog-select-label"
-                id="demo-dialog-select"
-                value={age}
-                onChange={handleChange}
-                input={<OutlinedInput label="Age" />}
+                value={date1}
+                onChange={ (e) => setDate1(e.target.value)}
               >
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {GetFechas()}
+                {fechas}
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-dialog-select-label">Fin</InputLabel>
+              <InputLabel >Fin</InputLabel>
               <Select
-                labelId="demo-dialog-select-label"
-                id="demo-dialog-select"
-                value={age}
-                onChange={handleChange}
-                input={<OutlinedInput label="Age" />}
+                value={date2}
+                onChange={(e) => setDate2(e.target.value)}
               >
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {GetFechas()}
+                {fechas}
               </Select>
             </FormControl>
           </Box>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Ok</Button>
+          <Button onClick={handleSend}>Ok</Button>
         </DialogActions>
       </Dialog>
     </div>
