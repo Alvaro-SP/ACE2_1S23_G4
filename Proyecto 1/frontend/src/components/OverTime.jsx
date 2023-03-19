@@ -16,7 +16,7 @@ const data = [
   ["weno", 12],
 ];
 
-export default function ChartTotalPomodoro() {
+export default function OverTime() {
   const x0 = 50;
   const xAxisLength = SVG_WIDTH - x0 * 2;
   const y0 = 50;
@@ -37,7 +37,7 @@ export default function ChartTotalPomodoro() {
       <svg viewBox="20 20 400 320">
 
         <text x={50} y={325} fontSize="1.3em">
-          Penalizacion por no sentarse a tiempo
+          Penalizacion por no sentarse a tiempo - P
         </text>
 
         {/* X axis */}

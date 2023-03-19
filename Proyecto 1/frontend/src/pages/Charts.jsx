@@ -2,7 +2,7 @@ import  React from 'react';
 import Typography from '@mui/material/Typography';
 import DialogSelect from '../components/DialogSelect';
 import ChartTotalPomodoro from '../components/ChartTotalPomodoro';
-
+import OverTime from '../components/OverTime';
 
 
 export default function Charts() {
@@ -35,10 +35,9 @@ export default function Charts() {
       <br />
       <div style={{ textAlign: "center" }}>
         <DialogSelect timestamps={timestamps}/>
-        <br />
-       
-          <ChartTotalPomodoro />
-        
+        <br/>
+        {/* <ChartTotalPomodoro /> */}
+        <OverTime/>
       </div>
       
     </>

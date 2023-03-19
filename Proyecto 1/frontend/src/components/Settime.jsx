@@ -3,7 +3,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SendIcon from '@mui/icons-material/Send';
 
-function Settime() {
+export default function Settime() {
    const [hours, setHours] = useState("01");
    const [minutes, setMinutes] = useState("01");
 
@@ -66,7 +66,6 @@ function Settime() {
          </Button>
          <br />
          <br />
-
          <Button variant="contained" onClick={incrementHours} style={{ marginRight: "5%", marginBottom: "5%" }} >+</Button>
          <Button variant="contained" onClick={incrementMinutes} style={{ marginBottom: "5%" }}>+</Button>
          <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -81,7 +80,6 @@ function Settime() {
          <Typography variant="h6" component="div" style={{ marginTop: "3%", marginLeft: "5%", marginBottom: "3%" }}>
             Min Trabajo / Min Descanso
          </Typography>
-
          <Button variant="outlined" color="success" endIcon={<SendIcon />} onClick={handleSet}>
             Setear Configuracion
          </Button>
@@ -90,4 +88,4 @@ function Settime() {
    );
 }
 
-export default Settime;
+
