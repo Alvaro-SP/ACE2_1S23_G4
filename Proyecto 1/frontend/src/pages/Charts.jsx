@@ -7,6 +7,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import DialogSelect from '../components/DialogSelect';
+import ChartNotSitdown from '../components/ChartNotSitdown';
 export default function Charts() {
   const handleChange = (event) => {
     const age = event.target.value;
@@ -38,9 +39,12 @@ export default function Charts() {
         </Typography>
       </div>
       <br />
-    <div style={{ textAlign: "center" }}>
-      <DialogSelect timestamps={timestamps}/>
-    </div>
+      <div style={{ textAlign: "center" }}>
+        <DialogSelect timestamps={timestamps}/>
+        <br />
+        <ChartNotSitdown />
+      </div>
+      
     </>
   );
 }
