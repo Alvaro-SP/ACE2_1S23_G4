@@ -35,14 +35,16 @@ export default function Charts() {
     <>
       <div style={{ textAlign: "center" }}>
         <Typography variant="h5" component="div" mt={2}>
-          Penalizacion Por No Sentarse a tiempo a lo largo del tiempo
+          Gráficas 
         </Typography>
       </div>
       <br />
       <div style={{ textAlign: "center" }}>
         <DialogSelect timestamps={timestamps}/>
         <br />
-        <ChartNotSitdown />
+        <div style={{ marginTop: "3%", border: "1px solid black" }}>
+          <ChartNotSitdown />
+        </div>
       </div>
       
     </>
