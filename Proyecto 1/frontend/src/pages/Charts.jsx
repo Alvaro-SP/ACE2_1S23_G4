@@ -1,7 +1,7 @@
 import  React from 'react';
 import Typography from '@mui/material/Typography';
 import DialogSelect from '../components/DialogSelect';
-import ChartNotSitdown from '../components/ChartNotSitdown';
+import ChartTotalPomodoro from '../components/ChartTotalPomodoro';
 
 
 
@@ -37,7 +37,7 @@ export default function Charts() {
         <DialogSelect timestamps={timestamps}/>
         <br />
        
-          <ChartNotSitdown />
+          <ChartTotalPomodoro />
         
       </div>
       

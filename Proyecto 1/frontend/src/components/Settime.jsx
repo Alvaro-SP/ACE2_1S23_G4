@@ -59,34 +59,34 @@ function Settime() {
    }
 
    return (
-      <>
-         <center>
-         <Button variant="outlined"  color="error" startIcon={<RestartAltIcon />} onClick={handleReset}>
-               Restablecer
-            </Button>
-            <br/>
-            <br/>
 
-            <Button variant="contained" onClick={incrementHours} style={{ marginRight: "5%", marginBottom: "5%" }} >+</Button>
-            <Button variant="contained" onClick={incrementMinutes} style={{ marginBottom: "5%" }}>+</Button>
-            <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-               <TextField type="text" value={hours} onChange={handleHoursChange} sx={{ width: "14%" }} style={{ marginRight: "3%" }} />
-               <Typography variant="h3" component="div" >
-                  :
-               </Typography>
-               <TextField type="text" value={minutes} onChange={handleMinutesChange} sx={{ width: "14%" }} style={{ marginLeft: "3%" }} />
-            </Box>
-            <Button variant="contained" onClick={decrementHours} style={{ marginRight: "5%", marginTop: "5%" }}>-</Button>
-            <Button variant="contained" onClick={decrementMinutes} style={{ marginTop: "5%" }}>-</Button>
-            <Typography variant="h6" component="div" style={{ marginTop: "3%", marginLeft: "5%",marginBottom: "3%" }}>
-               Min Trabajo / Min Descanso
+      <center>
+         <Button variant="outlined" color="error" startIcon={<RestartAltIcon />} onClick={handleReset}>
+            Restablecer
+         </Button>
+         <br />
+         <br />
+
+         <Button variant="contained" onClick={incrementHours} style={{ marginRight: "5%", marginBottom: "5%" }} >+</Button>
+         <Button variant="contained" onClick={incrementMinutes} style={{ marginBottom: "5%" }}>+</Button>
+         <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <TextField type="text" value={hours} onChange={handleHoursChange} sx={{ width: "14%" }} style={{ marginRight: "3%" }} />
+            <Typography variant="h3" component="div" >
+               :
             </Typography>
-           
-            <Button  variant="outlined" color="success" endIcon={<SendIcon />} onClick={handleSet}>
-               Setear Configuracion
-            </Button>
-         </center>
-      </>
+            <TextField type="text" value={minutes} onChange={handleMinutesChange} sx={{ width: "14%" }} style={{ marginLeft: "3%" }} />
+         </Box>
+         <Button variant="contained" onClick={decrementHours} style={{ marginRight: "5%", marginTop: "5%" }}>-</Button>
+         <Button variant="contained" onClick={decrementMinutes} style={{ marginTop: "5%" }}>-</Button>
+         <Typography variant="h6" component="div" style={{ marginTop: "3%", marginLeft: "5%", marginBottom: "3%" }}>
+            Min Trabajo / Min Descanso
+         </Typography>
+
+         <Button variant="outlined" color="success" endIcon={<SendIcon />} onClick={handleSet}>
+            Setear Configuracion
+         </Button>
+      </center>
+
    );
 }
 

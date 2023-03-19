@@ -16,7 +16,7 @@ const data = [
   ["weno", 12],
 ];
 
-function App() {
+function ChartTotalPomodoro() {
   const x0 = 50;
   const xAxisLength = SVG_WIDTH - x0 * 2;
   const y0 = 50;
@@ -120,4 +120,4 @@ function App() {
   );
 }
 
-export default App;
+export default ChartTotalPomodoro;
