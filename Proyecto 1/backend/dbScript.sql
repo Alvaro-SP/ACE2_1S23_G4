@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS sesion (
     descanso2 INT NULL,
     descanso3 INT NULL,
     descanso4 INT NULL,
-    fecha DATETIME NULL,
+    fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
     usuario_idusuario INT NOT NULL,
     PRIMARY KEY (idsesion),
     CONSTRAINT fk_sesion_usuario
