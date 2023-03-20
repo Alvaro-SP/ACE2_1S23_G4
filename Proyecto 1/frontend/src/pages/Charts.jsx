@@ -63,7 +63,7 @@ export default function Charts() {
       </FormControl>
     </Box>
         
-        {value === '' ? <p>nada</p> : value >= 0  && value <= 3 ?  <OverTime tipo={value}/>: value === 4? <p>444444</p> : <ChartTotalPomodoro/>}
+        {value === '' ? <p>nada</p> : value >= 0  && value <= 3 ?  <OverTime tipo={value} datos={{}}/>: value === 4? <p>444444</p> : <ChartTotalPomodoro/>}
       </div>
       
     </>

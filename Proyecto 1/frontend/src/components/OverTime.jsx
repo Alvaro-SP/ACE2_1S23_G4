@@ -4,7 +4,7 @@ import { Button, Typography } from "@mui/material";
 
 import ChartOverTime from "./ChartOverTime";
 
-export default function OverTime({tipo}) {
+export default function OverTime({tipo,datos}) {
   
    const type = tipo;
    const division = type === 0 || type === 2 ? "Pomodoro": "descanzo";
@@ -22,6 +22,7 @@ export default function OverTime({tipo}) {
       descanso4: 4,
       fecha: "dd/mm/yyyy xx:yy:zz"
    }
+
    const [no, setNo] = useState(1);
    const [valores, setValores] = useState([1,0,0,"des",type]);
 

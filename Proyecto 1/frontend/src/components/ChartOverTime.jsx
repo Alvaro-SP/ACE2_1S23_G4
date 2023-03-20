@@ -22,6 +22,8 @@ export default function ChartOverTime({ minutosMax, minutosVal, fecha, banner, p
   const date = fecha;
   const tipoNo = banner;
   const descripcion = description
+  const color = posicion === 0 || posicion === 1? "#FF5960" : "#59FF8B";
+
   //calculos
   const porcentaje = (minutos) / minMax;
   const distancia = maxWith * porcentaje;
@@ -43,7 +45,7 @@ export default function ChartOverTime({ minutosMax, minutosVal, fecha, banner, p
         </text>
 
         {/* grafo*/}
-        <rect x="50" y="130" width={distancia} height="119.5" fill="#FF5960" stroke="gray" />
+        <rect x="50" y="130" width={distancia} height="119.5" fill={color} stroke="gray" />
         <text x={x0 + 5 + distancia} y={y0 + 225} textAnchor="end">
           {minutos}
         </text>
