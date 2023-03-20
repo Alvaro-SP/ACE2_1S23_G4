@@ -24,24 +24,20 @@ export default function Charts() {
     "2013-09-22 17:55:33",
     "2013-12-25 12:00:01"
   ];
-  
+
   return (
     <>
-      
       <div style={{ textAlign: "center" }}>
         <Typography variant="h5" component="div" mt={2}>
-          Gráficas 
+          Gráficas
         </Typography>
       </div>
       <br />
       <div style={{ textAlign: "center" }}>
-        <SwipperCharts />
         <DialogSelect timestamps={timestamps}/>
         <br/>
-        {/* <ChartTotalPomodoro /> */}
-        <OverTime/>
+        <SwipperCharts />
       </div>
-      
     </>
   );
 }

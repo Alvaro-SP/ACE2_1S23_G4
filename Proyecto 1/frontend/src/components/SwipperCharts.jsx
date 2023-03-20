@@ -10,17 +10,24 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InsertChartIcon from '@mui/icons-material/InsertChart';
 import BarChartIcon from '@mui/icons-material/BarChart';
+import { useState } from 'react';
+import ComponenteGrafica1 from './OverTime';
+import ComponenteGrafica2 from './Piechart';
 
 const Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 export default function SwipeableTemporaryDrawer() {
+    const [graph, setGraph] = useState(null);
+
+    function handle1(componente) {
+        setGraph(componente);
+    }
     const [state, setState] = React.useState({
     top: false,
     left: false,
     bottom: false,
     right: false,
     });
-
     const toggleDrawer =
     (anchor, open) =>
     (event) => {
@@ -44,18 +51,20 @@ export default function SwipeableTemporaryDrawer() {
         onKeyDown={toggleDrawer(anchor, false)}
     >
         <List>
-        {['Grafica de Penalización por no sentarse a tiempo a lo largo del tiempo',
-        'Grafica de Penalización por no pararse a tiempo a lo largo del tiempo',
-        'Grafica de Validación de que el usuario esté sentado a lo largo del tiempo',
-        'Grafica de Validación de que el usuario no esté sentado en el tiempo de descanso',
-        'Grafica de porcentajes de cumplimiento de los pomodoros, y penalizaciones',
-        'Gráfica del total de pomodoros unificando los resultados de su cumplimiento y penalizaciones'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-            <ListItemButton>
+        {[
+            {text: 'Grafica de Penalización por no sentarse a tiempo a lo largo del tiempo', componente: 1},
+            {text: 'Grafica de Penalización por no pararse a tiempo a lo largo del tiempo', componente: 2},
+            {text: 'Grafica de Validación de que el usuario esté sentado a lo largo del tiempo', componente: 3},
+            {text: 'Grafica de Validación de que el usuario no esté sentado en el tiempo de descanso', componente: 4},
+            {text: 'Grafica de porcentajes de cumplimiento de los pomodoros, y penalizaciones', componente: 5},
+            {text: 'Gráfica del total de pomodoros unificando los resultados de su cumplimiento y penalizaciones', componente: 6},
+        ].map((item, index) => (
+            <ListItem key={item.text} disablePadding>
+            <ListItemButton onClick={() => handle1(item.componente)}>
                 <ListItemIcon>
                 {index % 2 === 0 ? <BarChartIcon /> : <InsertChartIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={item.text} />
             </ListItemButton>
             </ListItem>
         ))}
@@ -77,6 +86,11 @@ export default function SwipeableTemporaryDrawer() {
             >
             {list(anchor)}
             </SwipeableDrawer>
+            {graph === 1 ? <ComponenteGrafica1 /> : null}
+            {graph === 2 ? <ComponenteGrafica2 /> : null}
+            {graph === 3 ? <ComponenteGrafica1 /> : null}
+            {graph === 4 ? <ComponenteGrafica2 /> : null}
+            {graph === 5 ? <ComponenteGrafica1 /> : null}
         </React.Fragment>
         ))}
     </div>
