@@ -4,7 +4,7 @@ import DialogSelect from '../components/DialogSelect';
 import ChartTotalPomodoro from '../components/ChartTotalPomodoro';
 import OverTime from '../components/OverTime';
 
-
+import SwipperCharts from '../components/SwipperCharts';
 export default function Charts() {
 
   // ! obtener las fechas almacenadas en la base de datos
@@ -27,6 +27,7 @@ export default function Charts() {
   
   return (
     <>
+      
       <div style={{ textAlign: "center" }}>
         <Typography variant="h5" component="div" mt={2}>
           Gráficas 
@@ -34,6 +35,7 @@ export default function Charts() {
       </div>
       <br />
       <div style={{ textAlign: "center" }}>
+        <SwipperCharts />
         <DialogSelect timestamps={timestamps}/>
         <br/>
         {/* <ChartTotalPomodoro /> */}
