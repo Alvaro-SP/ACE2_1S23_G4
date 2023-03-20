@@ -1,6 +1,5 @@
 
 import React from "react";
-import "../styles/ChartNotSitdown.css";
 
 const SVG_WIDTH = 400;
 const SVG_HEIGHT = 300;
@@ -93,6 +92,7 @@ export default function ChartTotalPomodoro() {
                 y={y + height / 2 - 10}
                 width={barPlotWidth - applePadding}
                 height={height / 2 + 10}
+                fill="#866035"
               />
               {/* Left apple */}
               <circle

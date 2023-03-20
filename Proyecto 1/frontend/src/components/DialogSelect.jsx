@@ -10,7 +10,7 @@ export default function DialogSelect({timestamps}) {
     // ! seteamos las fechas en el select
     let fechas = [];
     for (let i = 0; i < timestamps.length; i++) {
-      fechas.push(<MenuItem value={i}>{new Date(timestamps[i]).toLocaleString("es-ES", {
+      fechas.push(<MenuItem value={i} key={i}>{new Date(timestamps[i]).toLocaleString("es-ES", {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
@@ -48,8 +48,11 @@ export default function DialogSelect({timestamps}) {
         <DialogContent>
           <Box component="form" sx={{ display: 'flex', flexWrap: 'wrap' }}>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel>Inicio</InputLabel>
+              <InputLabel id="demo-simple-select-label">Inicio</InputLabel>
               <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Inicio"
                 value={date1}
                 onChange={ (e) => setDate1(e.target.value)}
               >
@@ -60,8 +63,11 @@ export default function DialogSelect({timestamps}) {
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel >Fin</InputLabel>
+              <InputLabel id="demo-simple-select-label">Fin</InputLabel>
               <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                label="Fin"
                 value={date2}
                 onChange={(e) => setDate2(e.target.value)}
               >
