@@ -62,8 +62,18 @@ export default function Charts() {
         </Select>
       </FormControl>
     </Box>
-        
-        {value === '' ? <p>nada</p> : value >= 0  && value <= 3 ?  <OverTime tipo={value} datos={{}}/>: value === 4? <p>444444</p> : <ChartTotalPomodoro/>}
+        {value === '' ? <div style={{
+      maxWidth: '100%',
+      height: 'auto',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }}>
+      <img src="https://www.fotosdememes.com/wp-content/uploads/2021/09/esta-vacio-1024x597.jpg" alt="Imagen" style={{
+        maxWidth: '100%',
+        height: 'auto'
+      }} />
+    </div>: value >= 0  && value <= 3 ?  <OverTime tipo={value} datos={{}}/>: value === 4? <p>444444</p> : <ChartTotalPomodoro/>}
       </div>
       
     </>
