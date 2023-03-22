@@ -1,9 +1,11 @@
-import mysql.connector 
+import mysql.connector
 import traceback
 from flask import Flask, jsonify
 from flask.globals import request
 from flask_cors import CORS
 from src.Dashboard import dashboard
+from src.GetSessions import getSessions
+
 #Flask config
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -159,6 +161,12 @@ def insert_new_user(name):
 @app.route('/dashboard',methods=['GET'])
 def return_dashboard():
     response = dashboard(conecction)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
+@app.route('/get-for-graphs',methods=['POST'])
+def return_session():
+    response = getSessions(conecction, request)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
