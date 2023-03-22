@@ -1,9 +1,8 @@
-import React from 'react';
+import React ,{ useState }from 'react';
 import { TextField, Button, Paper, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
-import addUser from '../img/addUser.png'
-import { useState } from 'react';
 import axios from 'axios';
+import addUser from '../img/addUser.png'
 
 export default function Singup() {
    const [usuario, setUsuario] = useState('');

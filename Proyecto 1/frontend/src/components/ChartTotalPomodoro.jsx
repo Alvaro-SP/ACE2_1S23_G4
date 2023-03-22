@@ -4,9 +4,6 @@ import React from "react";
 const SVG_WIDTH = 430;
 const SVG_HEIGHT = 300;
 
-
-
-
 export default function ChartTotalPomodoro({ sesionData }) {
 
   console.log("ChartTotalPomodoro", sesionData);
@@ -25,12 +22,8 @@ export default function ChartTotalPomodoro({ sesionData }) {
   //   fecha: "2022-03-19 08:15:30"
   // }
 
-
- 
   const datos = sesionData;
   const fechaOrigianl = new Date(sesionData.fecha);
- 
-
   const maximo = datos.ejecucion > datos.descanso ? datos.ejecucion + 5 / 100 * datos.ejecucion : datos.descanso + 5 / 100 * datos.descanso;
   //  console.log(maximo);
 

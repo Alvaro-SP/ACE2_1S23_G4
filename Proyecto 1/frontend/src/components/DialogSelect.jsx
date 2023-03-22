@@ -1,7 +1,7 @@
-import  React,{useState} from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 
-export default function DialogSelect({datos,setData}) {
+export default function DialogSelect({ datos, setData }) {
   const [open, setOpen] = useState(false);
   const [date1, setDate1] = useState('');
   const [date2, setDate2] = useState('');
@@ -36,8 +36,8 @@ export default function DialogSelect({datos,setData}) {
 
   const handleSend = (e) => {
     e.preventDefault();
-   if(date1 === '' || date2 === ''){
-     return alert("seleccione las fechas limites fecha")
+    if (date1 === '' || date2 === '') {
+      return alert("seleccione las fechas limites fecha")
     }
     // console.log(date1,date2);
 
@@ -59,7 +59,7 @@ export default function DialogSelect({datos,setData}) {
 
   return (
     <div>
-      <Button   variant="outlined" onClick={handleClickOpen}>Elegir rango de fecha y hora</Button>
+      <Button variant="outlined" onClick={handleClickOpen}>Elegir rango de fecha y hora</Button>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>Elegir un rango de fecha y hora</DialogTitle>
         <DialogContent>
@@ -71,7 +71,7 @@ export default function DialogSelect({datos,setData}) {
                 id="demo-simple-select"
                 label="Inicio"
                 value={date1}
-                onChange={ (e) => setDate1(e.target.value)}
+                onChange={(e) => setDate1(e.target.value)}
               >
                 <MenuItem value="">
                   <em>None</em>

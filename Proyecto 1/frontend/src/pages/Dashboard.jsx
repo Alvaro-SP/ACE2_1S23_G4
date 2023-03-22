@@ -5,8 +5,6 @@ import Rest from '../components/Rest';
 import Piechart from '../components/Piechart';
 
 export default function Dashboard() {
-
-
   //varibles que se deben optener de la API
   const estado = true;
   const crr_time = 4;

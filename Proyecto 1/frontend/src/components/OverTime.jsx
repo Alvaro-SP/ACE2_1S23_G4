@@ -1,7 +1,6 @@
 
 import React,{useState,useEffect} from "react";
 import { Button, Typography } from "@mui/material";
-
 import ChartOverTime from "./ChartOverTime";
 
 export default function OverTime({tipo,datos}) {

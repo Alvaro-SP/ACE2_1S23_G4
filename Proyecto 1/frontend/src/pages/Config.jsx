@@ -13,7 +13,6 @@ export default function Config() {
       </div>
       <br/>
       <Settime />
-
      </>
   );
 }

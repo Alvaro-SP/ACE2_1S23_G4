@@ -1,18 +1,16 @@
-import React, { useState } from 'react';
-import Typography from '@mui/material/Typography';
+import React, { useState,useEffect } from 'react';
+import { FormControl, InputLabel, MenuItem, Select,Typography } from '@mui/material';
+import axios from 'axios';
 import DialogSelect from '../components/DialogSelect';
 import ChartTotalPomodoro from '../components/ChartTotalPomodoro';
 import ChartPercentPomodoro from '../components/ChartPercentPomodoro';
 import OverTime from '../components/OverTime';
-import axios from 'axios';
-import { useEffect } from 'react';
-import {FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import datatemp from '../data/testfile.js';
 
 export default function Charts() {
   const [datos, setDatos] = useState(datatemp);
   // const [datos, setDatos] = useState([]);
-  console.log("Charts",datos);
+  console.log("Charts", datos);
   useEffect(() => {
     // axios.get('http://3.15.186.222:5000/get-for-graphs')
     axios.get('http://localhost:5000/get-for-graphs')
@@ -24,7 +22,7 @@ export default function Charts() {
         console.log(error);
       });
 
-      console.log("useEffect");
+    console.log("useEffect");
   }, []);
 
 
@@ -49,17 +47,17 @@ export default function Charts() {
     const sesion_penalizacion_minutos = {
       ejecucion: 45,
       descanso: 5,
-      pomodoro1: sesion_penalizacion_seg.pomodoro1 / 60, 
+      pomodoro1: sesion_penalizacion_seg.pomodoro1 / 60,
       pomodoro2: sesion_penalizacion_seg.pomodoro2 / 60,
       pomodoro3: sesion_penalizacion_seg.pomodoro3 / 60,
       pomodoro4: sesion_penalizacion_seg.pomodoro4 / 60,
-      descanso1: sesion_penalizacion_seg.descanso1 / 60, 
+      descanso1: sesion_penalizacion_seg.descanso1 / 60,
       descanso2: sesion_penalizacion_seg.descanso2 / 60,
       descanso3: sesion_penalizacion_seg.descanso3 / 60,
       descanso4: sesion_penalizacion_seg.descanso4 / 60,
       fecha: "dd/mm/yyyy xx:yy:zz"
-   }
-  //  setSesionData(sesion_penalizacion_minutos); este debera ser en produccion
+    }
+    //  setSesionData(sesion_penalizacion_minutos); este debera ser en produccion
     setSesionData(sesion_penalizacion_seg); //temporal porque nuetras puebas estan en minutos
   };
 
@@ -77,32 +75,32 @@ export default function Charts() {
         <DialogSelect datos={datos} setData={setData} />
         <br />
 
-         {/* SELECTOR DE POMODORO A MOSTRAR */}
-         {
+        {/* SELECTOR DE POMODORO A MOSTRAR */}
+        {
           data.length > 0 &&
-          <FormControl style={{width:"90%"}}>
-          <InputLabel id="demo-simple-select-label">Sesion</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={sesion}
-            label="Sesion"
-            onChange={handleChangeSesion}
-          >
-            {data.map((item, index) => (
-              <MenuItem value={item.idsesion} key={item.idsesion}>{item.fecha}</MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+          <FormControl style={{ width: "90%" }}>
+            <InputLabel id="demo-simple-select-label">Sesion</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={sesion}
+              label="Sesion"
+              onChange={handleChangeSesion}
+            >
+              {data.map((item, index) => (
+                <MenuItem value={item.idsesion} key={item.idsesion}>{item.fecha}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
-         }
-         
+        }
 
-          {/* De Grafica a Mostrar */}
 
-          {
-          sesion !== ''  &&
-          <FormControl style={{width:"90%",marginTop:"5%",marginBottom:"5%"}}>
+        {/* De Grafica a Mostrar */}
+
+        {
+          sesion !== '' &&
+          <FormControl style={{ width: "90%", marginTop: "5%", marginBottom: "5%" }}>
             <InputLabel id="demo-simple-select-label">Grafica</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -119,12 +117,12 @@ export default function Charts() {
               <MenuItem value={5}>Total de pomodoros</MenuItem>
             </Select>
           </FormControl>
-          }
-          
+        }
+
 
         {type === '' ? <div style={{ maxWidth: '100%', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><img src={link} alt="Imagen" style={{ maxWidth: '100%', height: 'auto', marginTop: "5%" }} />
-        </div> : type >= 0 && type <= 3 ? <OverTime tipo={type} datos={sesionData} /> : type === 4 ? <ChartPercentPomodoro datos={sesionData}/> : <ChartTotalPomodoro  sesionData={sesionData}  />}
-      <br/><br/><br/><br/><br/><br/><br/><br/>
+        </div> : type >= 0 && type <= 3 ? <OverTime tipo={type} datos={sesionData} /> : type === 4 ? <ChartPercentPomodoro datos={sesionData} /> : <ChartTotalPomodoro sesionData={sesionData} />}
+        <br /><br /><br /><br /><br /><br /><br /><br />
       </div>
 
     </>
