@@ -31,6 +31,34 @@ def index():
     return "<h1>Hi from backend, we are working hard!!</h1>"
 
 
+@app.route('/data',methods=['POST'])
+def hello():
+    global work
+    global rest
+    global change
+    global penalizacion
+    print(request.json)
+
+    if request.json["state"] == 0:   # Modo setup
+        if change:
+            change = False
+            return jsonify({
+                "type":"clock",
+                "work":work,
+                "rest":rest
+            })
+        else:
+            work = request.json["time"]
+            return jsonify({
+                "type":"no_change"
+            })
+    else:                           # Modo trabajo
+        penalizacion += request.json["button"]
+        print(str(penalizacion) + " penalizaciones")
+        return jsonify({
+            "type":"work"
+        })
+
 
 @app.route('/datauser',methods=['POST'])
 def data_user():
@@ -67,33 +95,7 @@ def data_user():
         return response
 
 
-@app.route('/data',methods=['POST'])
-def hello():
-    global work
-    global rest
-    global change
-    global penalizacion
-    print(request.json)
 
-    if request.json["state"] == 0:   # Modo setup
-        if change:
-            change = False
-            return jsonify({
-                "type":"clock",
-                "work":work,
-                "rest":rest
-            })
-        else:
-            work = request.json["time"]
-            return jsonify({
-                "type":"no_change"
-            })
-    else:                           # Modo trabajo
-        penalizacion += request.json["button"]
-        print(str(penalizacion) + " penalizaciones")
-        return jsonify({
-            "type":"work"
-        })
     
 @app.route('/reset',methods=['POST'])
 def reset():
@@ -124,6 +126,32 @@ def return_user_id():
             "id": user_id
         }
         return response
+    
+def get_user_id_by_username(name):
+    with conecction.cursor() as cursor:
+        cursor.execute("SELECT idusuario FROM usuario WHERE nombre = %s", (name,))
+        myresult = cursor.fetchone()
+        if myresult is not None:
+            return myresult[0]
+        else:
+            return None
+
+
+def insert_new_user(name):
+    sql = '''INSERT INTO usuario (nombre) 
+            VALUES (%s)'''
+    values= [name]
+    try:
+        with conecction.cursor() as cursor:
+            cursor.execute(sql, values)
+            conecction.commit()
+            print("usuario agregado!!")
+    except:
+        traceback.print_exc()
+        print('Error inserting new User')
+        conecction.rollback()
+    
+        
     
 @app.route('/dashboard',methods=['GET'])
 def return_dashboard():
