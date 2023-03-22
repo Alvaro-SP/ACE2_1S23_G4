@@ -4,13 +4,28 @@ import DialogSelect from '../components/DialogSelect';
 import ChartTotalPomodoro from '../components/ChartTotalPomodoro';
 import ChartPercentPomodoro from '../components/ChartPercentPomodoro';
 import OverTime from '../components/OverTime';
-import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import {FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 export default function Charts() {
+
+  // const names = [
+  //   'Oliver Hansenssssssssssssssssss',
+  //   'Van Henry',
+  //   'April Tucker',
+  //   'Ralph Hubbard',
+  //   'Omar Alexander',
+  //   'Carlos Abbott',
+  //   'Miriam Wagner',
+  //   'Bradley Wilkerson',
+  //   'Virginia Andrews',
+  //   'Kelly Snyder',
+  // ];
 
 
   const [type, setType] = useState('');
   const [sesion, setSesino] = useState('');
+
+  const [data, setData] = useState([]);
 
   const handleChangeType = (event) => {
     setType(event.target.value);
@@ -35,20 +50,6 @@ export default function Charts() {
     "2013-12-25 12:00:01"
   ];
 
-  const names = [
-    'Oliver Hansenssssssssssssssssss',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-  ];
-
-
   return (
     <>
       <div style={{ textAlign: "center" }}>
@@ -58,7 +59,7 @@ export default function Charts() {
       </div>
       <br />
       <div style={{ textAlign: "center" }}>
-        <DialogSelect timestamps={timestamps} />
+        <DialogSelect timestamps={timestamps} setData={setData} />
         <br />
 
          {/* SELECTOR DE POMODORO A MOSTRAR */}
@@ -71,14 +72,17 @@ export default function Charts() {
             label="Sesion"
             onChange={handleChangeSesion}
           >
-            {names.map((name, index) => (
+            {data.map((name, index) => (
               <MenuItem value={index} key={index}>{name}</MenuItem>
             ))}
           </Select>
         </FormControl>
 
           {/* De Grafica a Mostrar */}
-          <FormControl style={{width:"90%",marginTop:"5%"}}>
+
+          {
+          sesion !== ''  &&
+          <FormControl style={{width:"90%",marginTop:"5%",marginBottom:"5%"}}>
             <InputLabel id="demo-simple-select-label">Grafica</InputLabel>
             <Select
               labelId="demo-simple-select-label"
@@ -95,6 +99,8 @@ export default function Charts() {
               <MenuItem value={5}>Total de pomodoros</MenuItem>
             </Select>
           </FormControl>
+          }
+          
 
         {type === '' ? <div style={{ maxWidth: '100%', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><img src="https://www.fotosdememes.com/wp-content/uploads/2021/09/esta-vacio-1024x597.jpg" alt="Imagen" style={{ maxWidth: '100%', height: 'auto', marginTop: "5%" }} />
         </div> : type >= 0 && type <= 3 ? <OverTime tipo={type} datos={{}} /> : type === 4 ? <ChartPercentPomodoro /> : <ChartTotalPomodoro />}

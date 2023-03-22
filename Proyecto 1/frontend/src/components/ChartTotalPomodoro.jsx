@@ -19,7 +19,6 @@ const datos = {
 }
 
 
-
 export default function ChartTotalPomodoro() {
   const maximo = datos.ejecucion > datos.descanso ? datos.ejecucion + 5/100 *datos.ejecucion : datos.descanso + 5/100 *datos.descanso;
   console.log(maximo);
@@ -54,11 +53,11 @@ export default function ChartTotalPomodoro() {
   const numYTicks = 20;
   const barPlotWidth = xAxisLength / data.length;
 
- 
-
   return (
     <div style={{ marginTop: "3%", border: "1px solid black" }}>
-
+      <Typography variant="h6" component="h2" style={{ textAlign: "center" }}>
+          Sesion dd/mm/yy hh:mm:ss
+        </Typography>
       <svg viewBox="20 20 400 320">
                        {/* X axis */}
                        <line
@@ -85,14 +84,14 @@ export default function ChartTotalPomodoro() {
           const y = y0 + index * (yAxisLength / numYTicks);
 
           return (
-            <>
+         
             <g key={index}>
-              <line x1={x0-5} y1={y} x2={x0 + 290} y2={y} stroke="grey" />
+              <line x1={x0-5} y1={y} x2={x0 + 320} y2={y} stroke="grey" />
               <text x={x0-27} y={303-y} fontSize={10}>
                 {(maximo*index/20).toFixed(1)}
                </text>
             </g>
-            </>
+   
           );
         })}
        
@@ -118,14 +117,14 @@ export default function ChartTotalPomodoro() {
           return (
             <g key={index}>
               {
-                (index ) % 3 === 0 && index != 0 && 
+                (index ) % 3 === 0 && index !== 0 && 
                 <line x1={x + applePadding / 2 - 1} y1={y0} x2={x + applePadding / 2 - 1} y2={y0 + yAxisLength} stroke="red" />
               }
               
               {/* Bar plot */}
               <rect
                 x={x + applePadding / 2}
-                y={y + height / 2 - 10}
+                y={y + height / 2 - 10.5}
                 width={barPlotWidth - applePadding}
                 height={height / 2 + 10}
                 fill= {`${(index ) % 3 === 0 ? "#4287FF" : (index ) % 3 === 2 ? "#03A40A" : "#CF4AFA"}`}

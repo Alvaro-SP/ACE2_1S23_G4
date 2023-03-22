@@ -1,7 +1,7 @@
 import  React,{useState} from 'react';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 
-export default function DialogSelect({timestamps}) {
+export default function DialogSelect({timestamps,setData}) {
   const [open, setOpen] = useState(false);
   const [date1, setDate1] = useState('');
   const [date2, setDate2] = useState('');
@@ -37,16 +37,10 @@ export default function DialogSelect({timestamps}) {
   const handleSend = (e) => {
     e.preventDefault();
     alert("se envio")
+    console.log(date1,date2);
+    setData([date1,date2])
     setOpen(false);
   };
-
-
-  const [sesion, setSesion] = useState('');
-
-  const handleSesionChange = (event) => {
-    setSesion(event.target.value);
-  };
- 
 
   return (
     <div>

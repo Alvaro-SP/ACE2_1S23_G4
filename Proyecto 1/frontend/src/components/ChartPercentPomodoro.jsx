@@ -1,8 +1,5 @@
 
 import React from "react";
-import InputLabel from '@mui/material/InputLabel';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import { Typography } from "@mui/material";
 const SVG_WIDTH = 400;
 const SVG_HEIGHT = 300;
@@ -31,9 +28,14 @@ export default function ChartPercentPomodoro() {
 
   return (
     <div style={{ marginTop: "3%", border: "1px solid black" }}>
-
+      
+        <Typography variant="h6" component="h2" style={{ textAlign: "center" }}>
+          Sesion dd/mm/yy hh:mm:ss
+        </Typography>
+        
       <br />
       <svg viewBox="20 20 400 300" style={{ width: "100%", height: "auto", display: "block" }}>
+
 
         {/* X axis */}
         <line
@@ -46,6 +48,8 @@ export default function ChartPercentPomodoro() {
         <text x={x0 + xAxisLength + 5} y={xAxisY + 4}>
           Sesion
         </text>
+
+        
 
         {/* Y axis */}
         <line x1={x0} y1={y0} x2={x0} y2={y0 + yAxisLength} stroke="grey" />
@@ -85,7 +89,7 @@ export default function ChartPercentPomodoro() {
           c += 22;
           const applePadding = 10;
           // Calculate the radius of the apple based on the height of the bar
-          const appleRadius = 15;
+         
           return (
             <g key={index}>
               {/* LEYENDAS */}
