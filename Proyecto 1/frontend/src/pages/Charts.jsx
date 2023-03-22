@@ -46,7 +46,8 @@ export default function Charts() {
     setSesionData(sesion_penalizacion_seg); //temporal porque nuetras puebas estan en minutos
   };
 
-
+  //const link = "https://www.fotosdememes.com/wp-content/uploads/2021/09/esta-vacio-1024x597.jpg";
+  const link = "https://cdn-icons-png.flaticon.com/512/6165/6165003.png"
   return (
     <>
       <div style={{ textAlign: "center" }}>
@@ -60,7 +61,9 @@ export default function Charts() {
         <br />
 
          {/* SELECTOR DE POMODORO A MOSTRAR */}
-         <FormControl style={{width:"90%"}}>
+         {
+          data.length > 0 &&
+          <FormControl style={{width:"90%"}}>
           <InputLabel id="demo-simple-select-label">Sesion</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -74,6 +77,9 @@ export default function Charts() {
             ))}
           </Select>
         </FormControl>
+
+         }
+         
 
           {/* De Grafica a Mostrar */}
 
@@ -90,8 +96,8 @@ export default function Charts() {
             >
               <MenuItem value={0}>Penalización por no sentarse a tiempo</MenuItem>
               <MenuItem value={1}>Penalización por no pararse a tiempo</MenuItem>
-              <MenuItem value={2}>Validación de que el usuario esté sentado</MenuItem>
-              <MenuItem value={3}>Validación de que el usuario no esté sentado</MenuItem>
+              <MenuItem value={2}>Validación usuario esté sentado</MenuItem>
+              <MenuItem value={3}>Validación usuario no esté sentado</MenuItem>
               <MenuItem value={4}>Cumplimiento de los 4 pomodoros</MenuItem>
               <MenuItem value={5}>Total de pomodoros</MenuItem>
             </Select>
@@ -99,8 +105,9 @@ export default function Charts() {
           }
           
 
-        {type === '' ? <div style={{ maxWidth: '100%', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><img src="https://www.fotosdememes.com/wp-content/uploads/2021/09/esta-vacio-1024x597.jpg" alt="Imagen" style={{ maxWidth: '100%', height: 'auto', marginTop: "5%" }} />
+        {type === '' ? <div style={{ maxWidth: '100%', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><img src={link} alt="Imagen" style={{ maxWidth: '100%', height: 'auto', marginTop: "5%" }} />
         </div> : type >= 0 && type <= 3 ? <OverTime tipo={type} datos={sesionData} /> : type === 4 ? <ChartPercentPomodoro datos={sesionData}/> : <ChartTotalPomodoro  sesionData={sesionData}  />}
+      <br/><br/><br/><br/><br/><br/><br/><br/>
       </div>
 
     </>

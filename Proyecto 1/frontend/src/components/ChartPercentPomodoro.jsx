@@ -26,27 +26,19 @@ export default function ChartPercentPomodoro({datos}) {
   const timepo_total3 = 100 - tiempo_pomodoro3 - tiempo_descanso3;
   const timepo_total4 = 100 - tiempo_pomodoro4 - tiempo_descanso4;
   
-  console.log("tiempo_pomodoro1",tiempo_pomodoro1);
-  console.log("tiempo_pomodoro2",tiempo_pomodoro2);
-  console.log("tiempo_pomodoro3",tiempo_pomodoro3);
-  console.log("tiempo_pomodoro4",tiempo_pomodoro4);
-
-  console.log("tiempo_descanso1",tiempo_descanso1);
-  console.log("tiempo_descanso2",tiempo_descanso2);
-  console.log("tiempo_descanso3",tiempo_descanso3);
-  console.log("tiempo_descanso4",tiempo_descanso4);
-
-  console.log("timepo_total1",timepo_total1);
-  console.log("timepo_total2",timepo_total2);
-  console.log("timepo_total3",timepo_total3);
-  console.log("timepo_total4",timepo_total4);
-  
   const data = [
     ["Pomodoro 1", timepo_total1, tiempo_descanso1, tiempo_pomodoro1],
     ["Pomodoro 2", timepo_total2, tiempo_descanso2, tiempo_pomodoro2],
     ["Pomodoro 3", timepo_total3, tiempo_descanso3, tiempo_pomodoro3],
     ["Pomodoro 4", timepo_total4, tiempo_descanso4, tiempo_pomodoro4],
   ];
+
+  // const data = [
+  //   ["Pomodoro 1", 100, 0, 0],
+  //   ["Pomodoro 2", 100, 0, 0],
+  //   ["Pomodoro 3", 100, 0, 0],
+  //   ["Pomodoro 4", 100, 0, 0],
+  // ];
 
 
   const x0 = 50;
@@ -131,33 +123,33 @@ export default function ChartPercentPomodoro({datos}) {
               {/* LEYENDAS */}
               <rect
                 x={360}
-                y={27}
+                y={27-4}
                 width={50}
                 height={3}
                 fill="#00d115"
               ></rect>
 
-              <text x={376} y={26} textAnchor="middle" fontSize="7">
+              <text x={376-50} y={27} textAnchor="middle" fontSize="9">
                 Cumplimiento
               </text>
               <rect
                 x={360}
-                y={37}
+                y={37-4}
                 width={50}
                 height={3}
                 fill="#f78205"
               ></rect>
-              <text x={386} y={36} textAnchor="middle" fontSize="7">
+              <text x={386-73} y={37} textAnchor="middle" fontSize="9">
                 No pararse a tiempo
               </text>
               <rect
                 x={360}
-                y={47}
+                y={47-4}
                 width={50}
                 height={3}
                 fill="#de3700"
               ></rect>
-              <text x={387} y={46} textAnchor="middle" fontSize="7">
+              <text x={387-75} y={46} textAnchor="middle" fontSize="9">
                 No sentarse a tiempo
               </text>
 
