@@ -3,6 +3,7 @@ import React from "react";
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import {Typography} from "@mui/material";
 const SVG_WIDTH = 400;
 const SVG_HEIGHT = 300;
 // DEBO SPLITEAR: ["POMODORO", CUMPLIMIENTO,  PENALIZACION_POR_NO_SENTARSE_A_TIEMPO, PENALIZACION_POR_NO_PARARSE]
@@ -38,26 +39,27 @@ export default function ChartPercentPomodoro() {
     const barPlotWidth = xAxisLength / data.length;
     let c = -10;
 
-
-
-
     const [personName, setPersonName] = React.useState([]);
     const handleChangeMultiple = (event) => {
         const { options } = event.target;
         const value= [];
         for (let i = 0, l = options.length; i < l; i += 1) {
-        if (options[i].selected) {
-            value.push(options[i].value);
-        }
+            if (options[i].selected) {
+                value.push(options[i].value);
+            }
         }
         setPersonName(value);
     };
+    const splitearJSON = (name) => {
+        console.log(name)
+    }
     return (
         <div style={{ marginTop: "3%", border: "1px solid black" }}>
+            {/* SELECTOR DE POMODORO A MOSTRAR */}
             <div>
                 <FormControl sx={{ m: 1, minWidth: 120, maxWidth: 300 }}>
                     <InputLabel shrink htmlFor="select-multiple-native">
-                    Native
+                    Sesion
                     </InputLabel>
                     <Select
                     native
@@ -70,18 +72,14 @@ export default function ChartPercentPomodoro() {
                     }}
                     >
                     {names.map((name) => (
-                        <option key={name} value={name}>
+                        <option key={name} value={name} onClick={splitearJSON(name)} >
                         {name}
                         </option>
                     ))}
                     </Select>
                 </FormControl>
             </div>
-        <svg viewBox="20 20 400 320" style={{ width: "100%", height: "auto", display: "block" }}>
-
-            <text x={50} y={325} fontSize="1.3em">
-            Porcentaje de Cumplimiento
-            </text>
+        <svg viewBox="20 20 400 300" style={{ width: "100%", height: "auto", display: "block" }}>
 
             {/* X axis */}
             <line
@@ -97,10 +95,10 @@ export default function ChartPercentPomodoro() {
 
             {/* Y axis */}
             <line x1={x0} y1={y0} x2={x0} y2={y0 + yAxisLength} stroke="grey" />
-            {Array.from({ length: numYTicks }).map((_, index) => {
-                const y = y0 + index * (yAxisLength / numYTicks);
+            {Array.from({ length: 10 }).map((_, index) => {
+                const y = y0 + index * (yAxisLength / 10);
 
-                const yValue = Math.round(dataYMax - index * (dataYRange / numYTicks));
+                const yValue = Math.round(dataYMax - index * (dataYRange / 10));
 
                 return (
                 <g key={index}>
@@ -111,7 +109,17 @@ export default function ChartPercentPomodoro() {
                 </g>
                 );
             })}
-            
+            {Array.from({ length: numYTicks }).map((_, index) => {
+          const y = y0 + index * (yAxisLength / numYTicks);
+        // Se dibuja las lineas horizontales
+        return (
+        <>
+        <g key={index}>
+            <line x1={x0} y1={y} x2={x0 + 305} y2={y} stroke="grey" />
+        </g>
+        </>
+        );
+        })}
             <text x={x0} y={y0 - 8} textAnchor="middle">%</text>
             {/* Apple plots */}
             {data.map(([pomodoro, dataY, datap1], index) => {
@@ -208,6 +216,9 @@ export default function ChartPercentPomodoro() {
             })}
 
         </svg>
+        <Typography variant="h5" align="center" style={{ marginTop: "0%" }}>
+            Tiempo de ejecución y descanso
+        </Typography>
         </div>
     );
 }
