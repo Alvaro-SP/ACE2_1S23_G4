@@ -14,7 +14,11 @@ export default function Charts() {
   const [type, setType] = useState('');
   const [sesion, setSesino] = useState('');
 
+  //data mostrada segun el intervalo de fechas
   const [data, setData] = useState([]);
+
+  //sesion a mostrar
+  const [sesionData, setSesionData] = useState({});
 
   const handleChangeType = (event) => {
     setType(event.target.value);
@@ -23,21 +27,25 @@ export default function Charts() {
 
   const handleChangeSesion = (event) => {
     setSesino(event.target.value);
-    console.log(event.target.value);
+    const sesion_penalizacion_seg = datos.find((e) => e.idsesion === event.target.value);
+    // eslint-disable-next-line
+    const sesion_penalizacion_minutos = {
+      ejecucion: 45,
+      descanso: 5,
+      pomodoro1: sesion_penalizacion_seg.pomodoro1 / 60, 
+      pomodoro2: sesion_penalizacion_seg.pomodoro2 / 60,
+      pomodoro3: sesion_penalizacion_seg.pomodoro3 / 60,
+      pomodoro4: sesion_penalizacion_seg.pomodoro4 / 60,
+      descanso1: sesion_penalizacion_seg.descanso1 / 60, 
+      descanso2: sesion_penalizacion_seg.descanso2 / 60,
+      descanso3: sesion_penalizacion_seg.descanso3 / 60,
+      descanso4: sesion_penalizacion_seg.descanso4 / 60,
+      fecha: "dd/mm/yyyy xx:yy:zz"
+   }
+  //  setSesionData(sesion_penalizacion_minutos); este debera ser en produccion
+    setSesionData(sesion_penalizacion_seg); //temporal porque nuetras puebas estan en minutos
   };
 
-  // const timestamps = [
-  //   "2023-03-19 10:15:30",
-  //   "2023-12-31 23:59:59",
-  //   "2023-06-15 14:30:00",
-  //   "2023-10-05 08:45:12",
-  //   "2023-01-01 00:00:00",
-  //   "2023-11-11 11:11:11",
-  //   "2013-07-04 15:30:45",
-  //   "2013-05-20 09:00:00",
-  //   "2013-09-22 17:55:33",
-  //   "2013-12-25 12:00:01"
-  // ];
 
   return (
     <>
@@ -92,7 +100,7 @@ export default function Charts() {
           
 
         {type === '' ? <div style={{ maxWidth: '100%', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}><img src="https://www.fotosdememes.com/wp-content/uploads/2021/09/esta-vacio-1024x597.jpg" alt="Imagen" style={{ maxWidth: '100%', height: 'auto', marginTop: "5%" }} />
-        </div> : type >= 0 && type <= 3 ? <OverTime tipo={type} datos={{}} /> : type === 4 ? <ChartPercentPomodoro /> : <ChartTotalPomodoro />}
+        </div> : type >= 0 && type <= 3 ? <OverTime tipo={type} datos={sesionData} /> : type === 4 ? <ChartPercentPomodoro datos={sesionData}/> : <ChartTotalPomodoro  sesionData={sesionData}  />}
       </div>
 
     </>

@@ -5,23 +5,11 @@ import { Button, Typography } from "@mui/material";
 import ChartOverTime from "./ChartOverTime";
 
 export default function OverTime({tipo,datos}) {
-  
+   console.log("OverTime",datos);
    const type = tipo;
    const division = type === 0 || type === 2 ? "Pomodoro": "descanzo";
 
-   const data = {
-      ejecucion: 45,
-      descanso: 5,
-      pomodoro1: 10, //penalizacion no estaba sentado cunado debia
-      pomodoro2: 20,
-      pomodoro3: 30,
-      pomodoro4: 40,
-      descanso1: 1, //penalizacion no estaba parado cunado debia
-      descanso2: 2,
-      descanso3: 3,
-      descanso4: 4,
-      fecha: "dd/mm/yyyy xx:yy:zz"
-   }
+   const data = datos;
 
    const [no, setNo] = useState(1);
    const [valores, setValores] = useState([1,0,0,"des",type]);

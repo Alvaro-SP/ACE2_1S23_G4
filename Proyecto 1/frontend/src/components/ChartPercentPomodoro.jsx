@@ -4,15 +4,51 @@ import { Typography } from "@mui/material";
 const SVG_WIDTH = 400;
 const SVG_HEIGHT = 300;
 // DEBO SPLITEAR: ["POMODORO", CUMPLIMIENTO,  PENALIZACION_POR_NO_SENTARSE_A_TIEMPO, PENALIZACION_POR_NO_PARARSE]
-const data = [
-  ["Pomodoro 1", 100, 0, 0],
-  ["Pomodoro 2", 20, 12, 80],
-  ["Pomodoro 3", 30, 70, 0],
-  ["Pomodoro 4", 20, 10, 70],
 
-];
 
-export default function ChartPercentPomodoro() {
+export default function ChartPercentPomodoro({datos}) {
+  console.log("ChartPercentPomodoro",datos);
+
+  const tiempo_total = datos.ejecucion + datos.descanso;
+
+  const tiempo_pomodoro1 = datos.pomodoro1/tiempo_total*100;
+  const tiempo_pomodoro2 = datos.pomodoro2/tiempo_total*100;
+  const tiempo_pomodoro3 = datos.pomodoro3/tiempo_total*100;
+  const tiempo_pomodoro4 = datos.pomodoro4/tiempo_total*100;
+
+  const tiempo_descanso1 = datos.descanso1/tiempo_total*100;
+  const tiempo_descanso2 = datos.descanso2/tiempo_total*100;
+  const tiempo_descanso3 = datos.descanso3/tiempo_total*100;
+  const tiempo_descanso4 = datos.descanso4/tiempo_total*100;
+
+  const timepo_total1 = 100 - tiempo_pomodoro1 - tiempo_descanso1;
+  const timepo_total2 = 100 - tiempo_pomodoro2 - tiempo_descanso2;
+  const timepo_total3 = 100 - tiempo_pomodoro3 - tiempo_descanso3;
+  const timepo_total4 = 100 - tiempo_pomodoro4 - tiempo_descanso4;
+  
+  console.log("tiempo_pomodoro1",tiempo_pomodoro1);
+  console.log("tiempo_pomodoro2",tiempo_pomodoro2);
+  console.log("tiempo_pomodoro3",tiempo_pomodoro3);
+  console.log("tiempo_pomodoro4",tiempo_pomodoro4);
+
+  console.log("tiempo_descanso1",tiempo_descanso1);
+  console.log("tiempo_descanso2",tiempo_descanso2);
+  console.log("tiempo_descanso3",tiempo_descanso3);
+  console.log("tiempo_descanso4",tiempo_descanso4);
+
+  console.log("timepo_total1",timepo_total1);
+  console.log("timepo_total2",timepo_total2);
+  console.log("timepo_total3",timepo_total3);
+  console.log("timepo_total4",timepo_total4);
+  
+  const data = [
+    ["Pomodoro 1", timepo_total1, tiempo_descanso1, tiempo_pomodoro1],
+    ["Pomodoro 2", timepo_total2, tiempo_descanso2, tiempo_pomodoro2],
+    ["Pomodoro 3", timepo_total3, tiempo_descanso3, tiempo_pomodoro3],
+    ["Pomodoro 4", timepo_total4, tiempo_descanso4, tiempo_pomodoro4],
+  ];
+
+
   const x0 = 50;
   const xAxisLength = SVG_WIDTH - x0 * 2;
   const y0 = 50;
@@ -30,7 +66,7 @@ export default function ChartPercentPomodoro() {
     <div style={{ marginTop: "3%", border: "1px solid black" }}>
       
         <Typography variant="h6" component="h2" style={{ textAlign: "center" }}>
-          Sesion dd/mm/yy hh:mm:ss
+          Sesion {datos.fecha}
         </Typography>
         
       <br />
@@ -46,7 +82,7 @@ export default function ChartPercentPomodoro() {
           stroke="grey"
         />
         <text x={x0 + xAxisLength + 5} y={xAxisY + 4}>
-          Sesion
+          Intervalo
         </text>
 
         
@@ -152,7 +188,7 @@ export default function ChartPercentPomodoro() {
                 <title>Penalización por no pararse a tiempo: {100 - (dataY + datap1)} %</title>
               </rect>
 
-              <text x={x + barPlotWidth / 2 - 40} y={xAxisY + c} textAnchor="middle" transform="rotate(-20 100 200)" fontSize="12">
+              <text x={x + barPlotWidth / 2 - 40} y={xAxisY + c*1.3} textAnchor="middle" transform="rotate(-20 100 200)" fontSize="12">
                 {pomodoro}
               </text>
 
@@ -162,7 +198,7 @@ export default function ChartPercentPomodoro() {
 
       </svg>
       <Typography variant="h5" align="center" style={{ marginTop: "0%" }}>
-        Tiempo de ejecución y descanso
+      Porcentajes de cumplimiento
       </Typography>
     </div>
   );
