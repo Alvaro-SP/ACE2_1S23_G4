@@ -8,22 +8,22 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema arqui2proy1
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
+DROP SCHEMA IF EXISTS `arqui2proy1` ;
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema arqui2proy1
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `arqui2proy1` DEFAULT CHARACTER SET utf8 ;
+USE `arqui2proy1` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`sesion`
+-- Table `arqui2proy1`.`sesion`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`sesion` ;
+DROP TABLE IF EXISTS `arqui2proy1`.`sesion` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`sesion` (
+CREATE TABLE IF NOT EXISTS `arqui2proy1`.`sesion` (
   `idsesion` INT NOT NULL AUTO_INCREMENT,
   `ejecucion` INT NULL,
   `descanso` INT NULL,
@@ -35,38 +35,38 @@ CREATE TABLE IF NOT EXISTS `mydb`.`sesion` (
   `descanso2` INT NULL,
   `descanso3` INT NULL,
   `descanso4` INT NULL,
-  `fecha` DATETIME NULL,
+  `fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
   `usuario_idusuario` INT NOT NULL,
   PRIMARY KEY (`idsesion`),
   INDEX `fk_sesion_usuario_idx` (`usuario_idusuario` ASC) VISIBLE,
   CONSTRAINT `fk_sesion_usuario`
     FOREIGN KEY (`usuario_idusuario`)
-    REFERENCES `mydb`.`usuario` (`idusuario`)
+    REFERENCES `arqui2proy1`.`usuario` (`idusuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`usuario`
+-- Table `arqui2proy1`.`usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`usuario` ;
+DROP TABLE IF EXISTS `arqui2proy1`.`usuario` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`usuario` (
-  `idusuario` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `arqui2proy1`.`usuario` (
+  `idusuario` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NULL,
   `contrasena` VARCHAR(45) NULL,
   PRIMARY KEY (`idusuario`))
 ENGINE = InnoDB;
 
-USE `mydb`;
+USE `arqui2proy1`;
 
 DELIMITER $$
 
-USE `mydb`$$
-DROP TRIGGER IF EXISTS `mydb`.`sesion_BEFORE_INSERT` $$
-USE `mydb`$$
-CREATE DEFINER = CURRENT_USER TRIGGER `mydb`.`sesion_BEFORE_INSERT` BEFORE INSERT ON `sesion` FOR EACH ROW
+USE `arqui2proy1`$$
+DROP TRIGGER IF EXISTS `arqui2proy1`.`sesion_BEFORE_INSERT` $$
+USE `arqui2proy1`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `arqui2proy1`.`sesion_BEFORE_INSERT` BEFORE INSERT ON `sesion` FOR EACH ROW
 BEGIN
 
 END
@@ -78,3 +78,17 @@ DELIMITER ;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+INSERT INTO usuario (nombre) VALUES ('Juan');
+INSERT INTO usuario (nombre) VALUES ('Maria');
+INSERT INTO usuario (nombre) VALUES ('Pedro');
+INSERT INTO sesion (ejecucion, descanso, pomodoro1, pomodoro2, pomodoro3, pomodoro4, descanso1, descanso2, descanso3, descanso4, usuario_idusuario) VALUES 
+(FLOOR(RAND() * 21) + 25, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, 1),
+(FLOOR(RAND() * 21) + 25, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, 1),
+(FLOOR(RAND() * 21) + 25, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, 1);
+
+INSERT INTO sesion (ejecucion, descanso, pomodoro1, pomodoro2, pomodoro3, pomodoro4, descanso1, descanso2, descanso3, descanso4, usuario_idusuario) VALUES 
+(FLOOR(RAND() * 21) + 25, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, 2),
+(FLOOR(RAND() * 21) + 25, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, 2),
+(FLOOR(RAND() * 21) + 25, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 15) + 1, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, FLOOR(RAND() * 16) + 5, 2);
