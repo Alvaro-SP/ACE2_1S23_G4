@@ -40,9 +40,17 @@ export default function DialogSelect({timestamps}) {
     setOpen(false);
   };
 
+
+  const [sesion, setSesion] = useState('');
+
+  const handleSesionChange = (event) => {
+    setSesion(event.target.value);
+  };
+ 
+
   return (
     <div>
-      <Button onClick={handleClickOpen}>Elegir rango de fecha y hora</Button>
+      <Button   variant="outlined" onClick={handleClickOpen}>Elegir rango de fecha y hora</Button>
       <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
         <DialogTitle>Elegir un rango de fecha y hora</DialogTitle>
         <DialogContent>
@@ -84,6 +92,8 @@ export default function DialogSelect({timestamps}) {
           <Button onClick={handleSend}>Ok</Button>
         </DialogActions>
       </Dialog>
+
+
     </div>
   );
 }
