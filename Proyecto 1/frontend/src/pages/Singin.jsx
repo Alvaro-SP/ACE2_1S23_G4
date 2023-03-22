@@ -26,7 +26,7 @@ export default function Singin() {
       .then((response) => {
          console.log(response.data);
          alert(response.data.Status);
-         if(response.data.Status != "User Not Found :("){
+         if(response.data.Status !== "User Not Found :("){
             // window.location.href = "/Singin#/singin";
             navigate('/');
          }
