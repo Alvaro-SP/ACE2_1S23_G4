@@ -29,10 +29,6 @@ export default function ChartPercentPomodoro() {
 
         <svg viewBox="20 20 400 320">
 
-            <text x={50} y={325} fontSize="1.3em">
-            Porcentaje de Cumplimiento
-            </text>
-
             {/* X axis */}
             <line
                 x1={x0}
