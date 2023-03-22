@@ -19,7 +19,7 @@ actual_username=""
 #* █████████████████████ CONNECT WITH DATABASE:█████████████████████
 conecction  = mysql.connector.connect(
     user='root',
-    password='',
+    password='@{}Ee[]#$#$#$14kFer',
     host='localhost',
     database='Proyecto1', 
     port='3306'
@@ -51,7 +51,7 @@ def hello():
             user_id = get_user_id_by_username(actual_username)
             # Formando la consulta
             sql = '''INSERT INTO sesion (ejecucion, descanso, pomodoro1,pomodoro2,pomodoro3,pomodoro4,descanso1,descanso2,descanso3,descanso4,usuario_idusuario) 
-            VALUES (%s, %s, %s)'''
+            VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s,%s,%s)'''
             values= [(int(work), int(rest), int(penalties[0]),int(penalties[1]),int(penalties[2]),int(penalties[3]),int(penalties[4]),int(penalties[5]),int(penalties[6]),int(penalties[7]),int(user_id))]
             # Intentando realizar la consulta
             try:
@@ -94,10 +94,10 @@ def hello():
         #Verificamos que ahorita mismo hubo un cambio de estado(De setup a trabajo)
         if state==0:
             state=1
-        # Resetear el contador de penalizaciones
-        penalties=[]
-        for i in range(8):
-            penalties.append(0)
+            # Resetear el contador de penalizaciones
+            penalties=[]
+            for i in range(8):
+                penalties.append(0)
 
         # Modo trabajo
         # Verificamos en que fase del pomodoro vamos:
