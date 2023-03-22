@@ -11,7 +11,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 work = 1
 rest = 1
 change = True   # Es verdader si se desea actualizar el tiempo
-penalizacion = 0
+penalizacion = []
 reset=False
 #* █████████████████████ CONNECT WITH DATABASE:█████████████████████
 conecction  = mysql.connector.connect(
@@ -62,6 +62,7 @@ def hello():
 
 @app.route('/datauser',methods=['POST'])
 def data_user():
+    global penalizacion
     execution = request.json['ejecucion']
     rest = request.json['descanso']
     user = request.json['username']
@@ -83,6 +84,8 @@ def data_user():
                 "state": "Perfect",
                 "message": "Sesión iniciada con éxito!!"
             }
+            for i in range(8):
+                penalizacion.append(0)
             return response
     except:
         traceback.print_exc()
