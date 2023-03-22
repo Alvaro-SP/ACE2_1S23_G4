@@ -6,6 +6,7 @@ import Piechart from '../components/Piechart';
 
 export default function Dashboard() {
 
+
   //varibles que se deben optener de la API
   const estado = true;
   const crr_time = 4;
@@ -58,7 +59,11 @@ export default function Dashboard() {
 
       <div style={{ marginTop: "3%", border: "1px solid black" }}>
         <br />
-        <Piechart porcentaje = {Cumplimiento}/>
+        <Piechart porcentaje = {Cumplimiento} nombre={"Cumplimiento"}  color1={"#2ED8A7"} color2={"#a6ceff"} id={"1"} calculo={315-Cumplimiento/100*315} />
+      </div>
+      <div style={{ marginTop: "0%", border: "1px solid black" }}>
+        <br />
+        <Piechart porcentaje = {100-Cumplimiento} nombre={"Penalización"} color1={"#D82E2E"} color2={"#D82EAA"} id={"2"} calculo={315-(100-Cumplimiento)/100*315}/>
       </div>
 
     </div>
