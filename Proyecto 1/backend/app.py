@@ -3,7 +3,7 @@ import traceback
 from flask import Flask, jsonify
 from flask.globals import request
 from flask_cors import CORS
-
+from src.Dashboard import dashboard
 #Flask config
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -13,7 +13,7 @@ rest = 1
 change = True   # Es verdader si se desea actualizar el tiempo
 penalizacion = 0
 reset=False
-
+#* █████████████████████ CONNECT WITH DATABASE:█████████████████████
 conecction  = mysql.connector.connect(
     user='root',
     password='',
@@ -125,8 +125,12 @@ def return_user_id():
         }
         return response
     
-    
+@app.route('/dashboard',methods=['GET'])
+def return_dashboard():
+    response = dashboard(conecction)
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
 if __name__ == '__main__':
     app.run(threaded=True, port=5000,debug=True)
 
