@@ -6,13 +6,11 @@ export default function DialogSelect({datos,setData}) {
   const [date1, setDate1] = useState('');
   const [date2, setDate2] = useState('');
 
-  // axios.get('http://localhost:5000/get-for-graphs')
-  fechastemp = [];
   const GetFechas = () => {
     // ! seteamos las fechas en el select
-    
+    let fechas = [];
     for (let i = 0; i < datos.length; i++) {
-      fechastemp.push(<MenuItem value={datos[i].idsesion} key={datos[i].idsesion}>{new Date(datos[i].fecha).toLocaleString("es-ES", {
+      fechas.push(<MenuItem value={datos[i].idsesion} key={datos[i].idsesion}>{new Date(datos[i].fecha).toLocaleString("es-ES", {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
@@ -21,7 +19,7 @@ export default function DialogSelect({datos,setData}) {
         second: "numeric"
       }).replace(",", " a las")}</MenuItem>);
     }
-    return fechastemp;
+    return fechas;
   };
 
   const fechas = GetFechas();
@@ -38,7 +36,9 @@ export default function DialogSelect({datos,setData}) {
 
   const handleSend = (e) => {
     e.preventDefault();
-   
+   if(date1 === '' || date2 === ''){
+     return alert("seleccione las fechas limites fecha")
+    }
     // console.log(date1,date2);
 
     const fecha_real_1 = new Date(datos.find((e) => e.idsesion === date1).fecha);

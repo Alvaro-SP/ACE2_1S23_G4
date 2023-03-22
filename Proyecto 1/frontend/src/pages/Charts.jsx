@@ -7,9 +7,11 @@ import OverTime from '../components/OverTime';
 import axios from 'axios';
 import { useEffect } from 'react';
 import {FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import datatemp from '../data/testfile.js';
 
 export default function Charts() {
-  const [datos, setDatos] = useState([]);
+  const [datos, setDatos] = useState(datatemp);
+  // const [datos, setDatos] = useState([]);
   console.log("Charts",datos);
   useEffect(() => {
     // axios.get('http://3.15.186.222:5000/get-for-graphs')
@@ -21,6 +23,8 @@ export default function Charts() {
       .catch((error) => {
         console.log(error);
       });
+
+      console.log("useEffect");
   }, []);
 
 
