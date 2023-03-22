@@ -19,9 +19,9 @@ actual_username=""
 #* █████████████████████ CONNECT WITH DATABASE:█████████████████████
 conecction  = mysql.connector.connect(
     user='root',
-    password='',
-    host='localhost',
-    database='Proyecto1', 
+    password='rootroot',
+    host='proyecto.cxrmksgpe29a.us-east-2.rds.amazonaws.com',
+    database='arqui2', 
     port='3306'
 ) 
 
