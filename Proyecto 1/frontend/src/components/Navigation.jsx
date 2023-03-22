@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { AppBar, Box, Toolbar, Typography, IconButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Route from './Route';
-
 export default function Navigation() {
   const [open, setOpen] = useState(false);
 
