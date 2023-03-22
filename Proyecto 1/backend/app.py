@@ -19,7 +19,7 @@ actual_username=""
 #* █████████████████████ CONNECT WITH DATABASE:█████████████████████
 conecction  = mysql.connector.connect(
     user='root',
-    password='@{}Ee[]#$#$#$14kFer',
+    password='',
     host='localhost',
     database='Proyecto1', 
     port='3306'
@@ -90,6 +90,7 @@ def hello():
             return jsonify({
                 "type":"no_change"
             })
+    # Viene state "1"
     else:           
         #Verificamos que ahorita mismo hubo un cambio de estado(De setup a trabajo)
         if state==0:
@@ -98,7 +99,6 @@ def hello():
             penalties=[]
             for i in range(8):
                 penalties.append(0)
-
         # Modo trabajo
         # Verificamos en que fase del pomodoro vamos:
         phase = request.json['pomodoro']
