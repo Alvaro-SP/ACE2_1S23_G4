@@ -3,7 +3,7 @@ import React from "react";
 
 const SVG_WIDTH = 400;
 const SVG_HEIGHT = 300;
-
+// RECIBE: ["POMODORO", CUMPLIMIENTO,  PENALIZACION_POR_NO_SENTARSE_A_TIEMPO]
 const data = [
     ["lbl1", 100],
     ["lbl2", 12],
@@ -87,8 +87,9 @@ export default function ChartPercentPomodoro() {
                     x={x + applePadding / 2}
                     y={y}
                     width={barPlotWidth - applePadding}
-                    height={height }
+                    height={height}
                     fill="#866035"
+                    title="Porcentaje de Cumplimiento: {}"
                 />
                 {/* Left apple */}
                 <circle
