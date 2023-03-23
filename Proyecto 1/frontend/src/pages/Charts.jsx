@@ -5,21 +5,10 @@ import ChartTotalPomodoro from '../components/ChartTotalPomodoro';
 import ChartPercentPomodoro from '../components/ChartPercentPomodoro';
 import OverTime from '../components/OverTime';
 import {FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-
+import datos from '../data/testfile.js';
 export default function Charts() {
 
-  // const names = [
-  //   'Oliver Hansenssssssssssssssssss',
-  //   'Van Henry',
-  //   'April Tucker',
-  //   'Ralph Hubbard',
-  //   'Omar Alexander',
-  //   'Carlos Abbott',
-  //   'Miriam Wagner',
-  //   'Bradley Wilkerson',
-  //   'Virginia Andrews',
-  //   'Kelly Snyder',
-  // ];
+  console.log("Charts",datos);
 
 
   const [type, setType] = useState('');
@@ -37,18 +26,18 @@ export default function Charts() {
     console.log(event.target.value);
   };
 
-  const timestamps = [
-    "2023-03-19 10:15:30",
-    "2023-12-31 23:59:59",
-    "2023-06-15 14:30:00",
-    "2023-10-05 08:45:12",
-    "2023-01-01 00:00:00",
-    "2023-11-11 11:11:11",
-    "2013-07-04 15:30:45",
-    "2013-05-20 09:00:00",
-    "2013-09-22 17:55:33",
-    "2013-12-25 12:00:01"
-  ];
+  // const timestamps = [
+  //   "2023-03-19 10:15:30",
+  //   "2023-12-31 23:59:59",
+  //   "2023-06-15 14:30:00",
+  //   "2023-10-05 08:45:12",
+  //   "2023-01-01 00:00:00",
+  //   "2023-11-11 11:11:11",
+  //   "2013-07-04 15:30:45",
+  //   "2013-05-20 09:00:00",
+  //   "2013-09-22 17:55:33",
+  //   "2013-12-25 12:00:01"
+  // ];
 
   return (
     <>
@@ -59,7 +48,7 @@ export default function Charts() {
       </div>
       <br />
       <div style={{ textAlign: "center" }}>
-        <DialogSelect timestamps={timestamps} setData={setData} />
+        <DialogSelect datos={datos} setData={setData} />
         <br />
 
          {/* SELECTOR DE POMODORO A MOSTRAR */}
@@ -72,8 +61,8 @@ export default function Charts() {
             label="Sesion"
             onChange={handleChangeSesion}
           >
-            {data.map((name, index) => (
-              <MenuItem value={index} key={index}>{name}</MenuItem>
+            {data.map((item, index) => (
+              <MenuItem value={item.idsesion} key={item.idsesion}>{item.fecha}</MenuItem>
             ))}
           </Select>
         </FormControl>

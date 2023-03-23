@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function Piechart({  porcentaje,nombre,color1,color2,id,calculo }) {
-   console.log("color",color1,color2)
+
    return (
       <svg viewBox="0 0 100 100">
          <linearGradient id={`linear${id}`} x1="0%" y1="0%" x2="100%" y2="0%">

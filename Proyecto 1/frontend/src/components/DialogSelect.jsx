@@ -1,7 +1,7 @@
 import  React,{useState} from 'react';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 
-export default function DialogSelect({timestamps,setData}) {
+export default function DialogSelect({datos,setData}) {
   const [open, setOpen] = useState(false);
   const [date1, setDate1] = useState('');
   const [date2, setDate2] = useState('');
@@ -9,8 +9,8 @@ export default function DialogSelect({timestamps,setData}) {
   const GetFechas = () => {
     // ! seteamos las fechas en el select
     let fechas = [];
-    for (let i = 0; i < timestamps.length; i++) {
-      fechas.push(<MenuItem value={i} key={i}>{new Date(timestamps[i]).toLocaleString("es-ES", {
+    for (let i = 0; i < datos.length; i++) {
+      fechas.push(<MenuItem value={datos[i].idsesion} key={datos[i].idsesion}>{new Date(datos[i].fecha).toLocaleString("es-ES", {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
@@ -36,10 +36,23 @@ export default function DialogSelect({timestamps,setData}) {
 
   const handleSend = (e) => {
     e.preventDefault();
-    alert("se envio")
-    console.log(date1,date2);
-    setData([date1,date2])
+   
+    // console.log(date1,date2);
+
+    const fecha_real_1 = new Date(datos.find((e) => e.idsesion === date1).fecha);
+    const fecha_real_2 = new Date(datos.find((e) => e.idsesion === date2).fecha);
+    // console.log("fecha1:", fecha_real_1)
+    // console.log("fecha2:", fecha_real_2)
+
+    const fechas_validas = datos.filter((item) => {
+      const fecha_actual = new Date(item.fecha);
+      return fecha_actual >= fecha_real_1 && fecha_actual <= fecha_real_2;
+    });
+
+    // console.log("fechas validas", fechas_validas)
+    setData(fechas_validas)
     setOpen(false);
+    // alert("se envio")
   };
 
   return (
