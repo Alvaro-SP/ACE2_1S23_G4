@@ -16,7 +16,7 @@ penalties = []
 reset=False
 state=0
 actual_username=""
-#* █████████████████████ CONNECT WITH DATABASE:█████████████████████
+# ------------------- CONNECT WITH DATABASE:-------------------
 conecction  = mysql.connector.connect(
     user='root',
     password='rootroot',
@@ -168,9 +168,7 @@ def data_user():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-
-
-    
+  
 @app.route('/reset',methods=['POST'])
 def reset():
     global reset
@@ -218,14 +216,17 @@ def login():
     if user_id is None:
         # Si no existe mostrá un mensaje de que el usuario no fue encontrado
         response = {
-            "Status": "User Not Found :("
+            "mensaje": "User Not Found :(",
+            "status": "0"
         }
         response = jsonify(response)
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     # En dado caso el usuario si exista, devolvemos un mensaje de un login exitoso
     response = {
-            "Status": "Login Completed Successfully"
+            "mensaje": "Login Completed Successfully",
+            "status": "1",
+            "id": user_id
         }
     # Se actualiza el nombre del usuario actual
     actual_username=temp_user
@@ -242,14 +243,16 @@ def register():
         # Intentamos agregar el usuario
         if(insert_new_user(username)):
             response = {
-                "Status": "Username registered successfully!!"
+                "mensaje": "Username registered successfully!!",
+                "estado": "1"
             }
             response = jsonify(response)
             response.headers.add('Access-Control-Allow-Origin', '*')
             return response
     else:
         response = {
-            "Status": "Username already Exists!!, cannot register right now!!"
+            "mensaje": "Username already Exists!!, cannot register right now!!",
+            "estado": "0"
         }
         response = jsonify(response)
         response.headers.add('Access-Control-Allow-Origin', '*')
@@ -264,7 +267,6 @@ def get_user_id_by_username(name):
         else:
             return None
 
-
 def insert_new_user(name):
     sql = '''INSERT INTO usuario (nombre) 
             VALUES (%s)'''
@@ -278,9 +280,7 @@ def insert_new_user(name):
         traceback.print_exc()
         print('Error inserting new User')
         conecction.rollback()
-    
-        
-    
+     
 @app.route('/dashboard',methods=['GET'])
 def return_dashboard():
     response = dashboard(conecction)

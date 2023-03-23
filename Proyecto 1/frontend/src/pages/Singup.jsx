@@ -5,27 +5,28 @@ import axios from 'axios';
 import addUser from '../img/addUser.png'
 
 export default function Singup() {
-   const [usuario, setUsuario] = useState('');
+ 
    const handleRegister = (e) => {
       e.preventDefault();
-      // alert(usuario)
-      // fetch('http://3.15.186.222:5000/register', {
+      const usuario = e.target[0].value
+   
+   
       axios
       .post("http://localhost:5000/register", {
          username: usuario
       })
       .then((response) => {
          console.log(response.data);
-         alert(response.data.Status);
-         window.location.href = "/Singin#/singin";
+         alert(response.data.mensaje);
+         if(response.data.estado === "1"){
+            e.target.reset();
+         }
       })
       .catch((error) => {
          console.log(error);
       });
    }
-   const handleChange = (event) => {
-      setUsuario(event.target.value);
-    };
+
    return (
 
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "70vh" }}>
@@ -37,22 +38,24 @@ export default function Singup() {
             <Paper elevation={3} style={{ padding: "4%", margin: "5%" }}>
 
                <b>Llena los campos para crear tu usuario:</b>
-
+               <form onSubmit={handleRegister}>
                <TextField
                id="standard-basic"
                label="Usuario"
                variant="standard"
-               fullWidth
-               value={usuario}
-               onChange={handleChange} />
+               fullWidth />
                <center>
-                  <Button variant="contained"  style={{ marginTop: "4%" }} onClick={handleRegister}>
+                  <Button variant="contained"  style={{ marginTop: "4%" }} type="submit">
                      Registrar
                   </Button>
-                  <br/><br/>
+                  </center>
+                  </form>
+                  <br/>
+                  <center>
                   Ya tienes un usuario?ㅤ
                   <Link to={'/Singin'}>Inicia Sesión</Link> 
-               </center>
+                  </center>
+              
             </Paper> 
          </div>
       </div>
