@@ -274,7 +274,7 @@ def return_session():
     return response
 
 if __name__ == '__main__':
-    app.run(threaded=True, port=5000,debug=True)
+    app.run(threaded=True, port=5000,debug=True, host='0.0.0.0')
 
     
 
