@@ -176,6 +176,7 @@ def reset():
         "state": "Perfect",
         "message": "Reseteo indicado con éxito"
     }
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 @app.route('/get-user-id',methods=['POST'])
@@ -188,11 +189,13 @@ def return_user_id():
         response = {
             "id": None
         }
+        response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     else:
         response = {
             "id": user_id
         }
+        response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     
 @app.route('/login',methods=['POST'])
@@ -208,6 +211,7 @@ def login():
         response = {
             "Status": "User Not Found :("
         }
+        response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     # En dado caso el usuario si exista, devolvemos un mensaje de un login exitoso
     response = {
@@ -215,6 +219,7 @@ def login():
         }
     # Se actualiza el nombre del usuario actual
     actual_username=temp_user
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 @app.route('/register',methods=['POST'])
@@ -228,11 +233,13 @@ def register():
             response = {
                 "Status": "Username registered successfully!!"
             }
+            response.headers.add('Access-Control-Allow-Origin', '*')
             return response
     else:
         response = {
             "Status": "Username already Exists!!, cannot register right now!!"
         }
+        response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     
 def get_user_id_by_username(name):
