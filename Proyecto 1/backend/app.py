@@ -160,6 +160,8 @@ def data_user():
     response = {
         "Status": "Data updated Successfully!!"
     }
+    response = jsonify(response)
+    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 
@@ -176,6 +178,7 @@ def reset():
         "state": "Perfect",
         "message": "Reseteo indicado con éxito"
     }
+    response = jsonify(response)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
@@ -189,12 +192,14 @@ def return_user_id():
         response = {
             "id": None
         }
+        response = jsonify(response)
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     else:
         response = {
             "id": user_id
         }
+        response = jsonify(response)
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     
@@ -211,6 +216,7 @@ def login():
         response = {
             "Status": "User Not Found :("
         }
+        response = jsonify(response)
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     # En dado caso el usuario si exista, devolvemos un mensaje de un login exitoso
@@ -219,6 +225,7 @@ def login():
         }
     # Se actualiza el nombre del usuario actual
     actual_username=temp_user
+    response = jsonify(response)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
@@ -233,12 +240,14 @@ def register():
             response = {
                 "Status": "Username registered successfully!!"
             }
+            response = jsonify(response)
             response.headers.add('Access-Control-Allow-Origin', '*')
             return response
     else:
         response = {
             "Status": "Username already Exists!!, cannot register right now!!"
         }
+        response = jsonify(response)
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     
@@ -271,12 +280,14 @@ def insert_new_user(name):
 @app.route('/dashboard',methods=['GET'])
 def return_dashboard():
     response = dashboard(conecction)
+    response = jsonify(response)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 @app.route('/get-for-graphs',methods=['POST'])
 def return_session():
     response = getSessions(conecction, request)
+    response = jsonify(response)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
