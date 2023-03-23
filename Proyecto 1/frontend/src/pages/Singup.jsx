@@ -17,7 +17,8 @@ export default function Singup() {
       })
       .then((response) => {
          console.log(response.data);
-         alert(response.data.Status)
+         alert(response.data.Status);
+         window.location.href = "/Singin#/singin";
       })
       .catch((error) => {
          console.log(error);
