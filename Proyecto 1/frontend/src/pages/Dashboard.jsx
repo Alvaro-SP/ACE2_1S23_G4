@@ -17,7 +17,8 @@ export default function Dashboard() {
 
   //calculos para funcionamiento de la pagina
   const total_tiempo = ((conf_tiempo + conf_descanzo) * 4)
-  const Cumplimiento = 100 - penalizacionTotal / total_tiempo * 100;
+  const Cumplimiento = (100 - penalizacionTotal / total_tiempo * 100).toFixed(2);
+  const Penalizacion = (100-Cumplimiento).toFixed(2);
 
   const percentPomodoro = (crr_time / conf_tiempo) * 100;
   const percentDescanzo = (crr_time / conf_descanzo) * 100;
@@ -63,7 +64,7 @@ export default function Dashboard() {
       </div>
       <div style={{ marginTop: "0%", border: "1px solid black" }}>
         <br />
-        <Piechart porcentaje = {100-Cumplimiento} nombre={"Penalización"} color1={"#D82E2E"} color2={"#D82EAA"} id={"2"} calculo={315-(100-Cumplimiento)/100*315}/>
+        <Piechart porcentaje = {Penalizacion} nombre={"Penalización"} color1={"#D82E2E"} color2={"#D82EAA"} id={"2"} calculo={315-Penalizacion/100*315}/>
       </div>
 
     </div>
