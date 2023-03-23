@@ -9,8 +9,8 @@ from src.GetSessions import getSessions
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-work = -1
-rest = -1
+work = 25
+rest = 5
 change = True   # Es verdader si se desea actualizar el tiempo
 penalties = []
 reset=False
@@ -68,6 +68,10 @@ def hello():
                         penalties.append(0)
                     # Cambiamos el estado a setup
                     state=0
+                    # Recolocando los valores predeterminados
+                    change=True
+                    rest=5
+                    work=25
                     return response
             except:
                 traceback.print_exc()
