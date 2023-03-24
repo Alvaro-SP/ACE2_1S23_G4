@@ -49,11 +49,9 @@ def hello():
         #Verificamos que ahorita mismo hubo un cambio de estado(De Trabajo a setup)
         if state==1:
             #Ya que validamos que hubo un cambio, indicamos que la sesión acabó, y guardamos los datos en la db.
-            user_id = get_user_id_by_username(actual_username)
-            # Formando la consulta
             sql = '''INSERT INTO sesion (ejecucion, descanso, pomodoro1,pomodoro2,pomodoro3,pomodoro4,descanso1,descanso2,descanso3,descanso4,usuario_idusuario) 
             VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s,%s,%s)'''
-            values= [(int(work), int(rest), int(penalties[0]),int(penalties[1]),int(penalties[2]),int(penalties[3]),int(penalties[4]),int(penalties[5]),int(penalties[6]),int(penalties[7]),int(user_id))]
+            values= [(int(work), int(rest), int(penalties[0]),int(penalties[1]),int(penalties[2]),int(penalties[3]),int(penalties[4]),int(penalties[5]),int(penalties[6]),int(penalties[7]),int(actual_username))]
             # Intentando realizar la consulta
             try:
                 with conecction.cursor() as cursor:
@@ -206,7 +204,6 @@ def return_user_id():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     
-
 # ---------------------- Login ----------------------
 @app.route('/login',methods=['POST'])
 def login():
@@ -271,17 +268,58 @@ def get_user_id_by_username(name):
 # ----------- Dashboard -----------
 @app.route('/dashboard',methods=['GET'])
 def return_dashboard():
-    response = dashboard(conecction)
-    response = jsonify(response)
+    response = make_response({
+        "estado": True,
+        "crr_time": 4,
+        "crr_parte": 4,
+        "conf_tiempo": 45,
+        "conf_descanzo": 5,
+        "penalizacionTotal": 30 
+    })
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
-@app.route('/get-for-graphs',methods=['POST'])
+@app.route('/charts',methods=['GET'])
 def return_session():
-    response = getSessions(conecction, request)
-    response = jsonify(response)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    global actual_username
+    sql = " SELECT * FROM sesion WHERE idsesion = %s;"
+    try:
+        mycursor.execute(sql, [actual_username])
+        sesiones = mycursor.fetchall()
+        data = []
+        for sesion in sesiones:
+            data.append({
+                "idsesion": sesion[0],
+                "ejecucion": sesion[1],
+                "descanso": sesion[2],
+                "pomodoro1": sesion[3],
+                "pomodoro2": sesion[4],
+                "pomodoro3": sesion[5],
+                "pomodoro4": sesion[6],
+                "descanso1": sesion[7],
+                "descanso2": sesion[8],
+                "descanso3": sesion[9],
+                "descanso4": sesion[10],
+                "fecha": str(sesion[11])
+            })
+        #print("====",data)
+        reponse =  make_response({
+            "datos": data,
+            "estado": "1",
+            "mensaje": "Sesiones optenidas con exito",
+        })
+        reponse.headers.add('Access-Control-Allow-Origin', '*')
+        return reponse
+    
+    except Exception as error:
+        print('Error sesion User:',error)
+        reponse =  make_response( {
+             "datos": [],
+            "mensaje": "Sesiones optenidas sin exito",
+            "estado": "0"
+        })
+        reponse.headers.add('Access-Control-Allow-Origin', '*')
+        return reponse
 
 if __name__ == '__main__':
     app.run(threaded=True, port=5000,debug=True, host='0.0.0.0')
