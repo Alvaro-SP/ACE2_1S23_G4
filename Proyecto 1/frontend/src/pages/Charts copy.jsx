@@ -1,13 +1,12 @@
 import React, { useState,useEffect } from 'react';
-import { FormControl, IconButton, InputLabel, MenuItem, Select,Typography } from '@mui/material';
-import RefreshIcon from '@mui/icons-material/Refresh';
+import { FormControl, InputLabel, MenuItem, Select,Typography } from '@mui/material';
 import axios from 'axios';
 import DialogSelect from '../components/DialogSelect';
 import ChartTotalPomodoro from '../components/ChartTotalPomodoro';
 import ChartPercentPomodoro from '../components/ChartPercentPomodoro';
 import OverTime from '../components/OverTime';
-// eslint-disable-next-line
 import datatemp from '../data/testfile.js';
+
 export default function Charts() {
   const [datos, setDatos] = useState([]);
 
@@ -20,6 +19,8 @@ export default function Charts() {
         console.log(error);
       });
   }, []);
+
+
 
   const [type, setType] = useState('');
   const [sesion, setSesino] = useState('');
@@ -58,11 +59,6 @@ export default function Charts() {
 
   //const link = "https://www.fotosdememes.com/wp-content/uploads/2021/09/esta-vacio-1024x597.jpg";
   const link = "https://cdn-icons-png.flaticon.com/512/6165/6165003.png"
-
-  const handleRefresh = () => {
-    window.location.reload();
-  }
-
   return (
     <>
       <div style={{ textAlign: "center" }}>
@@ -70,14 +66,16 @@ export default function Charts() {
           Gráficas
         </Typography>
       </div>
-      <IconButton aria-label="delete" style={{marginTop:"-16%",marginLeft:"2%"}} onClick={handleRefresh}>
-        <RefreshIcon />
-      </IconButton>
       <br />
       <div style={{ textAlign: "center" }}>
         <DialogSelect datos={datos} setData={setData} />
-        <br/>
-
+        <br />
+        {
+          data.map((item, index) => (
+            <p>{index}</p>
+          ))
+        }
+ 
         {/* SELECTOR DE POMODORO A MOSTRAR */}
         {
           data.length > 0 &&
@@ -95,9 +93,12 @@ export default function Charts() {
               ))}
             </Select>
           </FormControl>
+
         }
 
+
         {/* De Grafica a Mostrar */}
+
         {
           sesion !== '' &&
           <FormControl style={{ width: "90%", marginTop: "5%", marginBottom: "5%" }}>
@@ -118,11 +119,12 @@ export default function Charts() {
             </Select>
           </FormControl>
         }
+  {/* <div style={{ maxWidth: '100%', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <img src={link} alt="Imagen" style={{ maxWidth: '100%', height: 'auto', marginTop: "5%" }} />
+        </div>  */}
 
         {type === '' ? 
-        <div style={{ maxWidth: '100%', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <img src={link} alt="Imagen" style={{ maxWidth: '100%', height: 'auto', marginTop: "5%" }} />
-        </div>
+        <></>
         : type >= 0 && type <= 3 ? <OverTime tipo={type} datos={sesionData} /> : type === 4 ? <ChartPercentPomodoro datos={sesionData} /> : <ChartTotalPomodoro sesionData={sesionData} />}
         <br /><br /><br /><br /><br /><br /><br /><br />
       </div>

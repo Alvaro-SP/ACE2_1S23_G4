@@ -5,7 +5,7 @@ export default function DialogSelect({ datos, setData }) {
   const [open, setOpen] = useState(false);
   const [date1, setDate1] = useState('');
   const [date2, setDate2] = useState('');
-
+  
   const GetFechas = () => {
     // ! seteamos las fechas en el select
     let fechas = [];
@@ -76,7 +76,13 @@ export default function DialogSelect({ datos, setData }) {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {fechas}
+                {/* {fechas} */}
+                {
+                  datos.length > 0 &&
+                  datos.map((item) => {
+                    return <MenuItem value={item.idsesion} key={item.idsesion}>{item.fecha}</MenuItem>
+                  })
+                }
               </Select>
             </FormControl>
             <FormControl sx={{ m: 1, minWidth: 120 }}>
