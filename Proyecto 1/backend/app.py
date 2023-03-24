@@ -29,7 +29,7 @@ conecction  = mysql.connector.connect(
 #Crea el cursor para ejecutar las consultas
 mycursor = conecction.cursor()
 
-# ---- Endpoints ----
+# ---------------------- Endpoints ----------------------
 @app.route("/")
 def index():
     return "<h1>Hi from backend, we are working hard!!</h1>"
@@ -207,10 +207,37 @@ def return_user_id():
         return response
     
 
-# ----------- Login -----------
+# ---------------------- Login ----------------------
 @app.route('/login',methods=['POST'])
 def login():
     global actual_username
+    username = request.json['username']
+    sql = "SELECT idusuario FROM usuario WHERE nombre = %s"
+    print("Intenado inisiar sesion con usuario: " + username)
+    try:
+        mycursor.execute(sql, [username])
+        actual_username = mycursor.fetchone()[0]
+        reponse =  make_response({
+            "mensaje": "Bienvenido!! %s" % username,
+            "estado": "1",
+            "id": actual_username
+        })
+        reponse.headers.add('Access-Control-Allow-Origin', '*')
+        return reponse
+    
+    except Exception as error:
+        print('Error sesion User:',error)
+        reponse =  make_response( {
+            "mensaje": "No se encontro el usuario: %s" % username,
+            "estado": "0"
+        })
+        reponse.headers.add('Access-Control-Allow-Origin', '*')
+        return reponse
+    
+
+# ---------------------- Registro ----------------------
+@app.route('/register',methods=['POST'])
+def register():
     username = request.json['username']
     sql = "INSERT INTO usuario (nombre) VALUES (%s)"
     print("Intenado registrar usuario: " + username)
@@ -222,9 +249,8 @@ def login():
             "estado": "1"
         })
         reponse.headers.add('Access-Control-Allow-Origin', '*')
-        actual_username=username
         return reponse
-    except mysql.connector.Error as error:
+    except Exception as error:
         print('Error inserting new User',error)
         reponse =  make_response( {
             "mensaje": "Username already Exists!!, cannot register right now!!",
@@ -232,30 +258,6 @@ def login():
         })
         reponse.headers.add('Access-Control-Allow-Origin', '*')
         return reponse  
-
-# ----------- Registro -----------
-@app.route('/register',methods=['POST'])
-def register():
-    username = request.json['username']
-    sql = "SELECT idusuario FROM usuario WHERE nombre = %s"
-    print("Intenado inisiar sesion con usuario: " + username)
-    try:
-        mycursor.execute(sql, [username])
-        reponse =  make_response({
-            "mensaje": "Bienvenido!! %s" % username,
-            "estado": "1"
-        })
-        reponse.headers.add('Access-Control-Allow-Origin', '*')
-        return reponse
-    
-    except mysql.connector.Error as error:
-        print('Error inserting new User',error)
-        reponse =  make_response( {
-            "mensaje": "No se encontro el usuario: %s" % username,
-            "estado": "0"
-        })
-        reponse.headers.add('Access-Control-Allow-Origin', '*')
-        return reponse
     
 def get_user_id_by_username(name):
     with conecction.cursor() as cursor:
