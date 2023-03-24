@@ -1,6 +1,7 @@
 import mysql.connector
 import traceback
 from flask import Flask, jsonify
+from flask import  make_response
 from flask.globals import request
 from flask_cors import CORS
 from src.Dashboard import dashboard
@@ -28,7 +29,7 @@ conecction  = mysql.connector.connect(
 #Crea el cursor para ejecutar las consultas
 mycursor = conecction.cursor()
 
-
+# ---- Endpoints ----
 @app.route("/")
 def index():
     return "<h1>Hi from backend, we are working hard!!</h1>"
@@ -210,56 +211,51 @@ def return_user_id():
 @app.route('/login',methods=['POST'])
 def login():
     global actual_username
-    # Se almacena el usuario que intenta loggearse
-    temp_user = request.json['username']
-    # Recuperamos el id del usuario
-    user_id = get_user_id_by_username(temp_user)
-    # Se valida que el usuario exista
-    if user_id is None:
-        # Si no existe mostrá un mensaje de que el usuario no fue encontrado
-        response = {
-            "mensaje": "User Not Found :(",
-            "status": "0"
-        }
-        response = jsonify(response)
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
-    # En dado caso el usuario si exista, devolvemos un mensaje de un login exitoso
-    response = {
-            "mensaje": "Login Completed Successfully",
-            "status": "1",
-            "id": user_id
-        }
-    # Se actualiza el nombre del usuario actual
-    actual_username=temp_user
-    response = jsonify(response)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    username = request.json['username']
+    sql = "INSERT INTO usuario (nombre) VALUES (%s)"
+    print("Intenado registrar usuario: " + username)
+    try:
+        mycursor.execute(sql, [username])
+        conecction.commit()
+        reponse =  make_response({
+            "mensaje": "Username registered successfully!!",
+            "estado": "1"
+        })
+        reponse.headers.add('Access-Control-Allow-Origin', '*')
+        actual_username=username
+        return reponse
+    except mysql.connector.Error as error:
+        print('Error inserting new User',error)
+        reponse =  make_response( {
+            "mensaje": "Username already Exists!!, cannot register right now!!",
+            "estado": "0"
+        })
+        reponse.headers.add('Access-Control-Allow-Origin', '*')
+        return reponse  
 
 # ----------- Registro -----------
 @app.route('/register',methods=['POST'])
 def register():
     username = request.json['username']
-    # Primero validamos que el usuario no exista
-    user_id=get_user_id_by_username(username)
-    if user_id is None:
-        # Intentamos agregar el usuario
-        if(insert_new_user(username)):
-            response = {
-                "mensaje": "Username registered successfully!!",
-                "estado": "1"
-            }
-            response = jsonify(response)
-            response.headers.add('Access-Control-Allow-Origin', '*')
-            return response
-    else:
-        response = {
-            "mensaje": "Username already Exists!!, cannot register right now!!",
+    sql = "SELECT idusuario FROM usuario WHERE nombre = %s"
+    print("Intenado inisiar sesion con usuario: " + username)
+    try:
+        mycursor.execute(sql, [username])
+        reponse =  make_response({
+            "mensaje": "Bienvenido!! %s" % username,
+            "estado": "1"
+        })
+        reponse.headers.add('Access-Control-Allow-Origin', '*')
+        return reponse
+    
+    except mysql.connector.Error as error:
+        print('Error inserting new User',error)
+        reponse =  make_response( {
+            "mensaje": "No se encontro el usuario: %s" % username,
             "estado": "0"
-        }
-        response = jsonify(response)
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
+        })
+        reponse.headers.add('Access-Control-Allow-Origin', '*')
+        return reponse
     
 def get_user_id_by_username(name):
     with conecction.cursor() as cursor:
@@ -269,21 +265,6 @@ def get_user_id_by_username(name):
             return myresult[0]
         else:
             return None
-
-def insert_new_user(name):
-    sql = '''INSERT INTO usuario (nombre) 
-            VALUES (%s)'''
-    values= [name]
-    try:
-        with conecction.cursor() as cursor:
-            cursor.execute(sql, values)
-            conecction.commit()
-            return True
-    except:
-        traceback.print_exc()
-        print('Error inserting new User')
-        conecction.rollback()
-     
 
 # ----------- Dashboard -----------
 @app.route('/dashboard',methods=['GET'])
