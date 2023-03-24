@@ -13,7 +13,7 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 work = 25
 rest = 5
 change = True   # Es verdader si se desea actualizar el tiempo
-penalties = []
+penalties = [0,0,0,0,0,0,0,0]
 reset=False
 state=0
 actual_username=""
@@ -106,46 +106,57 @@ def hello():
         # Verificamos en que fase del pomodoro vamos:
         phase = request.json['pomodoro']
         button=request.json['button']
-        # Fase 1 - Pomodoro 1
-        if int(phase)==1:
-            # Debería estar sentado, de lo contrario la penalización suma
-            if int(button)==0:
-                penalties[0]+=1
-        # Fase 2 - Descanso 1
-        if int(phase)==2:
-            # Debería estar parado, de lo contrario la penalización suma
-            if int(button)==1:
-                penalties[1]+=1
-        # Fase 3 - Pomodoro 2
-        if int(phase)==3:
-            # Debería estar sentado, de lo contrario la penalización suma
-            if int(button)==0:
-                penalties[2]+=1
-        # Fase 4 - Descanso 2
-        if int(phase)==4:
-            # Debería estar parado, de lo contrario la penalización suma
-            if int(button)==1:
-                penalties[3]+=1
-        # Fase 5 - Pomodoro 3
-        if int(phase)==5:
-            # Debería estar sentado, de lo contrario la penalización suma
-            if int(button)==0:
-                penalties[4]+=1
-        # Fase 6 - Descanso 3
-        if int(phase)==6:
-            # Debería estar parado, de lo contrario la penalización suma
-            if int(button)==1:
-                penalties[5]+=1
-        # Fase 7 - Pomodoro 4
-        if int(phase)==7:
-            # Debería estar sentado, de lo contrario la penalización suma
-            if int(button)==0:
-                penalties[6]+=1
-        # Fase 8 - Descanso 4
-        if int(phase)==8:
-            # Debería estar parado, de lo contrario la penalización suma
-            if int(button)==1:
-                penalties[7]+=1
+        
+        phase = int(phase)
+        if phase % 2 == 0:
+            penalties[phase - 1] += int(button)
+        else:
+            if int(button) == 0:
+                penalties[phase - 1] += 1
+        print(penalties)
+        
+        # # Fase 1 - Pomodoro 1
+        # if int(phase)==1:
+        #     # Debería estar sentado, de lo contrario la penalización suma
+        #     if int(button)==0:
+        #         penalties[0]+=1
+        # # Fase 2 - Descanso 1
+        # if int(phase)==2:
+        #     # Debería estar parado, de lo contrario la penalización suma
+        #     if int(button)==1:
+        #         penalties[1]+=1
+        # # Fase 3 - Pomodoro 2
+        # if int(phase)==3:
+        #     # Debería estar sentado, de lo contrario la penalización suma
+        #     if int(button)==0:
+        #         penalties[2]+=1
+        # # Fase 4 - Descanso 2
+        # if int(phase)==4:
+        #     # Debería estar parado, de lo contrario la penalización suma
+        #     if int(button)==1:
+        #         penalties[3]+=1
+        # # Fase 5 - Pomodoro 3
+        # if int(phase)==5:
+        #     # Debería estar sentado, de lo contrario la penalización suma
+        #     if int(button)==0:
+        #         penalties[4]+=1
+        # # Fase 6 - Descanso 3
+        # if int(phase)==6:
+        #     # Debería estar parado, de lo contrario la penalización suma
+        #     if int(button)==1:
+        #         penalties[5]+=1
+        # # Fase 7 - Pomodoro 4
+        # if int(phase)==7:
+        #     # Debería estar sentado, de lo contrario la penalización suma
+        #     if int(button)==0:
+        #         penalties[6]+=1
+        # # Fase 8 - Descanso 4
+        # if int(phase)==8:
+        #     # Debería estar parado, de lo contrario la penalización suma
+        #     if int(button)==1:
+        #         penalties[7]+=1
+        
+        
         return jsonify({
             "type":"work"
         })
