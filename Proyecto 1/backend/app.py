@@ -204,6 +204,17 @@ def return_user_id():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     
+    
+def get_user_id_by_username(name):
+    with conecction.cursor() as cursor:
+        cursor.execute("SELECT idusuario FROM usuario WHERE nombre = %s", (name,))
+        myresult = cursor.fetchone()
+        if myresult is not None:
+            return myresult[0]
+        else:
+            return None
+
+
 # ---------------------- Login ----------------------
 @app.route('/login',methods=['POST'])
 def login():
@@ -231,7 +242,6 @@ def login():
         reponse.headers.add('Access-Control-Allow-Origin', '*')
         return reponse
     
-
 # ---------------------- Registro ----------------------
 @app.route('/register',methods=['POST'])
 def register():
@@ -255,15 +265,6 @@ def register():
         })
         reponse.headers.add('Access-Control-Allow-Origin', '*')
         return reponse  
-    
-def get_user_id_by_username(name):
-    with conecction.cursor() as cursor:
-        cursor.execute("SELECT idusuario FROM usuario WHERE nombre = %s", (name,))
-        myresult = cursor.fetchone()
-        if myresult is not None:
-            return myresult[0]
-        else:
-            return None
 
 # ----------- Dashboard -----------
 @app.route('/dashboard',methods=['GET'])
@@ -279,6 +280,7 @@ def return_dashboard():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+# ----------- Graficas por fechas -----------
 @app.route('/charts',methods=['GET'])
 def return_session():
     global actual_username
