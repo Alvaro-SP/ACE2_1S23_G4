@@ -1,9 +1,14 @@
-CREATE DATABASE Proyecto1;
+use arqui2;
+select * from usuario;
 
-CREATE TABLE IF NOT EXISTS usuario (
+
+select * from sesion;
+
+CREATE TABLE usuario (
     idusuario INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(45) NULL,
-    PRIMARY KEY (idusuario)
+    PRIMARY KEY (idusuario),
+    UNIQUE KEY nombre_UNIQUE (nombre)
 );
 
 CREATE TABLE IF NOT EXISTS sesion (
