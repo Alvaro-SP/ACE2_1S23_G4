@@ -205,6 +205,8 @@ def return_user_id():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     
+
+# ----------- Login -----------
 @app.route('/login',methods=['POST'])
 def login():
     global actual_username
@@ -234,6 +236,7 @@ def login():
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+# ----------- Registro -----------
 @app.route('/register',methods=['POST'])
 def register():
     username = request.json['username']
@@ -281,6 +284,8 @@ def insert_new_user(name):
         print('Error inserting new User')
         conecction.rollback()
      
+
+# ----------- Dashboard -----------
 @app.route('/dashboard',methods=['GET'])
 def return_dashboard():
     response = dashboard(conecction)
