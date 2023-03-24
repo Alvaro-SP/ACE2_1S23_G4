@@ -284,7 +284,7 @@ def return_dashboard():
 @app.route('/charts',methods=['GET'])
 def return_session():
     global actual_username
-    sql = " SELECT * FROM sesion WHERE idsesion = %s;"
+    sql = " SELECT * FROM sesion WHERE usuario_idusuario = %s;"
     try:
         mycursor.execute(sql, [actual_username])
         sesiones = mycursor.fetchall()
