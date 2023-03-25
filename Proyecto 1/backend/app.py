@@ -14,9 +14,11 @@ work = 25
 rest = 5
 change = True   # Es verdader si se desea actualizar el tiempo
 penalties = [0,0,0,0,0,0,0,0]
+times=[0,0,0,0,0,0,0,0]
 reset=False
 state=0
 actual_username=""
+phase=0
 # ------------------- CONNECT WITH DATABASE:-------------------
 conecction  = mysql.connector.connect(
     user='root',
@@ -42,6 +44,8 @@ def hello():
     global penalties
     global state
     global actual_username
+    global phase
+    global times
     print(request.json)
 
     if request.json["state"] == 0: # Modo setup
@@ -101,6 +105,9 @@ def hello():
             penalties=[]
             for i in range(8):
                 penalties.append(0)
+            times=[]
+            for i in range(8):
+                times.append(0)
         # Modo trabajo
         # Verificamos en que fase del pomodoro vamos:
         phase = request.json['pomodoro']
@@ -109,9 +116,11 @@ def hello():
         phase = int(phase)
         if phase % 2 == 0:
             penalties[phase - 1] += int(button)
+            times[phase - 1] += 1
         else:
             if int(button) == 0:
                 penalties[phase - 1] += 1
+                times[phase - 1] += 1
         print(penalties)
   
         return jsonify({
@@ -190,13 +199,18 @@ def register():
 # ----------- Dashboard -----------
 @app.route('/dashboard',methods=['GET'])
 def return_dashboard():
+    global rest
+    global penalties
+    global work
+    global phase
+    global times
     response = make_response({
         "estado": True,
-        "crr_time": 4,
-        "crr_parte": 4,
-        "conf_tiempo": 45,
-        "conf_descanzo": 5,
-        "penalizacionTotal": 30 
+        "crr_time": times[phase-1]/60,
+        "crr_parte": phase,
+        "conf_tiempo": work,
+        "conf_descanzo": rest,
+        "penalizacionTotal": sum(penalties)/60
     })
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
