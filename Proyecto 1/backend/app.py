@@ -34,7 +34,6 @@ mycursor = conecction.cursor()
 def index():
     return "<h1>Hi from backend, we are working hard!!</h1>"
 
-
 @app.route('/data',methods=['POST'])
 def hello():
     global work

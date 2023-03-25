@@ -28,7 +28,7 @@ export default function Singin() {
          alert(response.data.mensaje);
          if(response.data.status === "1"){
             cookies.set('usr',{id:response.data.id,name:usuario,date:dateTimeString},{path: '/'});
-            navigate('/'); 
+            navigate('/');
          }
       })
       .catch((error) => {
