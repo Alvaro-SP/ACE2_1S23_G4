@@ -69,8 +69,8 @@ def hello():
                     state=0
                     # Recolocando los valores predeterminados
                     change=True
-                    rest=5
-                    work=25
+                    # rest=5
+                    # work=25
                     return response
             except:
                 traceback.print_exc()
@@ -114,117 +114,28 @@ def hello():
             if int(button) == 0:
                 penalties[phase - 1] += 1
         print(penalties)
-        
-        # # Fase 1 - Pomodoro 1
-        # if int(phase)==1:
-        #     # Debería estar sentado, de lo contrario la penalización suma
-        #     if int(button)==0:
-        #         penalties[0]+=1
-        # # Fase 2 - Descanso 1
-        # if int(phase)==2:
-        #     # Debería estar parado, de lo contrario la penalización suma
-        #     if int(button)==1:
-        #         penalties[1]+=1
-        # # Fase 3 - Pomodoro 2
-        # if int(phase)==3:
-        #     # Debería estar sentado, de lo contrario la penalización suma
-        #     if int(button)==0:
-        #         penalties[2]+=1
-        # # Fase 4 - Descanso 2
-        # if int(phase)==4:
-        #     # Debería estar parado, de lo contrario la penalización suma
-        #     if int(button)==1:
-        #         penalties[3]+=1
-        # # Fase 5 - Pomodoro 3
-        # if int(phase)==5:
-        #     # Debería estar sentado, de lo contrario la penalización suma
-        #     if int(button)==0:
-        #         penalties[4]+=1
-        # # Fase 6 - Descanso 3
-        # if int(phase)==6:
-        #     # Debería estar parado, de lo contrario la penalización suma
-        #     if int(button)==1:
-        #         penalties[5]+=1
-        # # Fase 7 - Pomodoro 4
-        # if int(phase)==7:
-        #     # Debería estar sentado, de lo contrario la penalización suma
-        #     if int(button)==0:
-        #         penalties[6]+=1
-        # # Fase 8 - Descanso 4
-        # if int(phase)==8:
-        #     # Debería estar parado, de lo contrario la penalización suma
-        #     if int(button)==1:
-        #         penalties[7]+=1
-        
-        
+  
         return jsonify({
             "type":"work"
         })
 
-
+# ---------------------- cambiar horas front ----------------------
 @app.route('/datauser',methods=['POST'])
 def data_user():
     global work
     global rest
     global actual_username
+    global change
+    change = True
     #Se actualizan los datos de configuracion
     work = request.json['ejecucion']
     rest = request.json['descanso']
-    actual_username = request.json['username']
     response = {
         "Status": "Data updated Successfully!!"
     }
     response = jsonify(response)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
-
-  
-@app.route('/reset',methods=['POST'])
-def reset():
-    global reset
-    response = {}
-    reset_param = request.json['reset']
-    reset=bool(reset_param)
-    
-    response = {
-        "state": "Perfect",
-        "message": "Reseteo indicado con éxito"
-    }
-    response = jsonify(response)
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
-
-@app.route('/get-user-id',methods=['POST'])
-def return_user_id():
-    user = request.json['username']
-    user_id = get_user_id_by_username(user)
-    # Se manda None en caso no exista
-    
-    if user_id is None:
-        response = {
-            "id": None
-        }
-        response = jsonify(response)
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
-    else:
-        response = {
-            "id": user_id
-        }
-        response = jsonify(response)
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
-    
-    
-def get_user_id_by_username(name):
-    with conecction.cursor() as cursor:
-        cursor.execute("SELECT idusuario FROM usuario WHERE nombre = %s", (name,))
-        myresult = cursor.fetchone()
-        if myresult is not None:
-            return myresult[0]
-        else:
-            return None
-
 
 # ---------------------- Login ----------------------
 @app.route('/login',methods=['POST'])
