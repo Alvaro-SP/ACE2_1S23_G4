@@ -17,7 +17,7 @@ penalties = [0,0,0,0,0,0,0,0]
 times=[0,0,0,0,0,0,0,0]
 reset=False
 state=0
-actual_username=""
+actual_username=0
 phase=0
 # ------------------- CONNECT WITH DATABASE:-------------------
 conecction  = mysql.connector.connect(
@@ -54,7 +54,7 @@ def hello():
             #Ya que validamos que hubo un cambio, indicamos que la sesión acabó, y guardamos los datos en la db.
             sql = '''INSERT INTO sesion (ejecucion, descanso, pomodoro1,pomodoro2,pomodoro3,pomodoro4,descanso1,descanso2,descanso3,descanso4,usuario_idusuario) 
             VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s,%s,%s)'''
-            values= [(int(work), int(rest), int(penalties[0]),int(penalties[1]),int(penalties[2]),int(penalties[3]),int(penalties[4]),int(penalties[5]),int(penalties[6]),int(penalties[7]),int(actual_username))]
+            values= [(int(work), int(rest), int(penalties[0]),int(penalties[1]),int(penalties[2]),int(penalties[3]),int(penalties[4]),int(penalties[5]),int(penalties[6]),int(penalties[7]),(actual_username))]
             # Intentando realizar la consulta
             try:
                 with conecction.cursor() as cursor:
@@ -153,7 +153,8 @@ def login():
     print("Intenado inisiar sesion con usuario: " + username)
     try:
         mycursor.execute(sql, [username])
-        actual_username = mycursor.fetchone()[0]
+        val = mycursor.fetchone()[0]
+        actual_username = int(val)
         reponse =  make_response({
             "mensaje": "Bienvenido!! %s" % username,
             "estado": "1",
@@ -220,7 +221,8 @@ def return_session():
     global actual_username
     sql = " SELECT * FROM sesion WHERE usuario_idusuario = %s;"
     try:
-        mycursor.execute(sql, [actual_username])
+        val = actual_username
+        mycursor.execute(sql, [str(val)])
         sesiones = mycursor.fetchall()
         data = []
         for sesion in sesiones:
