@@ -9,7 +9,7 @@ const SVG_HEIGHT = 300;
 export default function ChartPercentPomodoro({datos}) {
   console.log("ChartPercentPomodoro",datos);
 
-  const tiempo_total = datos.ejecucion + datos.descanso;
+  const tiempo_total = datos.ejecucion*60 + datos.descanso*60;
 
   const tiempo_pomodoro1 = datos.pomodoro1/tiempo_total*100;
   const tiempo_pomodoro2 = datos.pomodoro2/tiempo_total*100;
@@ -32,7 +32,6 @@ export default function ChartPercentPomodoro({datos}) {
     ["Pomodoro 3", timepo_total3, tiempo_descanso3, tiempo_pomodoro3],
     ["Pomodoro 4", timepo_total4, tiempo_descanso4, tiempo_pomodoro4],
   ];
-
   // const data = [
   //   ["Pomodoro 1", 100, 0, 0],
   //   ["Pomodoro 2", 100, 0, 0],
