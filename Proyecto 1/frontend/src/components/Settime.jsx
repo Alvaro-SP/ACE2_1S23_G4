@@ -61,7 +61,7 @@ export default function Settime() {
    }
 
    function sendData(v1,v2){
-      axios.post("http://localhost:5000/datauser", {
+      axios.post(`http://${process.env.REACT_APP_PUERTO}:5000/datauser`, {
          ejecucion: parseInt(v1),
          descanso: parseInt(v2),
       })

@@ -12,7 +12,7 @@ export default function Singup() {
    
    
       axios
-      .post("http://localhost:5000/register", {
+      .post(`http://${process.env.REACT_APP_PUERTO}:5000/register`, {
          username: usuario
       })
       .then((response) => {

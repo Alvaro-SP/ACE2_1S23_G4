@@ -44,7 +44,7 @@ export default function Dashboard() {
  
        const fetchData = async () => {
         
-        axios.get('http://localhost:5000/dashboard')
+        axios.get(`http://${process.env.REACT_APP_PUERTO}:5000/dashboard`)
         .then((response) => {
           console.log("===== Get =====")
           setEstado(response.data.estado)
