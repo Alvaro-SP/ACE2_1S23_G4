@@ -17,7 +17,7 @@ penalties = [0,0,0,0,0,0,0,0]
 times=[0,0,0,0,0,0,0,0]
 reset=False
 state=0
-actual_username=""
+actual_username=0
 phase=0
 # ------------------- CONNECT WITH DATABASE:-------------------
 conecction  = mysql.connector.connect(
