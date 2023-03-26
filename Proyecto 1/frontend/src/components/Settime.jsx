@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SendIcon from '@mui/icons-material/Send';
-
+import axios from 'axios';
 export default function Settime() {
    const [hours, setHours] = useState("01");
    const [minutes, setMinutes] = useState("01");
@@ -49,13 +49,28 @@ export default function Settime() {
       e.preventDefault();
       setHours("25");
       setMinutes("05");
+      sendData("25","05");
       alert("Se restablecio la configuracion")
    }
 
    const handleSet = (e) => {
       e.preventDefault();
       console.log(hours, minutes);
+      sendData(hours,minutes);
       alert("Se guardo la configuracion")
+   }
+
+   function sendData(v1,v2){
+      axios.post("http://localhost:5000/datauser", {
+         ejecucion: parseInt(v1),
+         descanso: parseInt(v2),
+      })
+      .then((response) => {
+         console.log(response.data);
+      })
+      .catch((error) => {
+         console.log(error);
+      });
    }
 
    return (

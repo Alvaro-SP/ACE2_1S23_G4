@@ -132,16 +132,15 @@ def hello():
 def data_user():
     global work
     global rest
-    global actual_username
     global change
     change = True
     #Se actualizan los datos de configuracion
     work = request.json['ejecucion']
     rest = request.json['descanso']
-    response = {
+    print("Actualizando datos: ",work,rest)
+    response =  make_response({
         "Status": "Data updated Successfully!!"
-    }
-    response = jsonify(response)
+    })
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 

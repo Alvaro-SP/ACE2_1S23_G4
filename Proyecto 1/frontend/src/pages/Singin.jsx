@@ -19,14 +19,13 @@ export default function Singin() {
       }).format(new Date());
       const usuario = e.target[0].value
 
-      axios
-      .post("http://localhost:5000/login", {
+      axios.post("http://localhost:5000/login", {
          username: usuario
       })
       .then((response) => {
          console.log(response.data);
          alert(response.data.mensaje);
-         if(response.data.status === "1"){
+         if(response.data.estado === "1"){
             cookies.set('usr',{id:response.data.id,name:usuario,date:dateTimeString},{path: '/'});
             navigate('/');
          }
