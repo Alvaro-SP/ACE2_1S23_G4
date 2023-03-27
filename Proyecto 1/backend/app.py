@@ -8,6 +8,10 @@ from src.Dashboard import dashboard
 from src.GetSessions import getSessions
 import datetime
 import pytz
+import ssl
+context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+context.load_cert_chain('/etc/ssl/certs/ssl-cert-snakeoil.pem', '/etc/ssl/private/ssl-cert-snakeoil.key')
+
 #Flask config
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -272,9 +276,33 @@ def return_session():
         return reponse
 
 if __name__ == '__main__':
-    app.run(threaded=True, port=5000,debug=True, host='0.0.0.0')
+    app.run(threaded=True, port=5000,debug=True, host='0.0.0.0',ssl_context=context)
 
     
 
 
 
+# server {
+#     listen 80;
+#     listen [::]:80;
+
+#     server_name pomodorog4arqui.duckdns.org;
+
+#     return 301 https://$server_name$request_uri;
+# }
+
+# server {
+#     listen 443 ssl;
+#     listen [::]:443 ssl;
+
+#     server_name pomodorog4arqui.duckdns.org;
+
+#     ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
+#     ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+
+#     location / {
+#         proxy_pass http://localhost:5000;
+#         proxy_set_header Host $host;
+#         proxy_set_header X-Real-IP $remote_addr;
+#     }
+# }
