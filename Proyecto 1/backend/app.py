@@ -54,8 +54,8 @@ def hello():
 
     if request.json["state"] == 0: # Modo setup
         #Verificamos que ahorita mismo hubo un cambio de estado(De Trabajo a setup)
-        #if state==1:
-        if 1==1:
+        if state==1:
+
             now = datetime.datetime.now(tz =tz )
             resta = datetime.timedelta(minutes=(rest+work)*4)
             fecha_resultado = now - resta
