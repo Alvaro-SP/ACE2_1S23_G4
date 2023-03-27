@@ -8,10 +8,8 @@ from src.Dashboard import dashboard
 from src.GetSessions import getSessions
 import datetime
 import pytz
-from flask_sslify import SSLify
 #Flask config
 app = Flask(__name__)
-sslify = SSLify(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 work = 25
@@ -274,8 +272,7 @@ def return_session():
         return reponse
 
 if __name__ == '__main__':
-    context = ('/etc/letsencrypt/live/pomodorog4arqui2.ddns.net/fullchain.pem', '/etc/letsencrypt/live/pomodorog4arqui2.ddns.net/privkey.pem')
-    app.run(threaded=True, port=5000,debug=True, host='0.0.0.0',ssl_context=context)
+    app.run(threaded=True, port=5000,debug=True, host='0.0.0.0')
 
     
 

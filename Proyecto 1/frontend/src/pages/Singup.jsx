@@ -13,7 +13,7 @@ export default function Singup() {
       process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
       axios
-      .post(`https://${process.env.REACT_APP_PUERTO}:5000/register`, {
+      .post(`http://${process.env.REACT_APP_PUERTO}:5000/register`, {
          username: usuario
       })
       .then((response) => {
