@@ -275,7 +275,7 @@ def return_session():
 
 if __name__ == '__main__':
     context = ('/etc/letsencrypt/live/pomodorog4arqui2.ddns.net/fullchain.pem', '/etc/letsencrypt/live/pomodorog4arqui2.ddns.net/privkey.pem')
-    app.run(threaded=True, port=443,debug=True, host='0.0.0.0',ssl_context=context)
+    app.run(threaded=True, port=5000,debug=True, host='0.0.0.0',ssl_context=context)
 
     
 
