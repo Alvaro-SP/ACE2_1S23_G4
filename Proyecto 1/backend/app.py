@@ -8,12 +8,10 @@ from src.Dashboard import dashboard
 from src.GetSessions import getSessions
 import datetime
 import pytz
-import ssl
-context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
-context.load_cert_chain('/etc/ssl/certs/ssl-cert-snakeoil.pem', '/etc/ssl/private/ssl-cert-snakeoil.key')
-
+from flask_sslify import SSLify
 #Flask config
 app = Flask(__name__)
+sslify = SSLify(app)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 work = 25
@@ -276,7 +274,8 @@ def return_session():
         return reponse
 
 if __name__ == '__main__':
-    app.run(threaded=True, port=5000,debug=True, host='0.0.0.0',ssl_context=context)
+    context = ('/etc/letsencrypt/live/pomodorog4arqui2.ddns.net/fullchain.pem', '/etc/letsencrypt/live/pomodorog4arqui2.ddns.net/privkey.pem')
+    app.run(threaded=True, port=443,debug=True, host='0.0.0.0',ssl_context=context)
 
     
 
