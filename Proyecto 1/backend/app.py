@@ -64,7 +64,7 @@ def hello():
             #Ya que validamos que hubo un cambio, indicamos que la sesión acabó, y guardamos los datos en la db.
             sql = '''INSERT INTO sesion (ejecucion, descanso, pomodoro1,pomodoro2,pomodoro3,pomodoro4,descanso1,descanso2,descanso3,descanso4,usuario_idusuario,fecha) 
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'''
-            values= [(int(work), int(rest), int(penalties[0]),int(penalties[1]),int(penalties[2]),int(penalties[3]),int(penalties[4]),int(penalties[5]),int(penalties[6]),int(penalties[7]),(27),(fecha_mysql))]
+            values= [(int(work), int(rest), int(penalties[0]),int(penalties[1]),int(penalties[2]),int(penalties[3]),int(penalties[4]),int(penalties[5]),int(penalties[6]),int(penalties[7]),(actual_username),(fecha_mysql))]
             # Intentando realizar la consulta
             try:
                 with conecction.cursor() as cursor:
