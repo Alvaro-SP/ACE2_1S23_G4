@@ -171,6 +171,8 @@ def login():
             "id": actual_username
         })
         reponse.headers.add('Access-Control-Allow-Origin', '*')
+        reponse.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+        reponse.headers.add('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
         return reponse
     
     except Exception as error:
