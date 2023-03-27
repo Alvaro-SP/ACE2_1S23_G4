@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  frontend:
+    image: 'serchiboi/frontend_proyecto1_arqui2'
+    container_name: 'frontend_proyecto1_arqui2'
+    environment:
+      REACT_APP_PUERTO: "18.218.225.137" #localhost
+      REACT_APP_VERSION: "1.0.2" 
+    ports:
+      - '3000:3000' #del no de hub al mio
+    restart: always
+
+
+
+
+      
+      
