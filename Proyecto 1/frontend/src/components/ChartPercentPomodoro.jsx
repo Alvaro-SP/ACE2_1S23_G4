@@ -9,7 +9,7 @@ const SVG_HEIGHT = 300;
 export default function ChartPercentPomodoro({datos}) {
   console.log("ChartPercentPomodoro",datos);
 
-  const tiempo_total = datos.ejecucion*60 + datos.descanso*60;
+  const tiempo_total = datos.ejecucion + datos.descanso;
 
   const tiempo_pomodoro1 = datos.pomodoro1/tiempo_total*100;
   const tiempo_pomodoro2 = datos.pomodoro2/tiempo_total*100;
@@ -76,8 +76,6 @@ export default function ChartPercentPomodoro({datos}) {
           Intervalo
         </text>
 
-        
-
         {/* Y axis */}
         <line x1={x0} y1={y0} x2={x0} y2={y0 + yAxisLength} stroke="grey" />
         {Array.from({ length: 10 }).map((_, index) => {
@@ -139,7 +137,7 @@ export default function ChartPercentPomodoro({datos}) {
                 fill="#f78205"
               ></rect>
               <text x={386-73} y={37} textAnchor="middle" fontSize="9">
-                No pararse a tiempo
+                  No sentarse a tiempo
               </text>
               <rect
                 x={360}
@@ -149,7 +147,7 @@ export default function ChartPercentPomodoro({datos}) {
                 fill="#de3700"
               ></rect>
               <text x={387-75} y={46} textAnchor="middle" fontSize="9">
-                No sentarse a tiempo
+              No pararse a tiempo
               </text>
 
               <rect

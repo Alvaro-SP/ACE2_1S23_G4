@@ -6,6 +6,8 @@ from flask.globals import request
 from flask_cors import CORS
 from src.Dashboard import dashboard
 from src.GetSessions import getSessions
+import datetime
+import pytz
 #Flask config
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -19,6 +21,7 @@ reset=False
 state=0
 actual_username=0
 phase=0
+tz = pytz.timezone('America/Guatemala')
 # ------------------- CONNECT WITH DATABASE:-------------------
 conecction  = mysql.connector.connect(
     user='root',
@@ -46,15 +49,22 @@ def hello():
     global actual_username
     global phase
     global times
+    print("=====Levantando el servidor=====")
     print(request.json)
 
     if request.json["state"] == 0: # Modo setup
         #Verificamos que ahorita mismo hubo un cambio de estado(De Trabajo a setup)
-        if state==1:
+        #if state==1:
+        if 1==1:
+            now = datetime.datetime.now(tz =tz )
+            resta = datetime.timedelta(minutes=(rest+work)*4)
+            fecha_resultado = now - resta
+            fecha_mysql = fecha_resultado.strftime("%Y-%m-%d %H:%M:%S")
+
             #Ya que validamos que hubo un cambio, indicamos que la sesión acabó, y guardamos los datos en la db.
-            sql = '''INSERT INTO sesion (ejecucion, descanso, pomodoro1,pomodoro2,pomodoro3,pomodoro4,descanso1,descanso2,descanso3,descanso4,usuario_idusuario) 
-            VALUES (%s, %s, %s,%s,%s,%s,%s,%s,%s,%s,%s)'''
-            values= [(int(work), int(rest), int(penalties[0]),int(penalties[1]),int(penalties[2]),int(penalties[3]),int(penalties[4]),int(penalties[5]),int(penalties[6]),int(penalties[7]),(actual_username))]
+            sql = '''INSERT INTO sesion (ejecucion, descanso, pomodoro1,pomodoro2,pomodoro3,pomodoro4,descanso1,descanso2,descanso3,descanso4,usuario_idusuario,fecha) 
+            VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'''
+            values= [(int(work), int(rest), int(penalties[0]),int(penalties[1]),int(penalties[2]),int(penalties[3]),int(penalties[4]),int(penalties[5]),int(penalties[6]),int(penalties[7]),(27),(fecha_mysql))]
             # Intentando realizar la consulta
             try:
                 with conecction.cursor() as cursor:
@@ -77,7 +87,7 @@ def hello():
                     return response
             except:
                 traceback.print_exc()
-                print('Error inserting new User')
+                print('=====Error inserting data====')
                 conecction.rollback()
                 response = {
                     "state": "Error",

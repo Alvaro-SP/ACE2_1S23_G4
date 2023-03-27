@@ -1,5 +1,5 @@
-import React, { useState,useEffect } from 'react';
-import { FormControl, IconButton, InputLabel, MenuItem, Select,Typography } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { FormControl, IconButton, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import axios from 'axios';
 import DialogSelect from '../components/DialogSelect';
@@ -39,21 +39,23 @@ export default function Charts() {
     setSesino(event.target.value);
     const sesion_penalizacion_seg = datos.find((e) => e.idsesion === event.target.value);
     // eslint-disable-next-line
+    console.log(sesion_penalizacion_seg);
+
     const sesion_penalizacion_minutos = {
-      ejecucion: 45,
-      descanso: 5,
-      pomodoro1: sesion_penalizacion_seg.pomodoro1 / 60,
-      pomodoro2: sesion_penalizacion_seg.pomodoro2 / 60,
-      pomodoro3: sesion_penalizacion_seg.pomodoro3 / 60,
-      pomodoro4: sesion_penalizacion_seg.pomodoro4 / 60,
-      descanso1: sesion_penalizacion_seg.descanso1 / 60,
-      descanso2: sesion_penalizacion_seg.descanso2 / 60,
-      descanso3: sesion_penalizacion_seg.descanso3 / 60,
-      descanso4: sesion_penalizacion_seg.descanso4 / 60,
-      fecha: "dd/mm/yyyy xx:yy:zz"
+      ejecucion: sesion_penalizacion_seg.ejecucion,
+      descanso: sesion_penalizacion_seg.descanso,
+      pomodoro1: (sesion_penalizacion_seg.pomodoro1 / 60).toFixed(2),
+      pomodoro2: (sesion_penalizacion_seg.pomodoro2 / 60).toFixed(2),
+      pomodoro3: (sesion_penalizacion_seg.pomodoro3 / 60).toFixed(2),
+      pomodoro4: (sesion_penalizacion_seg.pomodoro4 / 60).toFixed(2),
+      descanso1: (sesion_penalizacion_seg.descanso1 / 60).toFixed(2),
+      descanso2: (sesion_penalizacion_seg.descanso2 / 60).toFixed(2),
+      descanso3: (sesion_penalizacion_seg.descanso3 / 60).toFixed(2),
+      descanso4: (sesion_penalizacion_seg.descanso4 / 60).toFixed(2),
+      fecha: sesion_penalizacion_seg.fecha
     }
-    //  setSesionData(sesion_penalizacion_minutos); este debera ser en produccion
-    setSesionData(sesion_penalizacion_seg); //temporal porque nuetras puebas estan en minutos
+    setSesionData(sesion_penalizacion_minutos); //este debera ser en produccion
+    //setSesionData(sesion_penalizacion_seg); //temporal porque nuetras puebas estan en minutos
   };
 
   //const link = "https://www.fotosdememes.com/wp-content/uploads/2021/09/esta-vacio-1024x597.jpg";
@@ -70,13 +72,13 @@ export default function Charts() {
           Gráficas
         </Typography>
       </div>
-      <IconButton aria-label="delete" style={{marginTop:"-16%",marginLeft:"2%"}} onClick={handleRefresh}>
+      <IconButton aria-label="delete" style={{ marginTop: "-16%", marginLeft: "2%" }} onClick={handleRefresh}>
         <RefreshIcon />
       </IconButton>
       <br />
       <div style={{ textAlign: "center" }}>
         <DialogSelect datos={datos} setData={setData} />
-        <br/>
+        <br />
 
         {/* SELECTOR DE POMODORO A MOSTRAR */}
         {
@@ -119,11 +121,11 @@ export default function Charts() {
           </FormControl>
         }
 
-        {type === '' ? 
-        <div style={{ maxWidth: '100%', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <img src={link} alt="Imagen" style={{ maxWidth: '100%', height: 'auto', marginTop: "5%" }} />
-        </div>
-        : type >= 0 && type <= 3 ? <OverTime tipo={type} datos={sesionData} /> : type === 4 ? <ChartPercentPomodoro datos={sesionData} /> : <ChartTotalPomodoro sesionData={sesionData} />}
+        {type === '' ?
+          <div style={{ maxWidth: '100%', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <img src={link} alt="Imagen" style={{ maxWidth: '100%', height: 'auto', marginTop: "5%" }} />
+          </div>
+          : type >= 0 && type <= 3 ? <OverTime tipo={type} datos={sesionData} /> : type === 4 ? <ChartPercentPomodoro datos={sesionData} /> : <ChartTotalPomodoro sesionData={sesionData} />}
         <br /><br /><br /><br /><br /><br /><br /><br />
       </div>
 

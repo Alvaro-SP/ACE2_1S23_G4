@@ -31,7 +31,7 @@ export default function Navigation() {
             </IconButton>
 
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Pomodoro Portátil
+              Pomodoro Portátil - v{process.env.REACT_APP_VERSION}
             </Typography>
 
           </Toolbar>
