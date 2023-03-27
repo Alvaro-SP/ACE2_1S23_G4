@@ -9,7 +9,7 @@ from src.GetSessions import getSessions
 import datetime
 import pytz
 import ssl
-context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+context = ssl.SSLContext(ssl.PROTOCOL_TLS)
 context.load_cert_chain('/etc/ssl/certs/ssl-cert-snakeoil.pem', '/etc/ssl/private/ssl-cert-snakeoil.key')
 
 #Flask config
