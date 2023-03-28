@@ -54,6 +54,7 @@ export default function Dashboard() {
           setConf_tiempo(response.data.conf_tiempo)
           setConf_descanzo(response.data.conf_descanzo)
           setPenalizacion(response.data.penalizacionTotal)
+          console.log(response.data)
         })
         .catch((error) => {
           console.log("===== Get Err =====")

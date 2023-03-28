@@ -17,7 +17,7 @@ rest = 5
 change = True   # Es verdader si se desea actualizar el tiempo
 penalties = [0,0,0,0,0,0,0,0]
 times=[0,0,0,0,0,0,0,0]
-reset=False
+
 state=0
 actual_username=0
 phase=0
@@ -80,6 +80,8 @@ def hello():
                         penalties.append(0)
                     # Cambiamos el estado a setup
                     state=0
+                    penalties = [0,0,0,0,0,0,0,0]
+                    times=[0,0,0,0,0,0,0,0]
                     # Recolocando los valores predeterminados
                     change=True
                     # rest=5
@@ -216,8 +218,9 @@ def return_dashboard():
     global work
     global phase
     global times
+    global estadoDashboard
     response = make_response({
-        "estado": True,
+        "estado": estadoDashboard,
         "crr_time": times[phase-1]/60,
         "crr_parte": phase,
         "conf_tiempo": work,
