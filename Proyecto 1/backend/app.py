@@ -21,7 +21,7 @@ times=[0,0,0,0,0,0,0,0]
 state=0
 actual_username=0
 phase=0
-estadoDashboard=True
+estadoDashboard=False
 tz = pytz.timezone('America/Guatemala')
 # ------------------- CONNECT WITH DATABASE:-------------------
 conecction  = mysql.connector.connect(
