@@ -6,7 +6,7 @@ import ChartOverTime from "./ChartOverTime";
 export default function OverTime({tipo,datos}) {
    console.log("OverTime",datos);
    const type = tipo;
-   const division = type === 0 || type === 2 ? "Pomodoro": "descanzo";
+   const division = type === 0 || type === 2 ? "Pomodoro": "Descanso";
 
    const data = datos;
 

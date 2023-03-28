@@ -50,7 +50,7 @@ export default function ChartPercentPomodoro({datos}) {
   const dataYRange = dataYMax - dataYMin;
   const numYTicks = 5;
   const barPlotWidth = xAxisLength / data.length;
-  let c = -10;
+
 
 
   return (
@@ -105,13 +105,12 @@ export default function ChartPercentPomodoro({datos}) {
         })}
         <text x={x0} y={y0 - 8} textAnchor="middle">%</text>
         {/* Apple plots */}
-        {data.map(([pomodoro, dataY, datap1], index) => {
+        {data.map(([pomodoro, dataY, datap1,datap2], index) => {
           const x = x0 + index * barPlotWidth;
 
           const yRatio = (dataY - dataYMin) / dataYRange;
           const y = y0 + (1 - yRatio) * yAxisLength;
           const height = yRatio * yAxisLength;
-          c += 22;
           const applePadding = 10;
           // Calculate the radius of the apple based on the height of the bar
          
@@ -177,10 +176,20 @@ export default function ChartPercentPomodoro({datos}) {
                 <title>Penalización por no pararse a tiempo: {100 - (dataY + datap1)} %</title>
               </rect>
 
-              <text x={x + barPlotWidth / 2 - 40} y={xAxisY + c*1.3} textAnchor="middle" transform="rotate(-20 100 200)" fontSize="12">
+              <text x={x + barPlotWidth / 2 } y={xAxisY + 22.1} textAnchor="middle"  fontSize="11">
                 {pomodoro}
               </text>
+              <text x={x + barPlotWidth / 2 } y={xAxisY + 40.1} textAnchor="middle"  fontSize="11" fill="#00d115">
+                {dataY.toFixed(2)}%
+              </text>
+              <text x={x + barPlotWidth / 4.5 } y={xAxisY + 60.1} textAnchor="middle"  fontSize="11" fill="#f78205">
+                {datap2.toFixed(1)}%
+              </text>
+              <text x={x + barPlotWidth / 1.3} y={xAxisY + 60.1} textAnchor="middle"  fontSize="11" fill="#de3700">
+                {datap1.toFixed(1)}%
+              </text>
 
+    
             </g>
           );
         })}

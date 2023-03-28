@@ -4,6 +4,7 @@ import axios from 'axios';
 import Tomato from '../components/Tomato';
 import Rest from '../components/Rest';
 import Piechart from '../components/Piechart';
+import face from '../img/face.png';
 
 export default function Dashboard() {
   //varibles que se deben optener de la API
@@ -66,41 +67,55 @@ export default function Dashboard() {
        return () => clearInterval(interval);
     }, []);
 
+  function conditionalRendering_show(estate){
+    if( estate)
+      return( 
+      <>
+        <div className="tabla">
+          {[...Array(4)].map((_, index) => (
+            <div className="celda" key={index}>
+              {conditionalRendering(index* 2+1,index+1)}
+              
+            </div>
+          ))}
+  
+        </div>
+  
+        <div style={{ textAlign: "center" }}>
+          <Typography variant="h5" component="div" mt={2}>
+            Gráficas de Productividad
+          </Typography>
+        </div>
+  
+        <div style={{ marginTop: "3%", border: "1px solid black" }}>
+          <br />
+          <Piechart porcentaje = {Cumplimiento} nombre={"Cumplimiento"}  color1={"#2ED8A7"} color2={"#a6ceff"} id={"1"} calculo={315-Cumplimiento/100*315} />
+        </div>
+        <div style={{ marginTop: "0%", border: "1px solid black" }}>
+          <br />
+          <Piechart porcentaje = {Penalizacion} nombre={"Penalización"} color1={"#D82E2E"} color2={"#D82EAA"} id={"2"} calculo={315-Penalizacion/100*315}/>
+        </div>
+  
+      </>
+   )
+    else{
+      return(
+        <div style={{ maxWidth: '100%', height: 'auto', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <img src={face} alt="Imagen" style={{ maxWidth: '100%', height: 'auto', marginTop: "5%" }} />
+        </div>
+      )
+    }
+  }
+
   return (
     <div>
-      <div style={{ textAlign: "center" }}>
-        <Typography variant="h5" component="div" mt={2}>
-          Sesión Actual - {estado ? 'en Porgreso':'Apagada'}
-        </Typography>
-      </div>
-      <br />
-
-      <div className="tabla">
-        {[...Array(4)].map((_, index) => (
-          <div className="celda" key={index}>
-            {conditionalRendering(index* 2+1,index+1)}
-            
-          </div>
-        ))}
-
-      </div>
-
-      <div style={{ textAlign: "center" }}>
-        <Typography variant="h5" component="div" mt={2}>
-          Gráfica de Productividad
-        </Typography>
-      </div>
-
-      <div style={{ marginTop: "3%", border: "1px solid black" }}>
+       <div style={{ textAlign: "center" }}>
+          <Typography variant="h5" component="div" mt={2}>
+            Sesión Actual - {estado ? 'en Porgreso':'Apagada'}
+          </Typography>
+        </div>
         <br />
-        <Piechart porcentaje = {Cumplimiento} nombre={"Cumplimiento"}  color1={"#2ED8A7"} color2={"#a6ceff"} id={"1"} calculo={315-Cumplimiento/100*315} />
-      </div>
-      <div style={{ marginTop: "0%", border: "1px solid black" }}>
-        <br />
-        <Piechart porcentaje = {Penalizacion} nombre={"Penalización"} color1={"#D82E2E"} color2={"#D82EAA"} id={"2"} calculo={315-Penalizacion/100*315}/>
-      </div>
-
+      {conditionalRendering_show(estado)}
     </div>
-
   );
 }
