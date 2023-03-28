@@ -21,6 +21,7 @@ times=[0,0,0,0,0,0,0,0]
 state=0
 actual_username=0
 phase=0
+estadoDashboard=True
 tz = pytz.timezone('America/Guatemala')
 # ------------------- CONNECT WITH DATABASE:-------------------
 conecction  = mysql.connector.connect(
@@ -49,6 +50,7 @@ def hello():
     global actual_username
     global phase
     global times
+    global estadoDashboard
     print("=====Levantando el servidor=====")
     print(request.json)
 
@@ -80,6 +82,7 @@ def hello():
                         penalties.append(0)
                     # Cambiamos el estado a setup
                     state=0
+                    estadoDashboard=False
                     penalties = [0,0,0,0,0,0,0,0]
                     times=[0,0,0,0,0,0,0,0]
                     # Recolocando los valores predeterminados
@@ -110,6 +113,7 @@ def hello():
             })
     # Viene state "1"
     else:           
+        estadoDashboard=True
         #Verificamos que ahorita mismo hubo un cambio de estado(De setup a trabajo)
         if state==0:
             state=1
