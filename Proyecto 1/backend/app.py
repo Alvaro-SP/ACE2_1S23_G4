@@ -59,7 +59,7 @@ def hello():
         if state==1:
 
             now = datetime.datetime.now(tz =tz )
-            resta = datetime.timedelta(minutes=(rest+work)*4)
+            resta = datetime.timedelta(minutes=sum(times)/60)
             fecha_resultado = now - resta
             fecha_mysql = fecha_resultado.strftime("%Y-%m-%d %H:%M:%S")
 
