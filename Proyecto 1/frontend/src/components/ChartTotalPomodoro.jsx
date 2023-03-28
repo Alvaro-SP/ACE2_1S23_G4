@@ -176,7 +176,7 @@ export default function ChartTotalPomodoro({ sesionData }) {
             <g key={index}>
               <line x1={x0 - 5} y1={y} x2={x0 + 320} y2={y} stroke="grey" />
               <text x={x0 - 20} y={303 - y} fontSize={7}>
-                {(maximo * index / 20).toFixed(1)}
+                {(maximo * index / 30).toFixed(1)}
               </text>
             </g>
 
