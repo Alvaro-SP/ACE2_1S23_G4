@@ -76,16 +76,18 @@ def hello():
                         "state": "Perfect",
                         "message": "Session saved Successfully!!"
                     }
+                    
                     # Resetear el contador de penalizaciones
                     penalties=[]
                     for i in range(8):
                         penalties.append(0)
                     # Cambiamos el estado a setup
                     state=0
+                    phase=0
                     estadoDashboard=False
                     penalties = [0,0,0,0,0,0,0,0]
                     times=[0,0,0,0,0,0,0,0]
-                    # Recolocando los valores predeterminados
+                   
                     change=True
                     # rest=5
                     # work=25
@@ -132,13 +134,12 @@ def hello():
         phase = int(phase)
         if phase % 2 == 0:
             penalties[phase - 1] += int(button)
-            times[phase - 1] += 1
         else:
             if int(button) == 0:
                 penalties[phase - 1] += 1
-                times[phase - 1] += 1
-        print(penalties)
-  
+        
+        times[phase - 1] += 1
+
         return jsonify({
             "type":"work"
         })
