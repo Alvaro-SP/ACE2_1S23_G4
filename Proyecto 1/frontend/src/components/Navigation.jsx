@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Box, Toolbar, Typography, IconButton } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography, IconButton,Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Route from './Route';
 import Cookies from 'universal-cookie';
@@ -10,7 +10,7 @@ export default function Navigation() {
   try {
     name = cookies.get('usr').name;
   } catch (error) {
-    name = "no logged";
+    name = "P";
   }
   const handleOpenMenu = () => {
     setOpen(true);
@@ -40,10 +40,14 @@ export default function Navigation() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Pomodoro Portátil - v{process.env.REACT_APP_VERSION}
             </Typography>
-            <Typography variant="h5" component="div" sx={{ flexGrow: 0 }}>
+            {/* <Typography variant="h5" component="div" sx={{ flexGrow: 0 }}>
               {name}
-            </Typography>
-
+            </Typography> */}
+            <Avatar
+              sx={{ bgcolor: "red", width: 40, height: 40, fontSize: 25 }}
+              alt={name}
+              src="/broken-image.jpg"
+            />
           </Toolbar>
         </AppBar>
       </Box>
