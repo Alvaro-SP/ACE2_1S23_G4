@@ -12,7 +12,7 @@ export default function Charts() {
   const [datos, setDatos] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://${process.env.REACT_APP_PUERTO}:5000/charts`)
+    axios.get(`https://${process.env.REACT_APP_PUERTO}/charts`)
       .then((response) => {
         setDatos(response.data.datos);
       })

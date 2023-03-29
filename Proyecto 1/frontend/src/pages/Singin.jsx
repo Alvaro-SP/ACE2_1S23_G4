@@ -20,7 +20,7 @@ export default function Singin() {
       const usuario = e.target[0].value
       process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-      axios.post(`http://${process.env.REACT_APP_PUERTO}:5000/login`, {
+      axios.post(`https://${process.env.REACT_APP_PUERTO}/login`, {
          username: usuario
       })
       .then((response) => {

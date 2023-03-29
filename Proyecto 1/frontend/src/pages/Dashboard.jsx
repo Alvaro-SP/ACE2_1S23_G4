@@ -46,7 +46,7 @@ export default function Dashboard() {
        const fetchData = async () => {
         process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-        axios.get(`http://${process.env.REACT_APP_PUERTO}:5000/dashboard`)
+        axios.get(`https://${process.env.REACT_APP_PUERTO}/dashboard`)
         .then((response) => {
           console.log("===== Get =====")
           setEstado(response.data.estado)
