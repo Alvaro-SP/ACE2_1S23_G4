@@ -1,0 +1,41 @@
+
+.local-bootstrap {
+   @import "~bootstrap/scss/bootstrap";
+
+}
+
+.tabla {
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   grid-template-rows: repeat(2, 1fr);
+   border: 1px solid black;
+ }
+
+.celda {
+   border: 1px solid black;
+   padding-left: 3%;
+ }
+
+ #nofound {
+   height: 93vh;
+   background-image: url("../img/404_page.jpg");
+   background-position: center;
+
+   background-size: cover;
+ }
+
+ #warning {
+  height: 93vh;
+  background-image: url("../img/warning_page.png");
+  background-position: center;
+  background-size: cover;
+}
+ 
+ 
+text2 {
+  font-size: .7em;
+  fill: black;
+}
+
+
+
