@@ -1,0 +1,78 @@
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 250px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}
+
+.main {
+  width: calc(100% - 250px);
+ 
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+.displayGraph{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  // border: 1px solid black;
+}
+
+.displayGraph > * {
+  margin-right: 100px;
+  margin-left: 100px;
+}
+
+.displayDates{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  // border: 1px solid black;
+  padding-bottom: 22px;
+}
+
+.displayDates > * {
+  margin-right: 100px;
+  margin-left: 100px;
+}
+
+
+.tip div{
+  font-size: 20px !important;
+}
+
+.tips div{
+  font-size: 11px !important;
+}
+
+
+.humidity {
+  background: url('../imgs/humidity1.png') no-repeat !important;
+  background-size: 100% 100% !important;
+}
+
+.dry {
+
+  left: -5% !important;
+}
+.comfort {
+  top: 8% !important;
+  left: 40% !important;
+}
+.wet {
+  left: 90% !important;
+}
