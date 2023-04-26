@@ -65,6 +65,11 @@
   background-size: 100% 100% !important;
 }
 
+.electricity {
+  background: url('../imgs/electricity2.png') no-repeat !important;
+  background-size: 100% 100% !important;
+}
+
 .dry {
 
   left: -5% !important;
@@ -75,4 +80,24 @@
 }
 .wet {
   left: 90% !important;
+}
+
+.normal {
+  position: relative;
+}
+
+.ss {
+  position: absolute;
+  left: 0%;
+  bottom: 30px;
+}
+.cc {
+  position: absolute;
+  top: -15px;
+  left: 40%;
+}
+.mm {
+  position: absolute;
+  right: 0;
+  bottom: 28px;
 }

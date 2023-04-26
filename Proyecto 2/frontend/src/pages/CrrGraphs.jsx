@@ -1,8 +1,7 @@
 
 import React from "react";
 import { Temperature } from 'react-environment-chart';
-import { Humidity } from 'react-environment-chart';
-import { Tvoc } from 'react-environment-chart';
+import {Electricity} from 'react-environment-chart';
 
 export default function CrrGraphs() {
    return (
@@ -20,7 +19,7 @@ export default function CrrGraphs() {
                      {10}°C
                   </h2>
                </div>
-               <div  >
+               <div>
                   <Temperature value={10} height={315} tips={["CONGENLADO", "FRIO", "ACOGEDOR", "CALIENTE"]} />
                </div>
             </div>
@@ -51,7 +50,12 @@ export default function CrrGraphs() {
                   </h2>
                </div>
                <div>
-                  <Humidity value={50} height={152} tips={['SECO', 'CONFORT', 'MOJADO']} />
+               <div className="normal">
+                  <div className="ss" >SECO</div>
+                  <div className="cc">CONFORT</div>
+                  <div className="mm">MOJADO</div>
+                  <Electricity value={25} height={280}/>
+                  </div>
                </div>
             </div>
 
@@ -65,9 +69,12 @@ export default function CrrGraphs() {
                   </h2>
                </div>
                <div >
-                  <Humidity value={50} height={152} tips={['BAJO', 'MEDIO', 'ALTO']} />
-             
-
+                  <div className="normal">
+                  <div className="ss" >BAJO</div>
+                  <div className="cc">MEDIO</div>
+                  <div className="mm">ALTO</div>
+                  <Electricity value={50} height={280}/>
+                  </div>
                </div>
             </div>
          </div>
