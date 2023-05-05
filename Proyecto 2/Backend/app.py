@@ -17,10 +17,10 @@ state=0
 
 # ------------------- CONNECT WITH DATABASE:-------------------
 conecction  = mysql.connector.connect(
-    user='root',
-    password='secret',
-    host='localhost',
-    database='p2', 
+    user='admin',
+    password='password',
+    host='proy2.cxrmksgpe29a.us-east-2.rds.amazonaws.com',
+    database='proy2', 
     port='3306'
 ) 
 
