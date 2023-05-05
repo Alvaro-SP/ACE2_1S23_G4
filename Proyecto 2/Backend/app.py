@@ -13,6 +13,7 @@ temp_in=0.00
 temp_out=0.00
 humidity=0
 water_percent=0
+time_irrigation=0
 state=0
 
 # ------------------- CONNECT WITH DATABASE:-------------------
@@ -36,7 +37,7 @@ def index():
 # ---------------------- session data, return the actual state----------------------
 @app.route('/data',methods=['POST'])
 def session_data():
-    global state,temp_in,temp_out,humidity,water_percent
+    global state,temp_in,temp_out,time_irrigation,humidity,water_percent
     #Se actualizan los datos de configuracion
     temp_in = float(request.json['tempIn'])
     temp_out = float(request.json['tempOut'])
@@ -47,7 +48,7 @@ def session_data():
     # Inserting the data to the db
     sql = '''INSERT INTO datos (fecha,state_bomba, time_irrigation,temp_externa,temp_interna,water_percent,humidity) 
         VALUES (%s,%s,%s,%s,%s,%s,%s)'''
-    values= [now,state,None,temp_out,temp_in,water_percent,humidity]
+    values= [now,state,time_irrigation,temp_out,temp_in,water_percent,humidity]
     # Intentando realizar la consulta
     try:
         with conecction.cursor() as cursor:
@@ -93,6 +94,25 @@ def get_data():
     }
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
+
+@app.route('/set-time',methods=['POST'])
+def set_time():
+    global time_irrigation
+    #Se actualizan los datos de configuracion
+    time_irrigation = int(request.json['time'])
+    return 'irrigation time changed to: '+str(time_irrigation)
+
+@app.route('/water-percent',methods=['GET'])
+def water_data():
+    global water_percent,humidity
+    response =  {
+        "waterPercent": water_percent,
+        "humidity": humidity,
+    }
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 
 
 if __name__ == '__main__':
