@@ -5,10 +5,14 @@ from flask import  make_response
 from flask.globals import request
 from flask_cors import CORS
 import datetime
+import pytz
 #Flask config
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
-
+temp_in=0.00
+temp_out=0.00
+humidity=0
+water_percent=0
 state=0
 
 # ------------------- CONNECT WITH DATABASE:-------------------
@@ -22,7 +26,7 @@ conecction  = mysql.connector.connect(
 
 #Crea el cursor para ejecutar las consultas
 mycursor = conecction.cursor()
-
+tz = pytz.timezone('America/Guatemala')
 # ---------------------- Endpoints ----------------------
 @app.route("/")
 def index():
@@ -32,18 +36,40 @@ def index():
 # ---------------------- session data, return the actual state----------------------
 @app.route('/data',methods=['POST'])
 def session_data():
-    global state
+    global state,temp_in,temp_out,humidity,water_percent
     #Se actualizan los datos de configuracion
-    temp_in = request.json['tempIn']
-    temp_out = request.json['tempOut']
-    humidity = request.json['moisture']
-    water_percent=request.json['waterLevel']
+    temp_in = float(request.json['tempIn'])
+    temp_out = float(request.json['tempOut'])
+    humidity = int(request.json['moisture'])
+    water_percent=int(request.json['waterLevel'])
+    now = datetime.datetime.now(tz =tz )
     print(temp_in,temp_out,humidity,water_percent)
-    response =  {
-        "state": state
-    }
-    #response.headers.add('Access-Control-Allow-Origin', '*')
-    return response
+    # Inserting the data to the db
+    sql = '''INSERT INTO datos (fecha,state_bomba, time_irrigation,temp_externa,temp_interna,water_percent,humidity) 
+        VALUES (%s,%s,%s,%s,%s,%s,%s)'''
+    values= [now,state,None,temp_out,temp_in,water_percent,humidity]
+    # Intentando realizar la consulta
+    try:
+        with conecction.cursor() as cursor:
+            cursor.executemany(sql, values)
+            conecction.commit()
+            response = {
+                "state": "Perfect",
+                "message": "data saved Successfully!!"
+            }
+        response =  {
+            "state": state
+        }
+        return response
+    except:
+        traceback.print_exc()
+        print('=====Error inserting data====')
+        conecction.rollback()
+        response = {
+            "state": "Error",
+            "message": "Ha ocurrido un error al insertar la data"
+        }
+        return response
 
 @app.route('/button',methods=['POST'])
 def activateButton():
@@ -54,6 +80,19 @@ def activateButton():
         state=0
     return 'Changed state to: '+str(state)
 
+
+# ---------------------- Return all data to frontend----------------------
+@app.route('/get-data',methods=['GET'])
+def get_data():
+    global state,temp_in,temp_out,humidity,water_percent
+    response =  {
+        "tempIn": temp_in,
+        "tempOut": temp_out,
+        "humidity": humidity,
+        "waterPercent": water_percent
+    }
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 
 if __name__ == '__main__':
