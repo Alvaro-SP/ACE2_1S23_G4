@@ -42,8 +42,6 @@ export default function Dashboard() {
         } else if (option === 2) {
           console.log("===== OTRO =====")
         }
-        
-        
        }
  
        const interval = setInterval(fetchData, 1000);

@@ -1,18 +1,21 @@
 
 import React, { useState } from "react";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import DatePicker from "react-datepicker";
 import { Button } from "@mui/material";
-import "react-datepicker/dist/react-datepicker.css";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
-import dayjs, { Dayjs } from 'dayjs';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import dayjs from 'dayjs';
+
+import axios from 'axios';
 
 export default function OverTimeGraphs() {
   const [Graph, setGraph] = useState('');
@@ -22,6 +25,17 @@ export default function OverTimeGraphs() {
   const [startDate2, setStartDate2] = useState(new Date());
   const [startTime2, setStartTime2] = useState(dayjs('2022-04-17T15:30'));
 
+
+  function postData(url, data) {
+    axios.post(url, data)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   const handleApply = (event) => {
     event.preventDefault();
 
@@ -30,7 +44,14 @@ export default function OverTimeGraphs() {
     const dateTime2 = dayjs(startDate2).format('YYYY-MM-DD') + ' ' + dayjs(startTime2).format('HH:mm:ss');
     console.log(dateTime1);
     console.log(dateTime2);
-  
+    console.log(Graph)
+
+    postData('http://localhost:8000/graph', {
+      dateTime1: dateTime1,
+      dateTime2: dateTime2,
+      graph: Graph
+    });
+
   };
 
   const handleChange = (event) => {
@@ -54,6 +75,23 @@ export default function OverTimeGraphs() {
         <h1>Graficas a travez de tiempo</h1>
       </center>
 
+
+      <FormControl fullWidth style={{ marginBottom: "15px", marginTop: "15px" }}>
+        <InputLabel id="demo-simple-select-label">Grafo</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={Graph}
+          label="Grafo"
+          onChange={handleChange}
+        >
+          <MenuItem value={1}>Temperatura externa a lo largo del tiempo</MenuItem>
+          <MenuItem value={2}>Temperatura interna a lo largo del tiempo</MenuItem>
+          <MenuItem value={3}>Humedad de la tierra a lo largo del tiempo</MenuItem>
+          <MenuItem value={4}>Porcentaje de agua a lo largo del tiempo</MenuItem>
+          <MenuItem value={5}>Periodo de activación de la bomba de agua a lo largo del tiempo </MenuItem>
+        </Select>
+      </FormControl>
 
       <div className="displayDates">
         <div>
@@ -94,22 +132,7 @@ export default function OverTimeGraphs() {
 
 
 
-      <FormControl fullWidth style={{ marginBottom: "15px", marginTop: "15px" }}>
-        <InputLabel id="demo-simple-select-label">Grafo</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={Graph}
-          label="Grafo"
-          onChange={handleChange}
-        >
-          <MenuItem value={1}>emperatura externa a lo largo del tiempo</MenuItem>
-          <MenuItem value={2}>Temperatura interna a lo largo del tiempo</MenuItem>
-          <MenuItem value={3}>Humedad de la tierra a lo largo del tiempo</MenuItem>
-          <MenuItem value={4}>Porcentaje de agua a lo largo del tiempo</MenuItem>
-          <MenuItem value={5}>Periodo de activación de la bomba de agua a lo largo del tiempo </MenuItem>
-        </Select>
-      </FormControl>
+
 
       <center>
         <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>

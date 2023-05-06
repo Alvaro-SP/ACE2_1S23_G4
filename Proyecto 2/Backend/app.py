@@ -103,6 +103,25 @@ def get_data():
     return response
 
 
+@app.route('/graph',methods=['POST'])
+def graph():
+
+    print('dateTime1',request.json['dateTime1'])
+    print('dateTime2',request.json['dateTime2'])
+
+    if request.json['graph'] == 1:
+        print('graph 1')
+    elif request.json['graph'] == 2:
+        print('graph 2')
+    elif request.json['graph'] == 3:
+        print('graph 3')
+    elif request.json['graph'] == 4:
+        print('graph 4')
+    elif request.json['graph'] == 5:
+        print('graph 5')
+
+    return 'llego'
+
 @app.route('/set-time',methods=['POST'])
 def set_time():
     global time_irrigation
