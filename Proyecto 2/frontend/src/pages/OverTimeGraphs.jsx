@@ -25,11 +25,24 @@ export default function OverTimeGraphs() {
   const [startDate2, setStartDate2] = useState(new Date());
   const [startTime2, setStartTime2] = useState(dayjs('2022-04-17T15:30'));
 
-
+  const [data, setData] = useState([]);
   function postData(url, data) {
     axios.post(url, data)
       .then(response => {
-        console.log(response);
+        console.log(response.data);
+        var info = []
+        for (let i = 0; i < response.data.length; i++) {
+          const fecha = new Date(response.data[i][0])
+          const dia = fecha.getDate().toString().padStart(2, '0')
+          const mes = (fecha.getMonth() + 1).toString().padStart(2, '0')
+          const anio = fecha.getFullYear().toString().slice(-2)
+          const hora = fecha.getHours().toString().padStart(2, '0')
+          const minutos = fecha.getMinutes().toString().padStart(2, '0')
+          const segundos = fecha.getSeconds().toString().padStart(2, '0')
+          const fechaFormateada = `${dia}/${mes}/${anio} ${hora}:${minutos}:${segundos}`
+          info.push({ name: fechaFormateada, val: response.data[i][1] })
+        }
+        setData(info)
       })
       .catch(error => {
         console.error(error);
@@ -57,17 +70,122 @@ export default function OverTimeGraphs() {
   const handleChange = (event) => {
     setGraph(event.target.value);
   };
-
-  const data = [
-    { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
-    { name: 'Page A', uv: 200, pv: 2400, amt: 2400 },
-    { name: 'Page A', uv: 100, pv: 2400, amt: 2400 },
-    { name: 'Page A', uv: 400, pv: 2400, amt: 2400 },
-    { name: 'Page A', uv: 420, pv: 2400, amt: 2400 },
-    { name: 'Page A', uv: 420, pv: 2400, amt: 2400 },
-    { name: 'Page A', uv: 300, pv: 2400, amt: 2400 },
-    { name: 'Page A', uv: 100, pv: 2400, amt: 2400 },
-  ];
+//dataQuemada
+  // const data = [
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+  //   { name: 'Page A', uv: 400 },
+  //   { name: 'Page B', uv: 200 },
+  //   { name: 'Page C', uv: 100 },
+  //   { name: 'Page D', uv: 400 },
+  //   { name: 'Page E', uv: 420 },
+  //   { name: 'Page F', uv: 420 },
+  //   { name: 'Page G', uv: 300 },
+  //   { name: 'Page H', uv: 100 },
+    
+  // ];
 
   return (
     <div>
@@ -130,18 +248,18 @@ export default function OverTimeGraphs() {
         </Button>
       </div>
 
-
-
-
+      <br /><br />
 
       <center>
-        <LineChart width={600} height={300} data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
-          <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-        </LineChart>
+        <div className="chart-container">
+          <LineChart width={data.length*20} height={400} data={data} margin={{ top: 5, right: 100, bottom: 5, left: 0 }}>
+            <Line type="monotone" dataKey="val" stroke="#8884d8" />
+            <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+          </LineChart>
+        </div>
       </center>
 
     </div>

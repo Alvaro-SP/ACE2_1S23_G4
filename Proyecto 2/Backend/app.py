@@ -109,18 +109,28 @@ def graph():
     print('dateTime1',request.json['dateTime1'])
     print('dateTime2',request.json['dateTime2'])
 
+    sql = ""
     if request.json['graph'] == 1:
-        print('graph 1')
+        sql = "SELECT fecha,temp_externa FROM datos WHERE fecha BETWEEN %s AND %s"
     elif request.json['graph'] == 2:
-        print('graph 2')
+        sql = "SELECT fecha,temp_interna FROM datos WHERE fecha BETWEEN %s AND %s"
     elif request.json['graph'] == 3:
-        print('graph 3')
+        sql = "SELECT fecha,humidity FROM datos WHERE fecha BETWEEN %s AND %s"
     elif request.json['graph'] == 4:
-        print('graph 4')
+        sql = "SELECT fecha,water_percent FROM datos WHERE fecha BETWEEN %s AND %s"
     elif request.json['graph'] == 5:
-        print('graph 5')
+        sql = "SELECT fecha,state_bomba FROM datos WHERE fecha BETWEEN %s AND %s"
 
-    return 'llego'
+
+    # Ejecutar la consulta SQL con las fechas proporcionadas
+    mycursor.execute(sql, (request.json['dateTime1'], request.json['dateTime2']))
+
+    # Obtener los resultados de la consulta
+    results = mycursor.fetchall()
+
+    # Devolver los resultados en formato JSON
+    return jsonify(results)
+
 
 @app.route('/set-time',methods=['POST'])
 def set_time():

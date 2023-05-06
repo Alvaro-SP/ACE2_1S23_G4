@@ -8,21 +8,21 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema proy2
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema proy2
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `proy2` DEFAULT CHARACTER SET utf8 ;
+USE `proy2` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`datos`
+-- Table `proy2`.`datos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`datos` (
+CREATE TABLE IF NOT EXISTS `proy2`.`datos` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `fecha` DATE NULL,
+  `fecha` DATETIME NULL,
   `state_bomba` INT NULL,
   `time_irrigation` INT NULL,
   `temp_externa` INT NULL,
