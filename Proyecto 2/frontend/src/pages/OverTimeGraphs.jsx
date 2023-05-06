@@ -20,10 +20,10 @@ import axios from 'axios';
 export default function OverTimeGraphs() {
   const [Graph, setGraph] = useState('');
   const [startDate1, setStartDate1] = useState(new Date());
-  const [startTime1, setStartTime1] = useState(dayjs('2022-04-17T15:30'));
+  const [startTime1, setStartTime1] = useState(dayjs('2022-04-17T01:00'));
 
   const [startDate2, setStartDate2] = useState(new Date());
-  const [startTime2, setStartTime2] = useState(dayjs('2022-04-17T15:30'));
+  const [startTime2, setStartTime2] = useState(dayjs('2022-04-17T23:00'));
 
   const [data, setData] = useState([]);
   function postData(url, data) {
@@ -52,7 +52,6 @@ export default function OverTimeGraphs() {
   const handleApply = (event) => {
     event.preventDefault();
 
-   
     const dateTime1 = dayjs(startDate1).format('YYYY-MM-DD') + ' ' + dayjs(startTime1).format('HH:mm:ss');
     const dateTime2 = dayjs(startDate2).format('YYYY-MM-DD') + ' ' + dayjs(startTime2).format('HH:mm:ss');
     console.log("===== POST =====")
