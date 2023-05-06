@@ -9,10 +9,17 @@ import pytz
 #Flask config
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
-temp_in=0.00
-temp_out=0.00
-humidity=0
-water_percent=0
+# temp_in=0.00
+# temp_out=0.00
+# humidity=0
+# water_percent=0
+
+temp_in=10
+temp_out=20
+humidity=30
+water_percent=40
+
+
 time_irrigation=0
 state=0
 
@@ -92,7 +99,7 @@ def get_data():
         "humidity": humidity,
         "waterPercent": water_percent
     }
-    response.headers.add('Access-Control-Allow-Origin', '*')
+
     return response
 
 

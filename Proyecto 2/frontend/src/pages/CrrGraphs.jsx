@@ -3,7 +3,7 @@ import React from "react";
 import { Temperature } from 'react-environment-chart';
 import {Electricity} from 'react-environment-chart';
 
-export default function CrrGraphs() {
+export default function CrrGraphs({tempIn, tempOut, humidity, waterPercent}) {
    return (
       <div>
          <center>
@@ -16,11 +16,11 @@ export default function CrrGraphs() {
                      Temperaura externa
                   </h1>
                   <h2>
-                     {10}°C
+                     {tempOut}°C
                   </h2>
                </div>
                <div>
-                  <Temperature value={10} height={315} tips={["CONGENLADO", "FRIO", "ACOGEDOR", "CALIENTE"]} />
+                  <Temperature value={tempOut} height={315} tips={["CONGENLADO", "FRIO", "ACOGEDOR", "CALIENTE"]} />
                </div>
             </div>
 
@@ -30,11 +30,11 @@ export default function CrrGraphs() {
                      Temperaura interna
                   </h1>
                   <h2>
-                     {0}°C
+                     {tempIn}°C
                   </h2>
                </div>
                <div >
-                  <Temperature value={0} height={315} tips={["CONGENLADO", "FRIO", "ACOGEDOR", "CALIENTE"]} />
+                  <Temperature value={tempIn} height={315} tips={["CONGENLADO", "FRIO", "ACOGEDOR", "CALIENTE"]} />
                </div>
             </div>
          </div>
@@ -46,7 +46,7 @@ export default function CrrGraphs() {
                      Porcentaje de Humedad
                   </h1>
                   <h2>
-                     {25}%
+                     {humidity}%
                   </h2>
                </div>
                <div>
@@ -54,7 +54,7 @@ export default function CrrGraphs() {
                   <div className="ss" >SECO</div>
                   <div className="cc">CONFORT</div>
                   <div className="mm">MOJADO</div>
-                  <Electricity value={25} height={280}/>
+                  <Electricity value={humidity} height={280}/>
                   </div>
                </div>
             </div>
@@ -65,7 +65,7 @@ export default function CrrGraphs() {
                      Porcentaje de agua
                   </h1>
                   <h2>
-                     {50}%
+                     {waterPercent}%
                   </h2>
                </div>
                <div >
@@ -73,7 +73,7 @@ export default function CrrGraphs() {
                   <div className="ss" >BAJO</div>
                   <div className="cc">MEDIO</div>
                   <div className="mm">ALTO</div>
-                  <Electricity value={50} height={280}/>
+                  <Electricity value={waterPercent} height={280}/>
                   </div>
                </div>
             </div>
